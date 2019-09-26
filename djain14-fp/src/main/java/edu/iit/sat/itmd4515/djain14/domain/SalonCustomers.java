@@ -78,7 +78,7 @@ public class SalonCustomers {
         return date;
     }
 
-    public void date(LocalDate date) {
+    public void setdate(LocalDate date) {
         this.date = date;
     }
 

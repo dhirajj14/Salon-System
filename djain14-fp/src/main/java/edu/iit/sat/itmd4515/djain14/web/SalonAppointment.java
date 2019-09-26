@@ -7,6 +7,8 @@ package edu.iit.sat.itmd4515.djain14.web;
 
 import edu.iit.sat.itmd4515.djain14.domain.SalonCustomers;
 import java.io.IOException;
+import java.sql.Connection;
+import java.sql.PreparedStatement;
 import java.time.LocalDate;
 import java.util.Set;
 import java.util.logging.Logger;
@@ -17,6 +19,7 @@ import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
+import javax.sql.DataSource;
 import javax.validation.ConstraintViolation;
 import javax.validation.Validator;
 
@@ -29,6 +32,9 @@ public class SalonAppointment extends HttpServlet {
 
     private static final Logger LOG = Logger.getLogger(SalonAppointment.class.getName());
 
+    @Resource(lookup = "jdbc/salon")
+    DataSource ds;
+    
     @Resource
     Validator validator;
 
@@ -94,21 +100,32 @@ public class SalonAppointment extends HttpServlet {
             try{
             RequestDispatcher dispatcher = request.getRequestDispatcher("/WEB-INF/newappointment.jsp");
             dispatcher.forward(request, response);
-            }catch(ServletException se){
+            }catch(ServletException | IOException se){
                             LOG.info(se.toString());
-            }catch(IOException ioe){
-                           LOG.info(ioe.toString());
             }
         } else {
             LOG.info("We don't have any problem with this POJO");
+            
+            try (Connection c = ds.getConnection()){
+                 String INSERT_SQL = "INSERT into salon.customer_details (full_name, address, email, contact, service_type, date, time) VALUES (?,?,?,?,?,?,?)";
+        PreparedStatement ps = c.prepareStatement(INSERT_SQL);
+        ps.setString(1,saloncustomers.getFullName() );
+        ps.setString(2, saloncustomers.getAddress());
+        ps.setString(3, saloncustomers.getEmailId());
+        ps.setString(4, saloncustomers.getContact());
+        ps.setString(5, saloncustomers.getServiceType());
+        ps.setString(6, saloncustomers.getdate().toString());
+        ps.setString(7,saloncustomers.getTime());
+        ps.execute();
+        LOG.info(ps.toString());
+            } catch (Exception e) {
+            }
             request.setAttribute("saloncustomer", saloncustomers);
             try{
             RequestDispatcher dispatcher = request.getRequestDispatcher("/WEB-INF/appointmentconfirm.jsp");
             dispatcher.forward(request, response);
-            }catch(ServletException se){
+            }catch(ServletException | IOException se){
                             LOG.info(se.toString());
-            }catch(IOException ioe){
-                           LOG.info(ioe.toString());
             }
         }
     }
