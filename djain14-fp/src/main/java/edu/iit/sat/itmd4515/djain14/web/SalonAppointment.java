@@ -34,7 +34,7 @@ public class SalonAppointment extends HttpServlet {
 
     @Resource(lookup = "jdbc/salon")
     DataSource ds;
-    
+
     @Resource
     Validator validator;
 
@@ -52,13 +52,13 @@ public class SalonAppointment extends HttpServlet {
         LOG.info("In Doget");
         SalonCustomers saloncustomers = new SalonCustomers();
         request.setAttribute("saloncustomers", saloncustomers);
-        try{
-        RequestDispatcher dispatcher = request.getRequestDispatcher("/WEB-INF/newappointment.jsp");
-        dispatcher.forward(request, response);
-        }catch(ServletException se){
+        try {
+            RequestDispatcher dispatcher = request.getRequestDispatcher("/WEB-INF/newappointment.jsp");
+            dispatcher.forward(request, response);
+        } catch (ServletException se) {
             LOG.info(se.toString());
-        }catch(IOException ioe){
-                        LOG.info(ioe.toString());
+        } catch (IOException ioe) {
+            LOG.info(ioe.toString());
         }
     }
 
@@ -87,7 +87,7 @@ public class SalonAppointment extends HttpServlet {
             date = LocalDate.parse(dateParam);
         }
         SalonCustomers saloncustomers = new SalonCustomers(fullName, address, emailId, contact, date, serviceType, time);
-       
+
         Set<ConstraintViolation<SalonCustomers>> constraintViolations = validator.validate(saloncustomers);
 
         if (constraintViolations.size() > 0) {
@@ -97,35 +97,35 @@ public class SalonAppointment extends HttpServlet {
             }
             request.setAttribute("saloncustomer", saloncustomers);
             request.setAttribute("mistakes", constraintViolations);
-            try{
-            RequestDispatcher dispatcher = request.getRequestDispatcher("/WEB-INF/newappointment.jsp");
-            dispatcher.forward(request, response);
-            }catch(ServletException | IOException se){
-                            LOG.info(se.toString());
+            try {
+                RequestDispatcher dispatcher = request.getRequestDispatcher("/WEB-INF/newappointment.jsp");
+                dispatcher.forward(request, response);
+            } catch (ServletException | IOException se) {
+                LOG.info(se.toString());
             }
         } else {
             LOG.info("We don't have any problem with this POJO");
-            
-            try (Connection c = ds.getConnection()){
-                 String INSERT_SQL = "INSERT into salon.customer_details (full_name, address, email, contact, service_type, date, time) VALUES (?,?,?,?,?,?,?)";
-        PreparedStatement ps = c.prepareStatement(INSERT_SQL);
-        ps.setString(1,saloncustomers.getFullName() );
-        ps.setString(2, saloncustomers.getAddress());
-        ps.setString(3, saloncustomers.getEmailId());
-        ps.setString(4, saloncustomers.getContact());
-        ps.setString(5, saloncustomers.getServiceType());
-        ps.setString(6, saloncustomers.getdate().toString());
-        ps.setString(7,saloncustomers.getTime());
-        ps.execute();
-        LOG.info(ps.toString());
+
+            try (Connection c = ds.getConnection()) {
+                String INSERT_SQL = "INSERT into salon.customer_details (full_name, address, email, contact, service_type, date, time) VALUES (?,?,?,?,?,?,?)";
+                PreparedStatement ps = c.prepareStatement(INSERT_SQL);
+                ps.setString(1, saloncustomers.getFullName());
+                ps.setString(2, saloncustomers.getAddress());
+                ps.setString(3, saloncustomers.getEmailId());
+                ps.setString(4, saloncustomers.getContact());
+                ps.setString(5, saloncustomers.getServiceType());
+                ps.setString(6, saloncustomers.getdate().toString());
+                ps.setString(7, saloncustomers.getTime());
+                ps.execute();
+                LOG.info(ps.toString());
             } catch (Exception e) {
             }
             request.setAttribute("saloncustomer", saloncustomers);
-            try{
-            RequestDispatcher dispatcher = request.getRequestDispatcher("/WEB-INF/appointmentconfirm.jsp");
-            dispatcher.forward(request, response);
-            }catch(ServletException | IOException se){
-                            LOG.info(se.toString());
+            try {
+                RequestDispatcher dispatcher = request.getRequestDispatcher("/WEB-INF/appointmentconfirm.jsp");
+                dispatcher.forward(request, response);
+            } catch (ServletException | IOException se) {
+                LOG.info(se.toString());
             }
         }
     }
