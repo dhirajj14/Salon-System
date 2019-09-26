@@ -23,47 +23,47 @@
                     <form action="/djain14-fp/SalonAppt" method="post" style="">
                         <div class="form-group">
                             <label for="fullName">Full Name</label>
-                            <input type="text" class="form-control" value="${requestScope.saloncustomers.fullName}" name="fullName" placeholder="Enter you Name">
+                            <input type="text" class="form-control" value="${requestScope.saloncustomer.fullName}" name="fullName" placeholder="Enter you Name">
                         </div>
                         <div class="form-group">
                             <label for="address">Address</label>
-                            <input type="text" class="form-control" value="${requestScope.saloncustomers.address}" name="address" placeholder="Enter your Address">
+                            <input type="text" class="form-control" value="${requestScope.saloncustomer.address}" name="address" placeholder="Enter your Address">
                         </div>
                         <div class="form-group">
                             <label for="emailID">Email ID</label>
-                            <input type="email" class="form-control" value="${requestScope.saloncustomers.emailId}" name="emailId" placeholder="Enter your Email-ID">
+                            <input type="email" class="form-control" value="${requestScope.saloncustomer.emailId}" name="emailId" placeholder="Enter your Email-ID">
                         </div>
                         <div class="form-group">
                             <label for="contact">Contact</label>
-                            <input type="tel" class="form-control" value="${requestScope.saloncustomers.contact}" name="contact" placeholder="Enter your Contact Number">
+                            <input type="tel" class="form-control" value="${requestScope.saloncustomer.contact}" name="contact" placeholder="Enter your Contact Number">
                         </div>
                         <div class="form-group">
                             <label for="serviceType">Service Type:</label>
                             <select class="form-control" name="serviceType">
-                                <option Value="" <c:if test="${requestScope.saloncustomers.serviceType == ''}">selected="selected"</c:if>>Select Service</option>
-                                <option Value="Hair Cut" <c:if test="${requestScope.saloncustomers.serviceType == 'Hair Cut'}">selected="selected"</c:if>>Hair Cut</option>
-                                <option Value="Hair Color" <c:if test="${requestScope.saloncustomers.serviceType == 'Hair Color'}">selected="selected"</c:if>>Hair Color</option>
-                                <option Value="Skin Care" <c:if test="${requestScope.saloncustomers.serviceType == 'Skin Care'}">selected="selected"</c:if>>Skin Care</option>
+                                <option Value="" <c:if test="${requestScope.saloncustomer.serviceType == ''}">selected="selected"</c:if>>Select Service</option>
+                                <option Value="Hair Cut" <c:if test="${requestScope.saloncustomer.serviceType == 'Hair Cut'}">selected="selected"</c:if>>Hair Cut</option>
+                                <option Value="Hair Color" <c:if test="${requestScope.saloncustomer.serviceType == 'Hair Color'}">selected="selected"</c:if>>Hair Color</option>
+                                <option Value="Skin Care" <c:if test="${requestScope.saloncustomer.serviceType == 'Skin Care'}">selected="selected"</c:if>>Skin Care</option>
                                 </select>
                             </div>
                             <div class="row">
                                 <div class="col-md-6">
                                     <div class="form-group">
                                         <label for="date">Date</label>
-                                        <input class="form-control" type="date" required value="${requestScope.saloncustomers.date}" name="date" placeholder="09-25-2019">
+                                        <input class="form-control" type="date" required value="${requestScope.saloncustomer.date}" name="date" placeholder="09-25-2019">
                                 </div>
                             </div>
                             <div class="col-md-6">
                                 <div class="form-group">
                                     <label for="time">Appointment Time:</label>
                                     <select class="form-control" name="time">
-                                        <option Value="" <c:if test="${requestScope.saloncustomers.time == ''}">selected="selected"</c:if>>Select the Time</option>
-                                        <option Value="10:00 AM" <c:if test="${requestScope.saloncustomers.time == '10:00 AM'}">selected="selected"</c:if>>10:00 AM</option>
-                                        <option Value="10:30 AM" <c:if test="${requestScope.saloncustomers.time == '10:30 AM'}">selected="selected"</c:if>>10:30 AM</option>
-                                        <option Value="12:30 PM" <c:if test="${requestScope.saloncustomers.time == '12:30 PM'}">selected="selected"</c:if>>12:30 PM</option>
-                                        <option Value="01:00 PM" <c:if test="${requestScope.saloncustomers.time == '01:00 PM'}">selected="selected"</c:if>>01:00 PM</option>
-                                        <option Value="02:00 PM" <c:if test="${requestScope.saloncustomers.time == '02:00 PM'}">selected="selected"</c:if>>02:00 PM</option>
-                                        <option Value="02:30 PM" <c:if test="${requestScope.saloncustomers.time == '02:30 PM'}">selected="selected"</c:if>>02:30 PM</option>
+                                        <option Value="" <c:if test="${requestScope.saloncustomer.time == ''}">selected="selected"</c:if>>Select the Time</option>
+                                        <option Value="10:00 AM" <c:if test="${requestScope.saloncustomer.time == '10:00 AM'}">selected="selected"</c:if>>10:00 AM</option>
+                                        <option Value="10:30 AM" <c:if test="${requestScope.saloncustomer.time == '10:30 AM'}">selected="selected"</c:if>>10:30 AM</option>
+                                        <option Value="12:30 PM" <c:if test="${requestScope.saloncustomer.time == '12:30 PM'}">selected="selected"</c:if>>12:30 PM</option>
+                                        <option Value="01:00 PM" <c:if test="${requestScope.saloncustomer.time == '01:00 PM'}">selected="selected"</c:if>>01:00 PM</option>
+                                        <option Value="02:00 PM" <c:if test="${requestScope.saloncustomer.time == '02:00 PM'}">selected="selected"</c:if>>02:00 PM</option>
+                                        <option Value="02:30 PM" <c:if test="${requestScope.saloncustomer.time == '02:30 PM'}">selected="selected"</c:if>>02:30 PM</option>
                                         </select>
                                     </div>
                                 </div>

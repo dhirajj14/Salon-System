@@ -7,7 +7,6 @@ package edu.iit.sat.itmd4515.djain14.web;
 
 import edu.iit.sat.itmd4515.djain14.domain.SalonCustomers;
 import java.io.IOException;
-import java.io.PrintWriter;
 import java.time.LocalDate;
 import java.util.Set;
 import java.util.logging.Logger;
@@ -47,8 +46,14 @@ public class SalonAppointment extends HttpServlet {
         LOG.info("In Doget");
         SalonCustomers saloncustomers = new SalonCustomers();
         request.setAttribute("saloncustomers", saloncustomers);
+        try{
         RequestDispatcher dispatcher = request.getRequestDispatcher("/WEB-INF/newappointment.jsp");
         dispatcher.forward(request, response);
+        }catch(ServletException se){
+            LOG.info(se.toString());
+        }catch(IOException ioe){
+                        LOG.info(ioe.toString());
+        }
     }
 
     /**
@@ -85,15 +90,27 @@ public class SalonAppointment extends HttpServlet {
             for (ConstraintViolation<SalonCustomers> bad : constraintViolations) {
                 LOG.info(bad.getPropertyPath() + " " + bad.getMessage());
             }
-            request.setAttribute("saloncustomers", saloncustomers);
+            request.setAttribute("saloncustomer", saloncustomers);
             request.setAttribute("mistakes", constraintViolations);
+            try{
             RequestDispatcher dispatcher = request.getRequestDispatcher("/WEB-INF/newappointment.jsp");
             dispatcher.forward(request, response);
+            }catch(ServletException se){
+                            LOG.info(se.toString());
+            }catch(IOException ioe){
+                           LOG.info(ioe.toString());
+            }
         } else {
             LOG.info("We don't have any problem with this POJO");
-            request.setAttribute("saloncustomers", saloncustomers);
+            request.setAttribute("saloncustomer", saloncustomers);
+            try{
             RequestDispatcher dispatcher = request.getRequestDispatcher("/WEB-INF/appointmentconfirm.jsp");
             dispatcher.forward(request, response);
+            }catch(ServletException se){
+                            LOG.info(se.toString());
+            }catch(IOException ioe){
+                           LOG.info(ioe.toString());
+            }
         }
     }
 
