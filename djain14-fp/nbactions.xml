@@ -11,15 +11,6 @@
                 <sonar.login>4ca310ffd7b5f79a9fe66130b313ba38f1a3aa06</sonar.login>
             </properties>
         </action>
-        <action>
-            <actionName>CUSTOM-my</actionName>
-            <displayName>my</displayName>
-            <goals>
-                <goal>sonar:sonar</goal>
-            </goals>
-            <properties>
-                <sonar.host.url>https://wheaton.rice.iit.edu/sonar/</sonar.host.url>
-                <sonar.login>4ca310ffd7b5f79a9fe66130b313ba38f1a3aa06</sonar.login>
-            </properties>
-        </action>
     </actions>
+       
+  
