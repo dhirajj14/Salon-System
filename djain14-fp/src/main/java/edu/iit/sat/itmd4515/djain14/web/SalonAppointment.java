@@ -81,8 +81,7 @@ public class SalonAppointment extends HttpServlet {
             date = LocalDate.parse(dateParam);
         }
         SalonCustomers saloncustomers = new SalonCustomers(fullName, address, emailId, contact, date, serviceType, time);
-        LOG.info(saloncustomers.toString());
-
+       
         Set<ConstraintViolation<SalonCustomers>> constraintViolations = validator.validate(saloncustomers);
 
         if (constraintViolations.size() > 0) {
