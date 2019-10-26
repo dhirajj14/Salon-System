@@ -5,7 +5,7 @@
  */
 package edu.iit.sat.itmd4515.djain14.web;
 
-import edu.iit.sat.itmd4515.djain14.domain.SalonCustomers;
+import edu.iit.sat.itmd4515.djain14.domain.SalonCustomersPojo;
 import java.io.IOException;
 import java.sql.Connection;
 import java.sql.PreparedStatement;
@@ -50,7 +50,7 @@ public class SalonAppointment extends HttpServlet {
     protected void doGet(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
         LOG.info("In Doget");
-        SalonCustomers saloncustomers = new SalonCustomers();
+        SalonCustomersPojo saloncustomers = new SalonCustomersPojo();
         request.setAttribute("saloncustomers", saloncustomers);
         try {
             RequestDispatcher dispatcher = request.getRequestDispatcher("/WEB-INF/newappointment.jsp");
@@ -86,13 +86,13 @@ public class SalonAppointment extends HttpServlet {
         if (dateParam != null && !(dateParam.isEmpty())) {
             date = LocalDate.parse(dateParam);
         }
-        SalonCustomers saloncustomers = new SalonCustomers(fullName, address, emailId, contact, date, serviceType, time);
+        SalonCustomersPojo saloncustomers = new SalonCustomersPojo(fullName, address, emailId, contact, date, serviceType, time);
 
-        Set<ConstraintViolation<SalonCustomers>> constraintViolations = validator.validate(saloncustomers);
+        Set<ConstraintViolation<SalonCustomersPojo>> constraintViolations = validator.validate(saloncustomers);
 
         if (constraintViolations.size() > 0) {
             LOG.info("we have a problem validating POJO");
-            for (ConstraintViolation<SalonCustomers> bad : constraintViolations) {
+            for (ConstraintViolation<SalonCustomersPojo> bad : constraintViolations) {
                 LOG.info(bad.getPropertyPath() + " " + bad.getMessage());
             }
             request.setAttribute("saloncustomer", saloncustomers);

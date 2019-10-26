@@ -5,41 +5,27 @@
  */
 package edu.iit.sat.itmd4515.djain14.domain;
 
-
-import java.io.Serializable;
 import java.util.ArrayList;
 import java.util.List;
 import javax.persistence.Entity;
+import javax.persistence.ManyToMany;
+import javax.persistence.ManyToOne;
 import javax.persistence.NamedQuery;
 import javax.persistence.OneToMany;
-import javax.persistence.OneToOne;
-import javax.persistence.Table;
 import javax.validation.constraints.NotNull;
 
 /**
  *
  * @author dhira
  */
-@Table(name="customers_details")
-@NamedQuery(name = "saloncustomer.finadAll", query = "select sc from SalonCustomers sc")
-@NamedQuery(name = "saloncustomers.findByName", query = "select sc from SalonCustomers sc where sc.fullName = :fullName")
 @Entity
-public class SalonCustomers extends AbstractNamedEntity implements Serializable{
-    
-    @OneToOne
-    private Cart cart;
-    
-    @OneToMany
-    private List <OrderHistory> orderHistories = new ArrayList();
-    
-    @OneToMany(mappedBy = "salonCustomers")
-    //@JoinTable(joinColumns = @JoinColumn(name = "Customer_ID"), inverseJoinColumns = @JoinColumn(name = "Appt_ID"))
+public class Employee extends AbstractNamedEntity{
+
+    @OneToMany(mappedBy = "employee")
     private List<Appointment> appointments = new ArrayList<>();
     
-    public SalonCustomers() {
-    }
-
-    
+    @ManyToOne
+    private Salon salon;
     
     private String address;
     
@@ -49,13 +35,38 @@ public class SalonCustomers extends AbstractNamedEntity implements Serializable{
     @NotNull
     private String contact;
     
-   
+        private String employeeType;
 
-    public SalonCustomers(String fullName, String address, String emailId, String contact) {
+    /**
+     * Get the value of employeeType
+     *
+     * @return the value of employeeType
+     */
+    public String getEmployeeType() {
+        return employeeType;
+    }
+
+    /**
+     * Set the value of employeeType
+     *
+     * @param employeeType new value of employeeType
+     */
+    public void setEmployeeType(String employeeType) {
+        this.employeeType = employeeType;
+    }
+
+    
+     public Employee() {
+    }
+    
+
+    public Employee(String fullName, String address, String emailId, String contact, String employeeType) {
         this.fullName = fullName;
         this.address = address;
         this.emailId = emailId;
         this.contact = contact;
+        this.employeeType = employeeType;
+        
     }
     
     
@@ -115,40 +126,33 @@ public class SalonCustomers extends AbstractNamedEntity implements Serializable{
         this.address = address;
     }
 
-    public List<Appointment> getAppointments() {
-        return appointments;
-    }
-
-    public void setAppointments(List<Appointment> appointments) {
-        this.appointments = appointments;
-    }
-    
-    public void addAppointment(Appointment a){
-        if(!this.appointments.contains(a)){
-            this.appointments.add(a);
-        }
-        if(!a.getSalonCustomers().equals(this)){
-            a.setSalonCustomers(this);
-        }
-    }
-    
-    public void removeAppointment(Appointment a){
-        if(this.appointments.contains(a)){
-            this.appointments.remove(a);
-        }
-        if(a.getSalonCustomers().equals(this)){
-            a.setSalonCustomers(null);
-        }
-    }
-
-    
    
     @Override
     public String toString() {
-        return "SalonCustomers{" + "id=" + id + ", fullName=" + fullName + ", address=" + address + ", emailId=" + emailId + ", contact=" + contact + '}';
+        return "Employee{" + "id=" + id + ", fullName=" + fullName + ", address=" + address + ", emailId=" + emailId + ", contact=" + contact + ", employeeType=" + employeeType + '}';
     }
     
     void setType(String lizard) {
         throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
     }
+
+    /**
+     * Get the value of appointments
+     *
+     * @return the value of appointments
+     */
+    public List<Appointment> getAppointments() {
+        return appointments;
+    }
+
+    /**
+     * Set the value of appointments
+     *
+     * @param appointments new value of appointments
+     */
+    public void setAppointments(List<Appointment> appointments) {
+        this.appointments = appointments;
+    }
+
+   
 }

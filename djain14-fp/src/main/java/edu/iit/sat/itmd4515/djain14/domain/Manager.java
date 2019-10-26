@@ -5,57 +5,38 @@
  */
 package edu.iit.sat.itmd4515.djain14.domain;
 
-
 import java.io.Serializable;
-import java.util.ArrayList;
-import java.util.List;
 import javax.persistence.Entity;
-import javax.persistence.NamedQuery;
-import javax.persistence.OneToMany;
 import javax.persistence.OneToOne;
-import javax.persistence.Table;
 import javax.validation.constraints.NotNull;
 
 /**
  *
  * @author dhira
  */
-@Table(name="customers_details")
-@NamedQuery(name = "saloncustomer.finadAll", query = "select sc from SalonCustomers sc")
-@NamedQuery(name = "saloncustomers.findByName", query = "select sc from SalonCustomers sc where sc.fullName = :fullName")
 @Entity
-public class SalonCustomers extends AbstractNamedEntity implements Serializable{
-    
-    @OneToOne
-    private Cart cart;
-    
-    @OneToMany
-    private List <OrderHistory> orderHistories = new ArrayList();
-    
-    @OneToMany(mappedBy = "salonCustomers")
-    //@JoinTable(joinColumns = @JoinColumn(name = "Customer_ID"), inverseJoinColumns = @JoinColumn(name = "Appt_ID"))
-    private List<Appointment> appointments = new ArrayList<>();
-    
-    public SalonCustomers() {
-    }
+public class Manager extends AbstractNamedEntity implements Serializable{
 
+    @OneToOne(mappedBy = "manager")
+    private Salon salon;
     
-    
-    private String address;
+     private String address;
     
     @NotNull
     private String emailId;
     
     @NotNull
     private String contact;
+    public Manager() {
+    }
     
-   
-
-    public SalonCustomers(String fullName, String address, String emailId, String contact) {
+    
+    public Manager(String fullName, String address, String emailId, String contact) {
         this.fullName = fullName;
         this.address = address;
         this.emailId = emailId;
         this.contact = contact;
+        
     }
     
     
@@ -115,37 +96,10 @@ public class SalonCustomers extends AbstractNamedEntity implements Serializable{
         this.address = address;
     }
 
-    public List<Appointment> getAppointments() {
-        return appointments;
-    }
-
-    public void setAppointments(List<Appointment> appointments) {
-        this.appointments = appointments;
-    }
-    
-    public void addAppointment(Appointment a){
-        if(!this.appointments.contains(a)){
-            this.appointments.add(a);
-        }
-        if(!a.getSalonCustomers().equals(this)){
-            a.setSalonCustomers(this);
-        }
-    }
-    
-    public void removeAppointment(Appointment a){
-        if(this.appointments.contains(a)){
-            this.appointments.remove(a);
-        }
-        if(a.getSalonCustomers().equals(this)){
-            a.setSalonCustomers(null);
-        }
-    }
-
-    
    
     @Override
     public String toString() {
-        return "SalonCustomers{" + "id=" + id + ", fullName=" + fullName + ", address=" + address + ", emailId=" + emailId + ", contact=" + contact + '}';
+        return "Employee{" + "id=" + id + ", fullName=" + fullName + ", address=" + address + ", emailId=" + emailId + ", contact=" + contact + '}';
     }
     
     void setType(String lizard) {
