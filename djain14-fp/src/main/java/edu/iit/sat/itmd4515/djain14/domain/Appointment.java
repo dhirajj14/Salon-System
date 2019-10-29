@@ -20,6 +20,7 @@ import javax.validation.constraints.NotNull;
  *
  * @author dhira
  */
+@NamedQuery(name = "appointment.findAll", query = "select a from Appointment a")
 @Entity
 public class Appointment extends AbstractIdentifiedEntity implements Serializable{
 
@@ -41,6 +42,7 @@ public class Appointment extends AbstractIdentifiedEntity implements Serializabl
     
     @NotNull
     private LocalTime apptTime;
+    
     public Appointment() {
     }
 
@@ -104,7 +106,7 @@ public class Appointment extends AbstractIdentifiedEntity implements Serializabl
         this.serviceType = serviceType;
     }
 
-
+    
     /**
      * Get the value of date
      *

@@ -172,7 +172,7 @@ public class SalonCustomersTest extends SalonCustomersAbstractTest{
     @Order(10)
     public void salonCustomerAppointmentOneToManyTest() {
         SalonCustomers s = new SalonCustomers("Dhiraj Jain", "31st Chicago 60616", "dhirajj75@gmail.com", "123456789");
-        Appointment a  = new Appointment(LocalDate.of(2019, Month.NOVEMBER, 18), ServiceType.skinCare, LocalTime.of(10, 30));
+        Appointment a  = new Appointment(LocalDate.of(2019, Month.DECEMBER, 18), ServiceType.skinCare, LocalTime.of(10,00));
         a.setSalonCustomers(s);
         s.addAppointment(a);
         tx.begin();

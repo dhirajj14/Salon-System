@@ -5,6 +5,7 @@
  */
 package edu.iit.sat.itmd4515.djain14.domain;
 
+import java.util.Objects;
 import javax.persistence.Column;
 import javax.persistence.MappedSuperclass;
 import javax.validation.constraints.NotBlank;
@@ -39,6 +40,31 @@ public class AbstractNamedEntity extends AbstractIdentifiedEntity {
      */
     public String getFullName() {
         return fullName;
+    }
+
+    @Override
+    public int hashCode() {
+        int hash = 7;
+        hash = 13 * hash + Objects.hashCode(this.fullName);
+        return hash;
+    }
+
+    @Override
+    public boolean equals(Object obj) {
+        if (this == obj) {
+            return true;
+        }
+        if (obj == null) {
+            return false;
+        }
+        if (getClass() != obj.getClass()) {
+            return false;
+        }
+        final AbstractNamedEntity other = (AbstractNamedEntity) obj;
+        if (!Objects.equals(this.fullName, other.fullName)) {
+            return false;
+        }
+        return true;
     }
 
 

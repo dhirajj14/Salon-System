@@ -21,7 +21,7 @@ import javax.validation.constraints.NotNull;
  * @author dhira
  */
 @Table(name="customers_details")
-@NamedQuery(name = "saloncustomer.finadAll", query = "select sc from SalonCustomers sc")
+@NamedQuery(name = "saloncustomers.findAll", query = "select sc from SalonCustomers sc")
 @NamedQuery(name = "saloncustomers.findByName", query = "select sc from SalonCustomers sc where sc.fullName = :fullName")
 @Entity
 public class SalonCustomers extends AbstractNamedEntity implements Serializable{
@@ -141,8 +141,8 @@ public class SalonCustomers extends AbstractNamedEntity implements Serializable{
         }
     }
 
-    
    
+    
     @Override
     public String toString() {
         return "SalonCustomers{" + "id=" + id + ", fullName=" + fullName + ", address=" + address + ", emailId=" + emailId + ", contact=" + contact + '}';

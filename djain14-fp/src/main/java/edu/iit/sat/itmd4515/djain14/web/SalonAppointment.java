@@ -11,8 +11,11 @@ import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.time.LocalDate;
 import java.util.Set;
+import java.util.logging.Level;
 import java.util.logging.Logger;
 import javax.annotation.Resource;
+import javax.persistence.EntityManager;
+import javax.persistence.PersistenceContext;
 import javax.servlet.RequestDispatcher;
 import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;
@@ -20,6 +23,7 @@ import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import javax.sql.DataSource;
+import javax.transaction.UserTransaction;
 import javax.validation.ConstraintViolation;
 import javax.validation.Validator;
 
@@ -32,11 +36,17 @@ public class SalonAppointment extends HttpServlet {
 
     private static final Logger LOG = Logger.getLogger(SalonAppointment.class.getName());
 
-    @Resource(lookup = "jdbc/salon")
+    @Resource(lookup = "jdbc/itmd4515DS")
     DataSource ds;
 
     @Resource
     Validator validator;
+    
+    @PersistenceContext(name = "itmd4515PU")
+    private EntityManager em;
+    
+    @Resource
+    UserTransaction tx;
 
     /**
      * Handles the HTTP <code>GET</code> method.
@@ -74,6 +84,7 @@ public class SalonAppointment extends HttpServlet {
     protected void doPost(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
 
+        try{
         String fullName = request.getParameter("fullName");
         String address = request.getParameter("address");
         String emailId = request.getParameter("emailId");
@@ -106,7 +117,10 @@ public class SalonAppointment extends HttpServlet {
         } else {
             LOG.info("We don't have any problem with this POJO");
 
-            try (Connection c = ds.getConnection()) {
+            tx.begin();
+            
+            tx.commit(); 
+          /*  try (Connection c = ds.getConnection()) {
                 String INSERT_SQL = "INSERT into salon.customer_details (full_name, address, email, contact, service_type, date, time) VALUES (?,?,?,?,?,?,?)";
                 PreparedStatement ps = c.prepareStatement(INSERT_SQL);
                 ps.setString(1, saloncustomers.getFullName());
@@ -120,13 +134,16 @@ public class SalonAppointment extends HttpServlet {
                 LOG.info(ps.toString());
             } catch (Exception e) {
             }
-            request.setAttribute("saloncustomer", saloncustomers);
+            request.setAttribute("saloncustomer", saloncustomers);*/
             try {
                 RequestDispatcher dispatcher = request.getRequestDispatcher("/WEB-INF/appointmentconfirm.jsp");
                 dispatcher.forward(request, response);
             } catch (ServletException | IOException se) {
                 LOG.info(se.toString());
             }
+        }
+        }catch(Exception e){
+            LOG.log(Level.SEVERE,null, e);
         }
     }
 

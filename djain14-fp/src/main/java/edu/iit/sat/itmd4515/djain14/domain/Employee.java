@@ -5,6 +5,7 @@
  */
 package edu.iit.sat.itmd4515.djain14.domain;
 
+import java.io.Serializable;
 import java.util.ArrayList;
 import java.util.List;
 import javax.persistence.Entity;
@@ -18,8 +19,10 @@ import javax.validation.constraints.NotNull;
  *
  * @author dhira
  */
+@NamedQuery(name = "employee.findAll", query = "select e from Employee e")
+@NamedQuery(name = "employee.findByName", query = "select e from Employee e where e.fullName = :fullName")
 @Entity
-public class Employee extends AbstractNamedEntity{
+public class Employee extends AbstractNamedEntity implements Serializable{
 
     @OneToMany(mappedBy = "employee")
     private List<Appointment> appointments = new ArrayList<>();
@@ -35,14 +38,14 @@ public class Employee extends AbstractNamedEntity{
     @NotNull
     private String contact;
     
-        private String employeeType;
+        private EmployeeType employeeType;
 
     /**
      * Get the value of employeeType
      *
      * @return the value of employeeType
      */
-    public String getEmployeeType() {
+    public EmployeeType getEmployeeType() {
         return employeeType;
     }
 
@@ -51,7 +54,7 @@ public class Employee extends AbstractNamedEntity{
      *
      * @param employeeType new value of employeeType
      */
-    public void setEmployeeType(String employeeType) {
+    public void setEmployeeType(EmployeeType employeeType) {
         this.employeeType = employeeType;
     }
 
@@ -60,7 +63,7 @@ public class Employee extends AbstractNamedEntity{
     }
     
 
-    public Employee(String fullName, String address, String emailId, String contact, String employeeType) {
+    public Employee(String fullName, String address, String emailId, String contact, EmployeeType employeeType) {
         this.fullName = fullName;
         this.address = address;
         this.emailId = emailId;
