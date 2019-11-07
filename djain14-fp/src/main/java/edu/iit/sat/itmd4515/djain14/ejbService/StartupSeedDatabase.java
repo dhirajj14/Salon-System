@@ -7,6 +7,8 @@ package edu.iit.sat.itmd4515.djain14.ejbService;
 import edu.iit.sat.itmd4515.djain14.domain.Appointment;
 import edu.iit.sat.itmd4515.djain14.domain.Employee;
 import edu.iit.sat.itmd4515.djain14.domain.EmployeeType;
+import edu.iit.sat.itmd4515.djain14.domain.Products;
+import edu.iit.sat.itmd4515.djain14.domain.Salon;
 import edu.iit.sat.itmd4515.djain14.domain.SalonCustomers;
 import edu.iit.sat.itmd4515.djain14.domain.ServiceType;
 import java.time.LocalDate;
@@ -30,7 +32,7 @@ public class StartupSeedDatabase {
     
     private static final Logger LOG = Logger.getLogger(StartupSeedDatabase.class.getName());
     
-    @PersistenceContext(name = "itmd4515PU")
+    @PersistenceContext(name = "itmd4515DS")
     EntityManager em;
 
     @EJB
@@ -41,7 +43,13 @@ public class StartupSeedDatabase {
     
     
     @EJB
-    SalonCustomerService salonSvc;
+    SalonCustomerService salonCustomerSvc;
+    
+    @EJB
+    SalonService salonSvc;
+    
+     @EJB
+    ProductsService productSvc;
     
     public StartupSeedDatabase() {
     }
@@ -54,6 +62,8 @@ public class StartupSeedDatabase {
         Appointment a2  = new Appointment(LocalDate.of(2019, Month.NOVEMBER, 25), ServiceType.hairColor, LocalTime.of(12, 30));
         Employee e1 = new Employee("Employee 1", "31st Chicago 60616", "e1@gmail.com", "123456789", EmployeeType.hairCut);
         Employee e2 = new Employee("Employee 2", "31st Chicago 60616", "e2@gmail.com", "123456789", EmployeeType.hairColor);
+        Products ps1 = new Products("Hair Cream", 4, 50, "50gms");
+        Salon s1 = new Salon("One Cut", "Chicago","1234567890");
         
         a1.setSalonCustomers(sc1);
         a2.setSalonCustomers(sc1);
@@ -63,11 +73,13 @@ public class StartupSeedDatabase {
         a2.setEmployee(e2);
         
         
-        salonSvc.Create(sc1);
+        salonCustomerSvc.Create(sc1);
         employeeSvc.Create(e1);
         employeeSvc.Create(e2);
         appointmentSvc.Create(a1);
         appointmentSvc.Create(a2);
+         productSvc.Create(ps1);
+        salonSvc.Create(s1);
         
 
         LOG.info("\nappointments :");
@@ -80,6 +92,15 @@ public class StartupSeedDatabase {
         for(Employee e : employeeSvc.findAll()){
             LOG.info(e.toString());
         }
-     
+        
+  
+        s1.addProduct(ps1);
+        e1.setSalon(s1);
+        e2.setSalon(s1);
+        s1.addemployee(e1);
+        s1.addemployee(e1);
+        
+       
+        
     }
 }

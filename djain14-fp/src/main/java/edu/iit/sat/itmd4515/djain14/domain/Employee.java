@@ -57,8 +57,14 @@ public class Employee extends AbstractNamedEntity implements Serializable{
     public void setEmployeeType(EmployeeType employeeType) {
         this.employeeType = employeeType;
     }
-
     
+     public Salon getSalon() {
+        return salon;
+    }
+
+      public void setSalon(Salon s) {
+        this.salon = s;
+    }
      public Employee() {
     }
     
@@ -157,5 +163,6 @@ public class Employee extends AbstractNamedEntity implements Serializable{
         this.appointments = appointments;
     }
 
+    
    
 }

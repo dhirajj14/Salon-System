@@ -18,7 +18,7 @@ import javax.persistence.PersistenceContext;
 @Stateless
 public class SalonCustomerService {
 
-    @PersistenceContext(name = "itmd4515PU")
+    @PersistenceContext(name = "itmd4515DS")
     private EntityManager em;
     
     public SalonCustomerService() {
