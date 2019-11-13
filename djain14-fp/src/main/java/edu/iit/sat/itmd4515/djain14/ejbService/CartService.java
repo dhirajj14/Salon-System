@@ -6,7 +6,7 @@
 package edu.iit.sat.itmd4515.djain14.ejbService;
 
 
-import edu.iit.sat.itmd4515.djain14.domain.Manager;
+import edu.iit.sat.itmd4515.djain14.domain.Cart;
 import java.util.List;
 import javax.ejb.Stateless;
 import javax.persistence.EntityManager;
@@ -21,27 +21,27 @@ public class CartService {
     @PersistenceContext(name = "itmd4515PU")
     private EntityManager em;
     
-    public void Create(CartService cs){
+    public void Create(Cart cs){
         em.persist(cs);
     }
     
-    public CartService find(long id){
-        return em.find(CartService.class, id);
+    public Cart find(long id){
+        return em.find(Cart.class, id);
     }
     
-    public List<CartService> findAll(){
-        return em.createNamedQuery("orderHistory.findAll", CartService.class).getResultList();
+    public List<Cart> findAll(){
+        return em.createNamedQuery("orderHistory.findAll", Cart.class).getResultList();
     }
     
-    public CartService findByName(String fullName){
-        return em.createNamedQuery("orderHistory.findByName", CartService.class).getSingleResult();
+    public Cart findByName(String fullName){
+        return em.createNamedQuery("orderHistory.findByName", Cart.class).getSingleResult();
     }
     
-    public void update(CartService cs){
+    public void update(Cart cs){
         em.merge(cs);
     }
     
-    public void delete(CartService cs){
+    public void delete(Cart cs){
         em.remove(em.merge(cs));
     }
 }

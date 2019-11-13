@@ -6,10 +6,13 @@
 package edu.iit.sat.itmd4515.djain14.domain;
 
 
+import edu.iit.sat.itmd4515.djain14.domain.security.User;
 import java.io.Serializable;
 import java.util.ArrayList;
 import java.util.List;
 import javax.persistence.Entity;
+import javax.persistence.JoinColumn;
+import javax.persistence.ManyToOne;
 import javax.persistence.NamedQuery;
 import javax.persistence.OneToMany;
 import javax.persistence.OneToOne;
@@ -27,7 +30,14 @@ import javax.validation.constraints.NotNull;
 public class SalonCustomers extends AbstractNamedEntity implements Serializable{
     
     @OneToOne
+    @JoinColumn(name = "USERNAME")
+    private User user;
+   
+    @OneToOne
     private Cart cart;
+    
+    @ManyToOne
+    private SalonCustomers salonCustomers;
     
     @OneToMany
     private List <OrderHistory> orderHistories = new ArrayList();
@@ -36,10 +46,11 @@ public class SalonCustomers extends AbstractNamedEntity implements Serializable{
     //@JoinTable(joinColumns = @JoinColumn(name = "Customer_ID"), inverseJoinColumns = @JoinColumn(name = "Appt_ID"))
     private List<Appointment> appointments = new ArrayList<>();
     
+    
+    
     public SalonCustomers() {
     }
 
-    
     
     private String address;
     
@@ -140,8 +151,54 @@ public class SalonCustomers extends AbstractNamedEntity implements Serializable{
             a.setSalonCustomers(null);
         }
     }
+    
+        public List<OrderHistory> getOrderHistory() {
+        return orderHistories;
+    }
 
-   
+    public void setOrderHistory(List<OrderHistory> orderHistoryies) {
+        this.orderHistories = orderHistoryies;
+    }
+    
+    public void addOrderHistory(OrderHistory o){
+        if(!this.orderHistories.contains(o)){
+            this.orderHistories.add(o);
+            
+        }
+    }
+    
+    public void removeOrderHistory(OrderHistory o){
+        if(this.orderHistories.contains(o)){
+            this.orderHistories.remove(o);   
+        }
+    }
+
+    public Cart getCart() {
+        return cart;
+    }
+
+    public void setCart(Cart cart) {
+        this.cart = cart;
+    }
+
+     /**
+     * Get the value of user
+     *
+     * @return the value of user
+     */
+    public User getUser() {
+        return user;
+    }
+
+    /**
+     * Set the value of user
+     *
+     * @param user new value of user
+     */
+    public void setUser(User user) {
+        this.user = user;
+    }
+    
     
     @Override
     public String toString() {

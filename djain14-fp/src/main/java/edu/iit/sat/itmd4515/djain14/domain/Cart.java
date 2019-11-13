@@ -26,7 +26,8 @@ public class Cart extends AbstractIdentifiedEntity implements Serializable{
     public Cart() {
     }
         
-        
+     
+   
     public Cart(double cartBalance) {
         this.cartBalance = cartBalance;
     }
@@ -39,6 +40,24 @@ public class Cart extends AbstractIdentifiedEntity implements Serializable{
         return cartBalance;
     }
 
+     public void addProducts(Products p){
+        if(!this.products.contains(p)){
+            this.products.add(p);
+            setCartBalance(getCartBalance() + p.getProductPrice());
+            //p.setProductQuantity(p.getProductQuantity() - 1);
+        }
+     }
+        
+      public List<Products> getProducts(){
+       return products;
+    }
+    
+    public void removeProducts(Products p){
+        if(!this.products.contains(p)){
+            this.products.remove(p);
+        }
+    }
+    
     /**
      * Set the value of cartBalance
      *

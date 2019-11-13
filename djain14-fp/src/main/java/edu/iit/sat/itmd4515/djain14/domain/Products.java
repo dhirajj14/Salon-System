@@ -39,8 +39,6 @@ public class Products extends AbstractIdentifiedEntity implements Serializable{
     }
     
     
-    
-    
     public String getProductName() {
         return productName;
     }
@@ -73,6 +71,7 @@ public class Products extends AbstractIdentifiedEntity implements Serializable{
         this.productSize = productSize;
     }
 
+    
     
     @Override
     public String toString() {

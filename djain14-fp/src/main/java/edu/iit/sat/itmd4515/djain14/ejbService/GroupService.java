@@ -5,26 +5,25 @@
  */
 package edu.iit.sat.itmd4515.djain14.ejbService;
 
-import edu.iit.sat.itmd4515.djain14.domain.Employee;
+import edu.iit.sat.itmd4515.djain14.domain.security.Group;
 import java.util.List;
 import javax.ejb.Stateless;
-import javax.inject.Named;
 
 /**
  *
  * @author dhira
  */
-@Named
 @Stateless
-public class EmployeeService extends AbstractService<Employee>{
+public class GroupService extends AbstractService<Group>{
 
-    public EmployeeService() {
-        super(Employee.class);
+    public GroupService() {
+        super(Group.class);
     }
 
+    
     @Override
-    public List<Employee> findAll() {
-      return em.createNamedQuery("employee.findAll",entityClass).getResultList();
+    public List<Group> findAll() {
+        return em.createNamedQuery("Group.findAll", Group.class).getResultList();
     }
     
 }

@@ -10,6 +10,8 @@
     <class>edu.iit.sat.itmd4515.djain14.domain.Products</class>
     <class>edu.iit.sat.itmd4515.djain14.domain.Salon</class>
     <class>edu.iit.sat.itmd4515.djain14.domain.SalonCustomers</class>
+    <class>edu.iit.sat.itmd4515.djain14.domain.security.Group</class>
+    <class>edu.iit.sat.itmd4515.djain14.domain.security.User</class>
     <properties>
       <property name="javax.persistence.jdbc.url" value="jdbc:mysql://localhost:3306/itmd4515?zeroDateTimeBehavior=convertToNull&amp;serverTimezone=America/Chicago&amp;useSSL=false"/>
       <property name="javax.persistence.jdbc.user" value="itmd4515"/>

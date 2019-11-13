@@ -5,8 +5,10 @@
  */
 package edu.iit.sat.itmd4515.djain14.domain;
 
+import edu.iit.sat.itmd4515.djain14.domain.security.User;
 import java.io.Serializable;
 import javax.persistence.Entity;
+import javax.persistence.JoinColumn;
 import javax.persistence.OneToOne;
 import javax.validation.constraints.NotNull;
 
@@ -17,6 +19,12 @@ import javax.validation.constraints.NotNull;
 @Entity
 public class Manager extends AbstractNamedEntity implements Serializable{
 
+    @OneToOne
+    @JoinColumn(name = "USERNAME")
+    private User user;
+
+  
+    
     @OneToOne(mappedBy = "manager")
     private Salon salon;
     
@@ -39,6 +47,13 @@ public class Manager extends AbstractNamedEntity implements Serializable{
         
     }
     
+      public User getUser() {
+        return user;
+    }
+
+    public void setUser(User user) {
+        this.user = user;
+    }
     
     /**
      * Get the value of contact

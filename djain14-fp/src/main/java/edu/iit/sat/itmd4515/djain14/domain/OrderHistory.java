@@ -9,8 +9,8 @@ import java.time.LocalDate;
 import java.util.ArrayList;
 import java.util.List;
 import javax.persistence.Entity;
+import javax.persistence.ManyToOne;
 import javax.persistence.OneToMany;
-import javax.ws.rs.Encoded;
 
 /**
  *
@@ -18,10 +18,12 @@ import javax.ws.rs.Encoded;
  */
 @Entity
 public class OrderHistory extends AbstractIdentifiedEntity{
+    
     @OneToMany
     private List <Products> products = new ArrayList<>();
 
-     
+  
+    
      private double amount;
      private String shippingAddress;
      private String paymentType;
@@ -69,7 +71,8 @@ public class OrderHistory extends AbstractIdentifiedEntity{
     public void setOrderDate(LocalDate orderDate) {
         this.orderDate = orderDate;
     }
-     
+    
+ 
         @Override
     public String toString() {
         return "OrderHistory{" + "amount=" + amount + ", shippingAddress=" + shippingAddress + ", paymentType=" + paymentType + ", orderDate=" + orderDate + '}';

@@ -14,7 +14,7 @@ public enum EmployeeType {
     hairColor("Color Artist"),
     skinCare("Skin Artisit");
     
-       private String label;
+    private String label;
 
     private EmployeeType(String label) {
         this.label = label;

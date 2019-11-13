@@ -6,9 +6,9 @@
 package edu.iit.sat.itmd4515.djain14.ejbService;
 
 import edu.iit.sat.itmd4515.djain14.domain.Salon;
-import edu.iit.sat.itmd4515.djain14.domain.SalonCustomers;
 import java.util.List;
 import javax.ejb.Stateless;
+import javax.inject.Named;
 import javax.persistence.EntityManager;
 import javax.persistence.PersistenceContext;
 
@@ -16,10 +16,11 @@ import javax.persistence.PersistenceContext;
  *
  * @author dhira
  */
+@Named
 @Stateless
 public class SalonService {
 
-    @PersistenceContext(name = "itmd4515PU")
+    @PersistenceContext(name = "itmd4515DS")
     private EntityManager em;
     
     public SalonService() {
