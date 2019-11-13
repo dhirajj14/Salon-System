@@ -74,7 +74,7 @@ public class StartupSeedDatabase {
     private void seedDatabase(){
         LOG.info("StartupSeedDatabase");
         
-        User admin = new User("admin","admin", Boolean.TRUE);
+        User admin = new User("Admin","Admin", Boolean.TRUE);
         Group adminGroup = new Group("ADMIN_GROUP", "This group holds admins in this mock identity store");
         admin.addGroup(adminGroup);
         
@@ -92,9 +92,9 @@ public class StartupSeedDatabase {
         employee1.addGroup(adminGroup);
         User employee2 = new User("Employee2", "Employee2", Boolean.TRUE);
         employee2.addGroup(employeeGroup);
-        User customer1 = new User("customer1", "customer1", Boolean.TRUE);
+        User customer1 = new User("Customer1", "Customer1", Boolean.TRUE);
         customer1.addGroup(customerGroup);
-        User customer2 = new User("customer2", "customer2", Boolean.TRUE);
+        User customer2 = new User("Customer2", "Customer2", Boolean.TRUE);
         customer2.addGroup(customerGroup);
         
         userSvc.Create(employee1);

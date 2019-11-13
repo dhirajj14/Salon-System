@@ -6,7 +6,7 @@
                 xmlns:f="http://xmlns.jcp.org/jsf/core">
 
     <ui:define name="title">
-        Welcome Admin
+        Welcome Admin #{loginController.remoteUser}
     </ui:define>
 
     <ui:define name="content">
@@ -39,6 +39,9 @@
             </h:column>
             
         </h:dataTable>
+        <h:form>
+        <h:commandButton class="btn btn-lg btn-primary btn-block" value="Add Employee" action="addemployeeform.xhtml"/>
+        </h:form>
     </ui:define>
 
 </ui:composition>

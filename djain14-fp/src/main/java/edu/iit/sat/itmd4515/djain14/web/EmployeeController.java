@@ -40,7 +40,7 @@ public class EmployeeController {
     public String doSaveAppointment(){
         LOG.info("Inside PetController doSavePet with " + employee.toString() );
         employeeSvc.Create(employee);
-        return "newjsf.xhtml";
+        return "welcome.xhtml";
     }
     
     public Employee getEmployee() {

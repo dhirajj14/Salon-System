@@ -8,6 +8,7 @@ package edu.iit.sat.itmd4515.djain14.ejbService;
 import edu.iit.sat.itmd4515.djain14.domain.SalonCustomers;
 import java.util.List;
 import javax.ejb.Stateless;
+import javax.inject.Named;
 import javax.persistence.EntityManager;
 import javax.persistence.PersistenceContext;
 
@@ -15,6 +16,7 @@ import javax.persistence.PersistenceContext;
  *
  * @author dhira
  */
+@Named
 @Stateless
 public class SalonCustomerService {
 
@@ -40,6 +42,11 @@ public class SalonCustomerService {
         return em.createNamedQuery("salonCustomers.findByName", SalonCustomers.class).getSingleResult();
     }
     
+    public SalonCustomers findByUserName(String userName){
+        return em.createNamedQuery("saloncustomers.findByUserName",SalonCustomers.class)
+                .setParameter("userName", userName)
+                .getSingleResult();
+    }
     public void update(SalonCustomers sc){
         em.merge(sc);
     }

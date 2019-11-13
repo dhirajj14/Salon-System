@@ -24,7 +24,12 @@ public class EmployeeService extends AbstractService<Employee>{
 
     @Override
     public List<Employee> findAll() {
-      return em.createNamedQuery("employee.findAll",entityClass).getResultList();
+      return em.createNamedQuery("employee.findAll",Employee.class).getResultList();
+    }
+    
+    public Employee findByUserName(String userName){
+        return em.createNamedQuery("employee.findByUserName",Employee.class)
+                .setParameter("user", userName).getSingleResult();
     }
     
 }

@@ -11,7 +11,6 @@ import java.util.ArrayList;
 import java.util.List;
 import javax.persistence.Entity;
 import javax.persistence.JoinColumn;
-import javax.persistence.ManyToMany;
 import javax.persistence.ManyToOne;
 import javax.persistence.NamedQuery;
 import javax.persistence.OneToMany;
@@ -24,6 +23,7 @@ import javax.validation.constraints.NotNull;
  */
 @NamedQuery(name = "employee.findAll", query = "select e from Employee e")
 @NamedQuery(name = "employee.findByName", query = "select e from Employee e where e.fullName = :fullName")
+@NamedQuery(name = "employee.findByUserName", query = "select e from Employee e where e.user = :user")
 @Entity
 public class Employee extends AbstractNamedEntity implements Serializable{
 
