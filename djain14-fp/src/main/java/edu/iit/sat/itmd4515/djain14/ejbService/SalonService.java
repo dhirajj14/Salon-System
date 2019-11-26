@@ -5,6 +5,7 @@
  */
 package edu.iit.sat.itmd4515.djain14.ejbService;
 
+import edu.iit.sat.itmd4515.djain14.domain.Manager;
 import edu.iit.sat.itmd4515.djain14.domain.Salon;
 import java.util.List;
 import javax.ejb.Stateless;
@@ -40,6 +41,10 @@ public class SalonService {
     
     public Salon findByName(String fullName){
         return em.createNamedQuery("salon.findByName", Salon.class).getSingleResult();
+    }
+    
+    public Salon findByManager(Manager manager){
+        return em.createNamedQuery("salon.findByManager", Salon.class).setParameter("manager", manager).getSingleResult();
     }
     
     public void update(Salon s){

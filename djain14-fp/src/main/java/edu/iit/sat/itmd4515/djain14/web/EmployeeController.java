@@ -7,10 +7,13 @@ package edu.iit.sat.itmd4515.djain14.web;
 
 import edu.iit.sat.itmd4515.djain14.domain.Employee;
 import edu.iit.sat.itmd4515.djain14.ejbService.EmployeeService;
+import java.util.ArrayList;
+import java.util.List;
 import java.util.logging.Logger;
 import javax.annotation.PostConstruct;
 import javax.ejb.EJB;
 import javax.enterprise.context.RequestScoped;
+import javax.inject.Inject;
 import javax.inject.Named;
 
 /**
@@ -25,6 +28,12 @@ public class EmployeeController {
     @EJB
     private EmployeeService employeeSvc;
     
+    @Inject
+    private SalonController salonController;
+    
+    private List <Employee> eList = new ArrayList<>();
+    
+    
     private static final Logger LOG = Logger.getLogger(EmployeeController.class.getName());
 
     private Employee employee;
@@ -33,21 +42,23 @@ public class EmployeeController {
     }
 
     @PostConstruct
-    private void postContruct() {
-        employee = new Employee();
+    private void postConstruct(){
+              eList = employeeSvc.findAll();
+              employee = new Employee();
     }
 
-    public String doSaveAppointment(){
-        LOG.info("Inside PetController doSavePet with " + employee.toString() );
-        employeeSvc.Create(employee);
-        return "welcome.xhtml";
+    public List<Employee> getEmployeeList() {
+        return eList;
     }
-    
-    public Employee getEmployee() {
+
+    public Employee getEmployee(){
         return employee;
     }
-
+    
+    
     public void setEmployee(Employee employee) {
         this.employee = employee;
     }
+    
+    
 }

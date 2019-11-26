@@ -18,7 +18,7 @@ import javax.validation.constraints.NotBlank;
 public class AbstractNamedEntity extends AbstractIdentifiedEntity {
     
     @NotBlank
-    @Column(length = 512, nullable = false, unique = true)
+    @Column(length = 512, nullable = true, unique = true)
     protected String fullName;
 
     public AbstractNamedEntity() {

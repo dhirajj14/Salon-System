@@ -21,7 +21,6 @@ import javax.validation.constraints.NotNull;
  * @author dhira
  */
 @NamedQuery(name = "appointment.findAll", query = "select a from Appointment a")
-
 @Entity
 public class Appointment extends AbstractIdentifiedEntity implements Serializable{
 

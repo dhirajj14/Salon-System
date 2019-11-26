@@ -9,6 +9,7 @@ import edu.iit.sat.itmd4515.djain14.domain.security.User;
 import java.io.Serializable;
 import javax.persistence.Entity;
 import javax.persistence.JoinColumn;
+import javax.persistence.NamedQuery;
 import javax.persistence.OneToOne;
 import javax.validation.constraints.NotNull;
 
@@ -16,6 +17,7 @@ import javax.validation.constraints.NotNull;
  *
  * @author dhira
  */
+@NamedQuery(name = "manager.findByName", query = "select m from Manager m where m.user.userName = :user")
 @Entity
 public class Manager extends AbstractNamedEntity implements Serializable{
 

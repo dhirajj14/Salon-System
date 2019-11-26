@@ -1,0 +1,59 @@
+<?xml version='1.0' encoding='UTF-8' ?>
+<!DOCTYPE composition PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<ui:composition xmlns="http://www.w3.org/1999/xhtml"
+                xmlns:ui="http://xmlns.jcp.org/jsf/facelets"
+                template="../WEB-INF/templates/mytemplate.xhtml"
+                xmlns:h="http://xmlns.jcp.org/jsf/html"
+                xmlns:f="http://xmlns.jcp.org/jsf/core">
+
+    <ui:define name="title">
+      Add an Employee
+    </ui:define>
+
+    <ui:define name="content">
+       <h:form>
+            <h:panelGroup layout="block" class="form-group">
+                <h:outputLabel for="name" value="Name:"/>
+                <h:inputText class="form-control" id="name" value="#{employeeController.employee.fullName}"/>
+                <h:message for="name" errorClass="text-danger"/>
+            </h:panelGroup>
+
+            <h:panelGroup layout="block" class="form-group">
+                <h:outputLabel for="address" value="Address:"/>
+                <h:inputText class="form-control" id="address" value="#{employeeController.employee.address}"/>
+                <h:message for="address" errorClass="text-danger"/>
+            </h:panelGroup>
+           
+            <h:panelGroup layout="block" class="form-group">
+                <h:outputLabel for="email" value="Email-Id:"/>
+                <h:inputText class="form-control" id="email" value="#{employeeController.employee.emailId}"/>
+                <h:message for="email" errorClass="text-danger"/>
+            </h:panelGroup>
+           
+            <h:panelGroup layout="block" class="form-group">
+                <h:outputLabel for="contact" value="Contact No.:"/>
+                <h:inputText class="form-control" id="contact" value="#{employeeController.employee.contact}"/>
+                <h:message for="contact" errorClass="text-danger"/>
+            </h:panelGroup>
+           
+            <h:panelGroup layout="block" class="form-group">
+                <h:outputLabel for="employeeType" value="Employee Type:"/>
+                <h:selectOneMenu 
+                    class="form-control" 
+                    id="employeeType" 
+                    value="#{employeeController.employee.employeeType}">
+                    <f:selectItems value="#{appConfig.employeeType}" 
+                                   var="employee"
+                                   itemLabel="#{employee.label}"
+                                   itemValue="#{employee}">
+                    </f:selectItems>
+                </h:selectOneMenu>
+                <h:message for="employeeType" errorClass="text-danger"/>
+            </h:panelGroup>
+           
+         
+           <h:commandButton class="btn btn-lg btn-primary btn-block" value="Create New Pet" action="#{employeeController.doSaveAppointment()}"/>
+        </h:form>
+    </ui:define>
+
+</ui:composition>

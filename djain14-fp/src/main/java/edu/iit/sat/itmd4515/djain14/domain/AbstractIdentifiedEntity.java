@@ -37,7 +37,8 @@ public class AbstractIdentifiedEntity {
      *
      * @return the value of updatedDateTime
      */
-     @PrePersist   
+     @PrePersist 
+     
     public void prePersist(){
         createdDateTime = LocalDateTime.now();
     }

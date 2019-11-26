@@ -67,6 +67,10 @@ public class LoginController {
     public boolean isCustomer(){
         return securityContext.isCallerInRole("CUSTOMER_ROLE");
     }
+    
+    public boolean isManagerAdmin(){
+        return securityContext.isCallerInRole("MANAGER_ROLE");
+    }
     /**
      * Get the value of password
      *

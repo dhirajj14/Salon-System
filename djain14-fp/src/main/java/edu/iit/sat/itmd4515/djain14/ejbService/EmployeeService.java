@@ -6,6 +6,7 @@
 package edu.iit.sat.itmd4515.djain14.ejbService;
 
 import edu.iit.sat.itmd4515.djain14.domain.Employee;
+import edu.iit.sat.itmd4515.djain14.domain.Salon;
 import java.util.List;
 import javax.ejb.Stateless;
 import javax.inject.Named;
@@ -30,6 +31,11 @@ public class EmployeeService extends AbstractService<Employee>{
     public Employee findByUserName(String userName){
         return em.createNamedQuery("employee.findByUserName",Employee.class)
                 .setParameter("user", userName).getSingleResult();
+    }
+    
+   
+    public List<Employee> findAllBySalon(Salon salon) {
+      return em.createNamedQuery("employee.findAllBySalon",Employee.class).setParameter("salon", salon).getResultList();
     }
     
 }

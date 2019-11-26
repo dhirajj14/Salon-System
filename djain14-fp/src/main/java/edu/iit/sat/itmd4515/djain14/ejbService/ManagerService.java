@@ -20,6 +20,7 @@ import javax.persistence.PersistenceContext;
 public class ManagerService {
     @PersistenceContext(name = "itmd4515PU")
     private EntityManager em;
+  
     
     public void Create(Manager m){
         em.persist(m);
@@ -33,9 +34,11 @@ public class ManagerService {
         return em.createNamedQuery("manager.findAll", Manager.class).getResultList();
     }
     
-    public Manager findByName(String fullName){
-        return em.createNamedQuery("salonCustomers.findByName", Manager.class).getSingleResult();
+    public Manager findByName(String name){
+        return em.createNamedQuery("manager.findByName", Manager.class).setParameter("user",name).getSingleResult();
     }
+    
+    
     
     public void update(Manager m){
         em.merge(m);

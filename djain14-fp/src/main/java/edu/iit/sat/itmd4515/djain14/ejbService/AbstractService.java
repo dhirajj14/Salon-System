@@ -5,7 +5,6 @@
  */
 package edu.iit.sat.itmd4515.djain14.ejbService;
 
-import edu.iit.sat.itmd4515.djain14.domain.SalonCustomers;
 import java.util.List;
 import javax.persistence.EntityManager;
 import javax.persistence.PersistenceContext;
@@ -17,7 +16,7 @@ import javax.persistence.PersistenceContext;
  */
 public abstract class AbstractService<T> {
     
-    @PersistenceContext(name = "itmd4515PU")
+    @PersistenceContext(name = "itmd4515DS")
     protected EntityManager em;
 
     protected final Class<T> entityClass;

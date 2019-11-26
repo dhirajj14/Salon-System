@@ -9,6 +9,7 @@ import java.io.Serializable;
 import java.util.ArrayList;
 import java.util.List;
 import javax.persistence.Entity;
+import javax.persistence.NamedQuery;
 import javax.persistence.OneToMany;
 import javax.persistence.OneToOne;
 
@@ -17,6 +18,8 @@ import javax.persistence.OneToOne;
  * @author dhira
  */
 @Entity
+@NamedQuery(name = "salon.findAll", query = "select s from Salon s")
+@NamedQuery(name = "salon.findByManager", query = "select s from Salon s where s.manager = :manager")
 public class Salon extends AbstractNamedEntity implements Serializable{
     @OneToOne
     private Manager manager;
@@ -99,6 +102,10 @@ public class Salon extends AbstractNamedEntity implements Serializable{
         if(this.employees.contains(e)){
             this.employees.remove(e);
         }
+    }
+    
+    public List<Employee> getEmployees() {
+        return employees;
     }
 
 

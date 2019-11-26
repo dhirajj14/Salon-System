@@ -22,7 +22,7 @@ public class AppointmentService extends AbstractService<Appointment>{
 
     @Override
     public List<Appointment> findAll() {
-        return em.createNamedQuery("appointment.findAll", entityClass).getResultList();
+        return em.createNamedQuery("appointment.findAll", Appointment.class).getResultList();
     }
     
 }

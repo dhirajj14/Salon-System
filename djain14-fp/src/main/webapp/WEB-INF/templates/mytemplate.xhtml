@@ -50,12 +50,18 @@
                         </li>
                     </ui:fragment>
                     
+                    <ui:fragment rendered="#{loginController.managerAdmin}">
+                        <li class="#{fn:startsWith(view.viewId,'/manager')? 'nav-item active': 'nav-item'}">
+                            <h:link class="nav-link" outcome="/manager/welcome.xhtml" value="Manager Admin"/>
+                        </li>
+                    </ui:fragment>
+                    
                 </ul>
 
                 <ul class="navbar-nav" style="margin-right: 40px">
                     <li class="nav-item dropdown">
                         <a class="nav-link dropdown-toggle" href="#" id="dropdown01" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">Account</a>
-                        <div class="dropdown-menu" aria-labelledby="dropdown01">
+                        <div class="dropdown-menu dropdown-menu-right" aria-labelledby="dropdown01">
                             <h:form>
                             <h:commandLink class="dropdown-item" value="#{loginController.remoteUser} Logout" action="#{loginController.doLogout()}"/>
                             </h:form>

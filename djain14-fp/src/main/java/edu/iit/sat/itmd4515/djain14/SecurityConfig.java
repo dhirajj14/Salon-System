@@ -18,7 +18,7 @@ import javax.security.enterprise.identitystore.DatabaseIdentityStoreDefinition;
  */
 @Named
 @ApplicationScoped
-@DeclareRoles({"ADMIN_ROLE","EMPLOYEE_ROLE","CUSTOMER_ROLE"})
+@DeclareRoles({"ADMIN_ROLE","EMPLOYEE_ROLE","CUSTOMER_ROLE","MANAGER_ROLE"})
 @CustomFormAuthenticationMechanismDefinition(
         loginToContinue = @LoginToContinue(
                 loginPage = "login.xhtml",
