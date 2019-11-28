@@ -14,16 +14,15 @@ import javax.ejb.Stateless;
  * @author dhira
  */
 @Stateless
-public class GroupService extends AbstractService<Group>{
+public class GroupService extends AbstractService<Group> {
 
     public GroupService() {
         super(Group.class);
     }
 
-    
     @Override
     public List<Group> findAll() {
         return em.createNamedQuery("Group.findAll", Group.class).getResultList();
     }
-    
+
 }

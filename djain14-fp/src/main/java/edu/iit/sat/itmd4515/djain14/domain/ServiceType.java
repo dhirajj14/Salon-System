@@ -13,14 +13,13 @@ public enum ServiceType {
     hairCut("Side Fade"),
     hairColor("Dark Brown"),
     skinCare("Face Scrub");
-    
-       private String label;
+
+    private String label;
 
     private ServiceType(String label) {
         this.label = label;
     }
 
-       
     /**
      * Get the value of label
      *
@@ -30,5 +29,4 @@ public enum ServiceType {
         return label;
     }
 
- 
 }

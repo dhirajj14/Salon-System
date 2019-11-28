@@ -5,7 +5,6 @@
  */
 package edu.iit.sat.itmd4515.djain14.ejbService;
 
-
 import edu.iit.sat.itmd4515.djain14.domain.Manager;
 import java.util.List;
 import javax.ejb.Stateless;
@@ -17,34 +16,22 @@ import javax.persistence.PersistenceContext;
  * @author dhira
  */
 @Stateless
-public class ManagerService {
+public class ManagerService extends AbstractService<Manager> {
+
     @PersistenceContext(name = "itmd4515PU")
     private EntityManager em;
-  
-    
-    public void Create(Manager m){
-        em.persist(m);
+
+    public ManagerService() {
+        super(Manager.class);
     }
-    
-    public Manager find(long id){
-        return em.find(Manager.class, id);
-    }
-    
-    public List<Manager> findAll(){
+
+    @Override
+    public List<Manager> findAll() {
         return em.createNamedQuery("manager.findAll", Manager.class).getResultList();
     }
-    
-    public Manager findByName(String name){
-        return em.createNamedQuery("manager.findByName", Manager.class).setParameter("user",name).getSingleResult();
+
+    public Manager findByName(String name) {
+        return em.createNamedQuery("manager.findByName", Manager.class).setParameter("user", name).getSingleResult();
     }
-    
-    
-    
-    public void update(Manager m){
-        em.merge(m);
-    }
-    
-    public void delete(Manager m){
-        em.remove(em.merge(m));
-    }
+
 }

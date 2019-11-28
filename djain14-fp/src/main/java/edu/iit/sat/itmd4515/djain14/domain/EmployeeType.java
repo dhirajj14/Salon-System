@@ -13,14 +13,13 @@ public enum EmployeeType {
     hairCut("Hair Artist"),
     hairColor("Color Artist"),
     skinCare("Skin Artisit");
-    
+
     private String label;
 
     private EmployeeType(String label) {
         this.label = label;
     }
 
-       
     /**
      * Get the value of label
      *
@@ -30,5 +29,4 @@ public enum EmployeeType {
         return label;
     }
 
- 
 }

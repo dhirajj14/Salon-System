@@ -21,28 +21,27 @@ import javax.validation.constraints.NotNull;
  * @author dhira
  */
 @NamedQuery(name = "appointment.findAll", query = "select a from Appointment a")
+@NamedQuery(name = "appointment.findByEmployee", query = "select a from Appointment a where a.employee = :employee")
 @Entity
-public class Appointment extends AbstractIdentifiedEntity implements Serializable{
+public class Appointment extends AbstractIdentifiedEntity implements Serializable {
 
     @ManyToOne
     private SalonCustomers salonCustomers;
 
-    
-    @ManyToOne 
+    @ManyToOne
     private Employee employee;
 
-   
     @NotNull
     @FutureOrPresent
     private LocalDate apptDate;
-    
+
     @NotNull
     @Enumerated(EnumType.STRING)
     private ServiceType serviceType;
-    
+
     @NotNull
     private LocalTime apptTime;
-    
+
     public Appointment() {
     }
 
@@ -51,24 +50,23 @@ public class Appointment extends AbstractIdentifiedEntity implements Serializabl
         this.serviceType = serviceType;
         this.apptTime = apptTime;
     }
-    
-    
-     public SalonCustomers getSalonCustomers() {
+
+    public SalonCustomers getSalonCustomers() {
         return salonCustomers;
     }
 
     public void setSalonCustomers(SalonCustomers salonCustomers) {
         this.salonCustomers = salonCustomers;
     }
-    
-     public Employee getEmployee() {
+
+    public Employee getEmployee() {
         return employee;
     }
 
     public void setEmployee(Employee employee) {
         this.employee = employee;
     }
-    
+
     /**
      * Get the value of time
      *
@@ -86,7 +84,6 @@ public class Appointment extends AbstractIdentifiedEntity implements Serializabl
     public void setTime(LocalTime apptTime) {
         this.apptTime = apptTime;
     }
-
 
     /**
      * Get the value of serviceType
@@ -106,7 +103,6 @@ public class Appointment extends AbstractIdentifiedEntity implements Serializabl
         this.serviceType = serviceType;
     }
 
-    
     /**
      * Get the value of date
      *
@@ -130,6 +126,4 @@ public class Appointment extends AbstractIdentifiedEntity implements Serializabl
         return "Appointment{" + "salonCustomers=" + salonCustomers + ", apptDate=" + apptDate + ", serviceType=" + serviceType + ", apptTime=" + apptTime + '}';
     }
 
-
-    
 }

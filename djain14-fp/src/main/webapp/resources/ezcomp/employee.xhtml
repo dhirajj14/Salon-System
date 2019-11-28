@@ -19,15 +19,12 @@
     <!-- IMPLEMENTATION -->
     <cc:implementation>
         <h:form>
-            <h:panelGroup layout="block" class="form-group">
-                <h:outputLabel for="ID" value="Employee ID:"/>
-                <h:inputText  
-                    class="form-control" 
-                    id="ID" 
-                    value="#{cc.attrs.employee.id}"/>
-                <h:inputText class="form-control" id="employeeVersion" value="#{cc.attrs.employee.version}"/>
-                <h:message for="ID" errorClass="text-danger"/>
-            </h:panelGroup>
+              <h:panelGroup layout="block" class="form-group">
+                  <h:outputLabel for="employeeId" value="Employee ID #{cc.attrs.employee.id} v#{cc.attrs.employee.version}"/>
+                <h:inputHidden class="form-control" id="employeeId" value="#{cc.attrs.employee.id}"/>
+                <h:inputHidden class="form-control" id="employeeVersion" value="#{cc.attrs.employee.version}"/>
+                <h:message for="employeeId" errorClass="text-danger"/>
+            </h:panelGroup>    
             
             
 
@@ -68,6 +65,9 @@
                              value="#{cc.attrs.employee.contact}"/>
                 <h:message for="contact" errorClass="text-danger"/>
             </h:panelGroup>
+            
+           
+            
 
             <h:panelGroup layout="block" class="form-group">
                 <h:outputLabel for="employeeType" value="Employee Type:"/>
@@ -87,11 +87,37 @@
                 <h:message for="employeeType" errorClass="text-danger"/>
             </h:panelGroup>
             
+            <ui:fragment rendered="#{cc.attrs.admin}">
+            <h:panelGroup layout="block" class="form-group">
+                <h:outputLabel for="salon" value="salon"/>
+                <h:selectOneMenu  
+                    readonly="#{cc.attrs.readonly ? 'true' : 'false'}"
+                    disabled="#{cc.attrs.readonly ? 'true' : 'false'}"
+                    class="form-control"
+                    converter="salonConverter"
+                    id="salon" 
+                    value="#{cc.attrs.employee.salon}">
+                    <f:selectItems value="#{salonService.findAll()}" 
+                                   var="salon"
+                                   itemLabel="#{salon.fullName}"
+                                   itemValue="#{salon}">
+                    </f:selectItems>
+                </h:selectOneMenu>
+
+                <h:message for="salon" errorClass="text-danger"/>
+            </h:panelGroup>
+            </ui:fragment>
+            
+            
+           
+            
             
 
             <ui:fragment rendered="#{not cc.attrs.readonly  or cc.attrs.employeeAction == 'delete'}">
                  <h:commandButton class="btn btn-lg btn-primary btn-block" value="#{cc.attrs.buttonValue}" action="#{cc.attrs.action}"/>
              </ui:fragment>
+            
+            
         </h:form>
     </cc:implementation>
 </html>

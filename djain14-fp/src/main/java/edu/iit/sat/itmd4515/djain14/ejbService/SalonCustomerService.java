@@ -9,8 +9,6 @@ import edu.iit.sat.itmd4515.djain14.domain.SalonCustomers;
 import java.util.List;
 import javax.ejb.Stateless;
 import javax.inject.Named;
-import javax.persistence.EntityManager;
-import javax.persistence.PersistenceContext;
 
 /**
  *
@@ -18,42 +16,25 @@ import javax.persistence.PersistenceContext;
  */
 @Named
 @Stateless
-public class SalonCustomerService {
+public class SalonCustomerService extends AbstractService<SalonCustomers> {
 
-    @PersistenceContext(name = "itmd4515DS")
-    private EntityManager em;
-    
     public SalonCustomerService() {
+        super(SalonCustomers.class);
     }
-    
-    public void Create(SalonCustomers sc){
-        em.persist(sc);
-    }
-    
-    public SalonCustomers find(long id){
-        return em.find(SalonCustomers.class, id);
-    }
-    
-    public List<SalonCustomers> findAll(){
+
+    @Override
+    public List<SalonCustomers> findAll() {
         return em.createNamedQuery("salonCustomers.findAll", SalonCustomers.class).getResultList();
     }
-    
-    public SalonCustomers findByName(String fullName){
+
+    public SalonCustomers findByName(String fullName) {
         return em.createNamedQuery("salonCustomers.findByName", SalonCustomers.class).getSingleResult();
     }
-    
-    public SalonCustomers findByUserName(String userName){
-        return em.createNamedQuery("saloncustomers.findByUserName",SalonCustomers.class)
+
+    public SalonCustomers findByUserName(String userName) {
+        return em.createNamedQuery("saloncustomers.findByUserName", SalonCustomers.class)
                 .setParameter("userName", userName)
                 .getSingleResult();
     }
-    public void update(SalonCustomers sc){
-        em.merge(sc);
-    }
-    
-    public void delete(SalonCustomers sc){
-        em.remove(em.merge(sc));
-    }
-    
-    
+
 }

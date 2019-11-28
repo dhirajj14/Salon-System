@@ -12,7 +12,7 @@
     <ui:define name="content">
         <h:dataTable 
             class="table table-striped table-hover"
-            value="#{salonController.salon.employees}" var="employee">
+            value="#{managerController.employeeList}" var="employee">
             <h:column>
                 <h:outputText value="#{employee.id}"/>
                 <f:facet name="header"><h:outputText value="Employee ID"></h:outputText></f:facet>
@@ -38,12 +38,32 @@
                 <f:facet name="header"><h:outputText value="Employee Type"></h:outputText></f:facet>
             </h:column>
             
+              <h:column>
+                  <h:outputText value="#{employee.salon.fullName}"/>
+                <f:facet name="header"><h:outputText value="Salon"></h:outputText></f:facet>
+            </h:column>
+            
+            <h:column>
+                <h:outputText value="#{employee.createdDateTime}">
+                    <f:convertDateTime type="localDateTime" dateStyle="short"/>
+                </h:outputText>
+                <f:facet name="header"><h:outputText value="Created Timestamp"/></f:facet>
+            </h:column>
+            
+             <h:column>
+                 <h:outputText value="#{employee.updatedDateTime}">
+                    <f:convertDateTime type="localDateTime" dateStyle="short"/>
+                </h:outputText>
+                <f:facet name="header"><h:outputText value="Updated Timestamp"/></f:facet>
+            </h:column>
+            
             <h:column>
                 <h:form>
-                    <h:commandLink value="View" action="#{managerController.prepareViewEmployee(employee)}"/>
-                    <h:commandLink value="Update" action="#{managerController.prepareUpdateEmployee(employee)}"/>
-                    <h:commandLink value="Delete" action="#{managerController.prepareDeleteEmployee(employee)}"/>
+                    <h:commandLink value="View " action="#{managerController.prepareViewEmployee(employee)}"/>
+                    <h:commandLink value="Update " action="#{managerController.prepareUpdateEmployee(employee)}"/>
+                    <h:commandLink value="Delete " action="#{managerController.prepareDeleteEmployee(employee)}"/>
                 </h:form>
+                <f:facet name="header"><h:outputText value="Actions"/></f:facet>
             </h:column>
             
         </h:dataTable>

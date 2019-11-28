@@ -5,8 +5,8 @@
  */
 package edu.iit.sat.itmd4515.djain14.domain;
 
-
 import java.time.LocalDateTime;
+import javax.persistence.Column;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
@@ -21,33 +21,35 @@ import javax.persistence.Version;
  */
 @MappedSuperclass
 public class AbstractIdentifiedEntity {
-    
+
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    protected long id;
-    
+    protected Long id;
+
     @Version
     private Long version;
 
-        private LocalDateTime createdDateTime;
-        private LocalDateTime updatedDateTime;
+    @Column(updatable = false, insertable = true)
+    private LocalDateTime createdDateTime;
+
+    @Column(updatable = true, insertable = false)
+    private LocalDateTime updatedDateTime;
 
     /**
      * Get the value of updatedDateTime
      *
      * @return the value of updatedDateTime
      */
-     @PrePersist 
-     
-    public void prePersist(){
+    @PrePersist
+    public void prePersist() {
         createdDateTime = LocalDateTime.now();
     }
-    
-    @PreUpdate   
-    public void preUpdate(){
+
+    @PreUpdate
+    public void preUpdate() {
         updatedDateTime = LocalDateTime.now();
     }
-    
+
     public LocalDateTime getUpdatedDateTime() {
         return updatedDateTime;
     }
@@ -102,7 +104,7 @@ public class AbstractIdentifiedEntity {
      *
      * @return the value of id
      */
-    public long getId() {
+    public Long getId() {
         return id;
     }
 
@@ -111,7 +113,7 @@ public class AbstractIdentifiedEntity {
      *
      * @param id new value of id
      */
-    public void setId(long id) {
+    public void setId(Long id) {
         this.id = id;
     }
 
@@ -139,7 +141,5 @@ public class AbstractIdentifiedEntity {
         }
         return true;
     }
-    
-    
-    
+
 }

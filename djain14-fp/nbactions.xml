@@ -22,4 +22,16 @@
                 <sonar.login>4ca310ffd7b5f79a9fe66130b313ba38f1a3aa06</sonar.login>
             </properties>
         </action>
+        <action>
+            <actionName>build</actionName>
+            <packagings>
+                <packaging>*</packaging>
+            </packagings>
+            <goals>
+                <goal>install</goal>
+            </goals>
+            <properties>
+                <skipTests>true</skipTests>
+            </properties>
+        </action>
     </actions>

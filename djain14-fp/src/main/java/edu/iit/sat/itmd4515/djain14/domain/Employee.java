@@ -9,6 +9,7 @@ import edu.iit.sat.itmd4515.djain14.domain.security.User;
 import java.io.Serializable;
 import java.util.ArrayList;
 import java.util.List;
+import javax.persistence.CascadeType;
 import javax.persistence.Entity;
 import javax.persistence.JoinColumn;
 import javax.persistence.ManyToOne;
@@ -26,29 +27,27 @@ import javax.validation.constraints.NotNull;
 @NamedQuery(name = "employee.findByUserName", query = "select e from Employee e where e.user = :user")
 @NamedQuery(name = "employee.findAllBySalon", query = "select e from Employee e Where e.salon = :salon")
 @Entity
-public class Employee extends AbstractNamedEntity implements Serializable{
+public class Employee extends AbstractNamedEntity implements Serializable {
 
     @OneToOne
     @JoinColumn(name = "USERNAME")
     private User user;
 
-  
-    
-    @OneToMany(mappedBy = "employee")
+    @OneToMany(mappedBy = "employee", cascade = CascadeType.REFRESH, orphanRemoval = true)
     private List<Appointment> appointments = new ArrayList<>();
-    
+
     @ManyToOne
     private Salon salon;
-    
+
     private String address;
-    
+
     @NotNull
     private String emailId;
-    
+
     @NotNull
     private String contact;
-    
-        private EmployeeType employeeType;
+
+    private EmployeeType employeeType;
 
     /**
      * Get the value of employeeType
@@ -67,17 +66,17 @@ public class Employee extends AbstractNamedEntity implements Serializable{
     public void setEmployeeType(EmployeeType employeeType) {
         this.employeeType = employeeType;
     }
-    
-     public Salon getSalon() {
+
+    public Salon getSalon() {
         return salon;
     }
 
-      public void setSalon(Salon s) {
+    public void setSalon(Salon s) {
         this.salon = s;
     }
-     public Employee() {
+
+    public Employee() {
     }
-    
 
     public Employee(String fullName, String address, String emailId, String contact, EmployeeType employeeType) {
         this.fullName = fullName;
@@ -85,10 +84,9 @@ public class Employee extends AbstractNamedEntity implements Serializable{
         this.emailId = emailId;
         this.contact = contact;
         this.employeeType = employeeType;
-        
+
     }
-    
-    
+
     /**
      * Get the value of contact
      *
@@ -106,7 +104,6 @@ public class Employee extends AbstractNamedEntity implements Serializable{
     public void setContact(String contact) {
         this.contact = contact;
     }
-
 
     /**
      * Get the value of emailId
@@ -126,7 +123,6 @@ public class Employee extends AbstractNamedEntity implements Serializable{
         this.emailId = emailId;
     }
 
-
     /**
      * Get the value of address
      *
@@ -145,12 +141,11 @@ public class Employee extends AbstractNamedEntity implements Serializable{
         this.address = address;
     }
 
-   
     @Override
     public String toString() {
         return "Employee{" + "id=" + id + ", fullName=" + fullName + ", address=" + address + ", emailId=" + emailId + ", contact=" + contact + ", employeeType=" + employeeType + '}';
     }
-    
+
     void setType(String lizard) {
         throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
     }
@@ -173,13 +168,12 @@ public class Employee extends AbstractNamedEntity implements Serializable{
         this.appointments = appointments;
     }
 
-      public User getUser() {
+    public User getUser() {
         return user;
     }
 
     public void setUser(User user) {
         this.user = user;
     }
-    
-   
+
 }

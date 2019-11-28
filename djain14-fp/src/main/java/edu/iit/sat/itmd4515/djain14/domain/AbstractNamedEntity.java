@@ -16,7 +16,7 @@ import javax.validation.constraints.NotBlank;
  */
 @MappedSuperclass
 public class AbstractNamedEntity extends AbstractIdentifiedEntity {
-    
+
     @NotBlank
     @Column(length = 512, nullable = true, unique = true)
     protected String fullName;
@@ -32,8 +32,8 @@ public class AbstractNamedEntity extends AbstractIdentifiedEntity {
     public void setFullName(String fullName) {
         this.fullName = fullName;
     }
-    
-     /**
+
+    /**
      * Get the value of fullName
      *
      * @return the value of fullName
@@ -67,11 +67,9 @@ public class AbstractNamedEntity extends AbstractIdentifiedEntity {
         return true;
     }
 
-
     /**
      * Get the value of id
      *
      * @return the value of id
      */
-    
 }

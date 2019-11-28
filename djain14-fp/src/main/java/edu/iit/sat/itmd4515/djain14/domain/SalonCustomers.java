@@ -5,7 +5,6 @@
  */
 package edu.iit.sat.itmd4515.djain14.domain;
 
-
 import edu.iit.sat.itmd4515.djain14.domain.security.User;
 import java.io.Serializable;
 import java.util.ArrayList;
@@ -23,45 +22,40 @@ import javax.validation.constraints.NotNull;
  *
  * @author dhira
  */
-@Table(name="customers_details")
+@Table(name = "customers_details")
 @NamedQuery(name = "saloncustomers.findAll", query = "select sc from SalonCustomers sc")
 @NamedQuery(name = "saloncustomers.findByName", query = "select sc from SalonCustomers sc where sc.fullName = :fullName")
 @NamedQuery(name = "saloncustomers.findByUserName", query = "select sc from SalonCustomers sc where sc.user = :userName")
 @Entity
-public class SalonCustomers extends AbstractNamedEntity implements Serializable{
-    
+public class SalonCustomers extends AbstractNamedEntity implements Serializable {
+
     @OneToOne
     @JoinColumn(name = "USERNAME")
     private User user;
-   
+
     @OneToOne
     private Cart cart;
-    
+
     @ManyToOne
     private SalonCustomers salonCustomers;
-    
+
     @OneToMany
-    private List <OrderHistory> orderHistories = new ArrayList();
-    
+    private List<OrderHistory> orderHistories = new ArrayList();
+
     @OneToMany(mappedBy = "salonCustomers")
     //@JoinTable(joinColumns = @JoinColumn(name = "Customer_ID"), inverseJoinColumns = @JoinColumn(name = "Appt_ID"))
     private List<Appointment> appointments = new ArrayList<>();
-    
-    
-    
+
     public SalonCustomers() {
     }
 
-    
     private String address;
-    
+
     @NotNull
     private String emailId;
-    
+
     @NotNull
     private String contact;
-    
-   
 
     public SalonCustomers(String fullName, String address, String emailId, String contact) {
         this.fullName = fullName;
@@ -69,8 +63,7 @@ public class SalonCustomers extends AbstractNamedEntity implements Serializable{
         this.emailId = emailId;
         this.contact = contact;
     }
-    
-    
+
     /**
      * Get the value of contact
      *
@@ -89,7 +82,6 @@ public class SalonCustomers extends AbstractNamedEntity implements Serializable{
         this.contact = contact;
     }
 
-
     /**
      * Get the value of emailId
      *
@@ -107,7 +99,6 @@ public class SalonCustomers extends AbstractNamedEntity implements Serializable{
     public void setEmailId(String emailId) {
         this.emailId = emailId;
     }
-
 
     /**
      * Get the value of address
@@ -134,43 +125,43 @@ public class SalonCustomers extends AbstractNamedEntity implements Serializable{
     public void setAppointments(List<Appointment> appointments) {
         this.appointments = appointments;
     }
-    
-    public void addAppointment(Appointment a){
-        if(!this.appointments.contains(a)){
+
+    public void addAppointment(Appointment a) {
+        if (!this.appointments.contains(a)) {
             this.appointments.add(a);
         }
-        if(!a.getSalonCustomers().equals(this)){
+        if (!a.getSalonCustomers().equals(this)) {
             a.setSalonCustomers(this);
         }
     }
-    
-    public void removeAppointment(Appointment a){
-        if(this.appointments.contains(a)){
+
+    public void removeAppointment(Appointment a) {
+        if (this.appointments.contains(a)) {
             this.appointments.remove(a);
         }
-        if(a.getSalonCustomers().equals(this)){
+        if (a.getSalonCustomers().equals(this)) {
             a.setSalonCustomers(null);
         }
     }
-    
-        public List<OrderHistory> getOrderHistory() {
+
+    public List<OrderHistory> getOrderHistory() {
         return orderHistories;
     }
 
     public void setOrderHistory(List<OrderHistory> orderHistoryies) {
         this.orderHistories = orderHistoryies;
     }
-    
-    public void addOrderHistory(OrderHistory o){
-        if(!this.orderHistories.contains(o)){
+
+    public void addOrderHistory(OrderHistory o) {
+        if (!this.orderHistories.contains(o)) {
             this.orderHistories.add(o);
-            
+
         }
     }
-    
-    public void removeOrderHistory(OrderHistory o){
-        if(this.orderHistories.contains(o)){
-            this.orderHistories.remove(o);   
+
+    public void removeOrderHistory(OrderHistory o) {
+        if (this.orderHistories.contains(o)) {
+            this.orderHistories.remove(o);
         }
     }
 
@@ -182,7 +173,7 @@ public class SalonCustomers extends AbstractNamedEntity implements Serializable{
         this.cart = cart;
     }
 
-     /**
+    /**
      * Get the value of user
      *
      * @return the value of user
@@ -199,13 +190,12 @@ public class SalonCustomers extends AbstractNamedEntity implements Serializable{
     public void setUser(User user) {
         this.user = user;
     }
-    
-    
+
     @Override
     public String toString() {
         return "SalonCustomers{" + "id=" + id + ", fullName=" + fullName + ", address=" + address + ", emailId=" + emailId + ", contact=" + contact + '}';
     }
-    
+
     void setType(String lizard) {
         throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
     }

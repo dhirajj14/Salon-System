@@ -33,14 +33,42 @@
                 <f:facet name="header"><h:outputText value="Contact"></h:outputText></f:facet>
             </h:column>
             
+              <h:column>
+                  <h:outputText value="#{employee.salon.fullName}"/>
+                <f:facet name="header"><h:outputText value="Salon"></h:outputText></f:facet>
+            </h:column>
+            
+            <h:column>
+                <h:outputText value="#{employee.createdDateTime}">
+                    <f:convertDateTime type="localDateTime" dateStyle="short"/>
+                </h:outputText>
+                <f:facet name="header"><h:outputText value="Created Timestamp"/></f:facet>
+            </h:column>
+            
+            <h:column>
+                <h:outputText value="#{employee.updatedDateTime}">
+                    <f:convertDateTime type="localDateTime" dateStyle="short"/>
+                </h:outputText>
+                <f:facet name="header"><h:outputText value="Updated Timestamp"/></f:facet>
+            </h:column>
+            
             <h:column>
                 <h:outputText value="#{employee.employeeType}"/>
                 <f:facet name="header"><h:outputText value="Employee Type"></h:outputText></f:facet>
             </h:column>
             
+             <h:column>
+                <h:form>
+                    <h:commandLink value="View " action="#{adminController.prepareViewEmployee(employee)}"/>
+                    <h:commandLink value="Update " action="#{adminController.prepareUpdatePet(employee)}"/>
+                    <h:commandLink value="Delete " action="#{adminController.prepareDeleteEmployee(employee)}"/>
+                </h:form>
+                <f:facet name="header"><h:outputText value="Actions"/></f:facet>
+            </h:column>
+            
         </h:dataTable>
         <h:form>
-        <h:commandButton class="btn btn-lg btn-primary btn-block" value="Add Employee" action="addemployeeform.xhtml"/>
+            <h:commandButton class="btn btn-lg btn-primary btn-block" value="Add Employee" action="#{adminController.prepareCreateEmployee()}"/>
         </h:form>
     </ui:define>
 

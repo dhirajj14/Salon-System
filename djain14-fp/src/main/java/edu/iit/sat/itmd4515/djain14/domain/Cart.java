@@ -16,21 +16,20 @@ import javax.persistence.OneToMany;
  * @author dhira
  */
 @Entity
-public class Cart extends AbstractIdentifiedEntity implements Serializable{
+public class Cart extends AbstractIdentifiedEntity implements Serializable {
 
     @OneToMany
-    private List <Products> products = new ArrayList<>();
-    
-        private double cartBalance;
+    private List<Products> products = new ArrayList<>();
+
+    private double cartBalance;
 
     public Cart() {
     }
-        
-     
-   
+
     public Cart(double cartBalance) {
         this.cartBalance = cartBalance;
     }
+
     /**
      * Get the value of cartBalance
      *
@@ -40,24 +39,24 @@ public class Cart extends AbstractIdentifiedEntity implements Serializable{
         return cartBalance;
     }
 
-     public void addProducts(Products p){
-        if(!this.products.contains(p)){
+    public void addProducts(Products p) {
+        if (!this.products.contains(p)) {
             this.products.add(p);
             setCartBalance(getCartBalance() + p.getProductPrice());
             //p.setProductQuantity(p.getProductQuantity() - 1);
         }
-     }
-        
-      public List<Products> getProducts(){
-       return products;
     }
-    
-    public void removeProducts(Products p){
-        if(!this.products.contains(p)){
+
+    public List<Products> getProducts() {
+        return products;
+    }
+
+    public void removeProducts(Products p) {
+        if (!this.products.contains(p)) {
             this.products.remove(p);
         }
     }
-    
+
     /**
      * Set the value of cartBalance
      *
@@ -67,8 +66,4 @@ public class Cart extends AbstractIdentifiedEntity implements Serializable{
         this.cartBalance = cartBalance;
     }
 
- 
-    
-    
-    
 }

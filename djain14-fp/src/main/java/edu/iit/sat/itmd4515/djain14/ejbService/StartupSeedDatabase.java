@@ -4,6 +4,7 @@
  * and open the template in the editor.
  */
 package edu.iit.sat.itmd4515.djain14.ejbService;
+
 import edu.iit.sat.itmd4515.djain14.domain.Appointment;
 import edu.iit.sat.itmd4515.djain14.domain.Cart;
 import edu.iit.sat.itmd4515.djain14.domain.Employee;
@@ -34,67 +35,63 @@ import javax.persistence.PersistenceContext;
 @Startup
 @Singleton
 public class StartupSeedDatabase {
-    
+
     private static final Logger LOG = Logger.getLogger(StartupSeedDatabase.class.getName());
-    
+
     @PersistenceContext(name = "itmd4515PU")
     EntityManager em;
 
     @EJB
     EmployeeService employeeSvc;
-    
+
     @EJB
     OrderHistoryService orderSvc;
-    
+
     @EJB
     CartService cartSvs;
-    
+
     @EJB
     AppointmentService appointmentSvc;
-    
+
     @EJB
     ManagerService managerSvc;
-    
-    
+
     @EJB
     SalonCustomerService salonCustomerSvc;
-    
+
     @EJB
     SalonService salonSvc;
-    
+
     @EJB
     ProductsService productSvc;
-    
+
     @EJB
     UserService userSvc;
-    
+
     @EJB
     GroupService groupSvc;
-    
+
     public StartupSeedDatabase() {
     }
-    
+
     @PostConstruct
-    private void seedDatabase(){
+    private void seedDatabase() {
         LOG.info("StartupSeedDatabase");
-        
-        User admin = new User("Admin","Admin", Boolean.TRUE);
+
+        User admin = new User("Admin", "Admin", Boolean.TRUE);
         Group adminGroup = new Group("ADMIN_GROUP", "This group holds admins in this mock identity store");
         Group managerGroup = new Group("MANAGER_GROUP", "This group holds Manager admins in this mock identity store");
         admin.addGroup(adminGroup);
-        
-        
-        
+
         Group employeeGroup = new Group("EMPLOYEE_GROUP", "This group holds employees in this mock identity store");
         Group customerGroup = new Group("CUSTOMER_GROUP", "This group holds admins in this mock identity store");
-        
-        
+
         groupSvc.Create(adminGroup);
         groupSvc.Create(employeeGroup);
         groupSvc.Create(customerGroup);
         groupSvc.Create(managerGroup);
         userSvc.Create(admin);
-        
+
         User employee1 = new User("Employee1", "Employee1", Boolean.TRUE);
         employee1.addGroup(employeeGroup);
         employee1.addGroup(adminGroup);
@@ -108,7 +105,7 @@ public class StartupSeedDatabase {
         customer2.addGroup(customerGroup);
         User manager1 = new User("Manager1", "Manager1", Boolean.TRUE);
         User manager2 = new User("Manager2", "Manager2", Boolean.TRUE);
-        
+
         userSvc.Create(manager1);
         userSvc.Create(manager2);
         userSvc.Create(employee1);
@@ -118,20 +115,13 @@ public class StartupSeedDatabase {
         userSvc.Create(customer2);
         manager1.addGroup(managerGroup);
         manager2.addGroup(managerGroup);
-        
-        
-        
-        
-        
-        
-        
-         
+
         SalonCustomers sc1 = new SalonCustomers("Customer 1", "31st Chicago 60616", "dhirajj75@gmail.com", "123456789");
         sc1.setUser(customer1);
         SalonCustomers sc2 = new SalonCustomers("Customer 2", "31st Chicago 60616", "d@gmail.com", "123456789");
         sc1.setUser(customer2);
-        Appointment a1  = new Appointment(LocalDate.of(2019, Month.NOVEMBER, 30), ServiceType.hairCut, LocalTime.of(10, 30));
-        Appointment a2  = new Appointment(LocalDate.of(2019, Month.NOVEMBER, 30), ServiceType.hairColor, LocalTime.of(12, 30));
+        Appointment a1 = new Appointment(LocalDate.of(2019, Month.NOVEMBER, 30), ServiceType.hairCut, LocalTime.of(10, 30));
+        Appointment a2 = new Appointment(LocalDate.of(2019, Month.NOVEMBER, 30), ServiceType.hairColor, LocalTime.of(12, 30));
         Employee e1 = new Employee("Employee 1", "31st Chicago 60616", "e1@gmail.com", "123456789", EmployeeType.hairCut);
         e1.setUser(employee1);
         Employee e2 = new Employee("Employee 2", "31st Chicago 60616", "e2@gmail.com", "123456789", EmployeeType.hairColor);
@@ -139,16 +129,15 @@ public class StartupSeedDatabase {
         e2.setUser(employee2);
         e3.setUser(employee3);
         Products ps1 = new Products("Hair Cream", 4, 50, "50gms");
-        Salon s1 = new Salon("One Cut", "Chicago","1234567890");
-        Salon s2 = new Salon("Two Cut", "Chicago","1233467890");
-        Salon s3 = new Salon("Three Cut", "Chicago","134567890");
+        Salon s1 = new Salon("One Cut", "Chicago", "1234567890");
+        Salon s2 = new Salon("Two Cut", "Chicago", "1233467890");
+        Salon s3 = new Salon("Three Cut", "Chicago", "134567890");
         Manager m1 = new Manager("Manager 1", "31st Chicago", "manager1@gmail.com", "1234569870");
         Manager m2 = new Manager("Manager 2", "31st Chicago", "manager1@gmail.com", "1234569870");
         Cart c1 = new Cart(0);
         m1.setUser(manager1);
-         m2.setUser(manager2);
-        
-        
+        m2.setUser(manager2);
+
         a1.setSalonCustomers(sc1);
         a2.setSalonCustomers(sc1);
         sc1.addAppointment(a1);
@@ -167,11 +156,10 @@ public class StartupSeedDatabase {
         s2.addemployee(e3);
         c1.addProducts(ps1);
         c1.addProducts(ps1);
-        
-        OrderHistory o = new OrderHistory(c1.getCartBalance(),"400 E 33RD Street","Card",LocalDate.now());
+
+        OrderHistory o = new OrderHistory(c1.getCartBalance(), "400 E 33RD Street", "Card", LocalDate.now());
         sc1.addOrderHistory(o);
-      
-         
+
         cartSvs.Create(c1);
         orderSvc.Create(o);
         salonCustomerSvc.Create(sc1);
@@ -184,21 +172,19 @@ public class StartupSeedDatabase {
         productSvc.Create(ps1);
         salonSvc.Create(s1);
         managerSvc.Create(m1);
-         managerSvc.Create(m2);
+        managerSvc.Create(m2);
         employeeSvc.Create(e3);
         salonSvc.Create(s2);
         salonSvc.Create(s3);
-        
 
         LOG.info("\nappointments :");
-        for(Appointment a : appointmentSvc.findAll()){
-            LOG.info("\n\nAppointment: "+a.toString());
+        for (Appointment a : appointmentSvc.findAll()) {
+            LOG.info("\n\nAppointment: " + a.toString());
         }
-        
-        
-         LOG.info("\nEmployees :");
-        for(Employee e : employeeSvc.findAll()){
+
+        LOG.info("\nEmployees :");
+        for (Employee e : employeeSvc.findAll()) {
             LOG.info(e.toString());
-        }  
+        }
     }
 }

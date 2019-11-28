@@ -17,22 +17,19 @@ import javax.persistence.OneToMany;
  * @author dhira
  */
 @Entity
-public class OrderHistory extends AbstractIdentifiedEntity{
-    
+public class OrderHistory extends AbstractIdentifiedEntity {
+
     @OneToMany
-    private List <Products> products = new ArrayList<>();
+    private List<Products> products = new ArrayList<>();
 
-  
-    
-     private double amount;
-     private String shippingAddress;
-     private String paymentType;
-     private LocalDate orderDate;
+    private double amount;
+    private String shippingAddress;
+    private String paymentType;
+    private LocalDate orderDate;
 
- 
-
-      public OrderHistory() {
+    public OrderHistory() {
     }
+
     public OrderHistory(double amount, String shippingAddress, String paymentType, LocalDate orderDate) {
         this.amount = amount;
         this.shippingAddress = shippingAddress;
@@ -71,11 +68,10 @@ public class OrderHistory extends AbstractIdentifiedEntity{
     public void setOrderDate(LocalDate orderDate) {
         this.orderDate = orderDate;
     }
-    
- 
-        @Override
+
+    @Override
     public String toString() {
         return "OrderHistory{" + "amount=" + amount + ", shippingAddress=" + shippingAddress + ", paymentType=" + paymentType + ", orderDate=" + orderDate + '}';
     }
-     
+
 }

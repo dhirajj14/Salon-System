@@ -10,7 +10,6 @@ import java.time.LocalTime;
 import java.time.Month;
 import javax.persistence.NoResultException;
 import javax.persistence.RollbackException;
-import org.junit.jupiter.api.Assertions;
 import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertNotNull;
 import static org.junit.jupiter.api.Assertions.assertNull;
@@ -33,9 +32,9 @@ public class SalonCustomersTest extends SalonCustomersAbstractTest{
 
         SalonCustomers createSalon = new SalonCustomers("Dhiraj Jain", "31st Chicago 60616", "dhirajj75@gmail.com", "123456789");
         tx.begin();
-        Assertions.assertEquals(0, createSalon.getId());
+        assertNull(createSalon.getId());
         em.persist(createSalon);
-        Assertions.assertEquals(0, createSalon.getId());
+        assertNull(createSalon.getId());
         tx.commit();
         assertNotNull(createSalon.getId());
         System.out.println("\n\n\nCreated Test: " + createSalon.toString() + "\n\n");

@@ -16,34 +16,19 @@ import javax.persistence.PersistenceContext;
  * @author dhira
  */
 @Stateless
-public class ProductsService {
-    @PersistenceContext(name = "itmd4515PU")
-    private EntityManager em;
-    
+public class ProductsService extends AbstractService<Products> {
+
     public ProductsService() {
+        super(Products.class);
     }
-    
-    public void Create(Products ps){
-        em.persist(ps);
-    }
-    
-    public Products find(long id){
-        return em.find(Products.class, id);
-    }
-    
-    public List<Products> findAll(){
+
+    @Override
+    public List<Products> findAll() {
         return em.createNamedQuery("products.findAll", Products.class).getResultList();
     }
-    
-    public Products findByName(String fullName){
+
+    public Products findByName(String fullName) {
         return em.createNamedQuery("products.findByName", Products.class).getSingleResult();
     }
-    
-    public void update(Products ps){
-        em.merge(ps);
-    }
-    
-    public void delete(ProductsService ps){
-        em.remove(em.merge(ps));
-    }
+
 }

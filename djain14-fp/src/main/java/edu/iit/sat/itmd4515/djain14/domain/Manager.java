@@ -19,44 +19,42 @@ import javax.validation.constraints.NotNull;
  */
 @NamedQuery(name = "manager.findByName", query = "select m from Manager m where m.user.userName = :user")
 @Entity
-public class Manager extends AbstractNamedEntity implements Serializable{
+public class Manager extends AbstractNamedEntity implements Serializable {
 
     @OneToOne
     @JoinColumn(name = "USERNAME")
     private User user;
 
-  
-    
     @OneToOne(mappedBy = "manager")
     private Salon salon;
-    
-     private String address;
-    
+
+    private String address;
+
     @NotNull
     private String emailId;
-    
+
     @NotNull
     private String contact;
+
     public Manager() {
     }
-    
-    
+
     public Manager(String fullName, String address, String emailId, String contact) {
         this.fullName = fullName;
         this.address = address;
         this.emailId = emailId;
         this.contact = contact;
-        
+
     }
-    
-      public User getUser() {
+
+    public User getUser() {
         return user;
     }
 
     public void setUser(User user) {
         this.user = user;
     }
-    
+
     /**
      * Get the value of contact
      *
@@ -74,7 +72,6 @@ public class Manager extends AbstractNamedEntity implements Serializable{
     public void setContact(String contact) {
         this.contact = contact;
     }
-
 
     /**
      * Get the value of emailId
@@ -94,7 +91,6 @@ public class Manager extends AbstractNamedEntity implements Serializable{
         this.emailId = emailId;
     }
 
-
     /**
      * Get the value of address
      *
@@ -113,12 +109,11 @@ public class Manager extends AbstractNamedEntity implements Serializable{
         this.address = address;
     }
 
-   
     @Override
     public String toString() {
         return "Employee{" + "id=" + id + ", fullName=" + fullName + ", address=" + address + ", emailId=" + emailId + ", contact=" + contact + '}';
     }
-    
+
     void setType(String lizard) {
         throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
     }
