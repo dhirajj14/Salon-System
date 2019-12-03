@@ -6,70 +6,46 @@
                 xmlns:f="http://xmlns.jcp.org/jsf/core">
 
     <ui:define name="title">
-        Welcome Admin #{loginController.remoteUser}
+        Welcome #{loginController.remoteUser}
     </ui:define>
 
     <ui:define name="content">
-        <h:dataTable 
-            class="table table-striped table-hover"
-            value="#{employeeController.employeeList}" var="employee">
-            <h:column>
-                <h:outputText value="#{employee.id}"/>
-                <f:facet name="header"><h:outputText value="Employee ID"></h:outputText></f:facet>
-            </h:column>
-            
-            <h:column>
-                <h:outputText value="#{employee.fullName}"/>
-                <f:facet name="header"><h:outputText value="Name"></h:outputText></f:facet>
-            </h:column>
-            
-            <h:column>
-                <h:outputText value="#{employee.emailId}"/>
-                <f:facet name="header"><h:outputText value="Email-ID"></h:outputText></f:facet>
-            </h:column>
-            
-            <h:column>
-                <h:outputText value="#{employee.contact}"/>
-                <f:facet name="header"><h:outputText value="Contact"></h:outputText></f:facet>
-            </h:column>
-            
-              <h:column>
-                  <h:outputText value="#{employee.salon.fullName}"/>
-                <f:facet name="header"><h:outputText value="Salon"></h:outputText></f:facet>
-            </h:column>
-            
-            <h:column>
-                <h:outputText value="#{employee.createdDateTime}">
-                    <f:convertDateTime type="localDateTime" dateStyle="short"/>
-                </h:outputText>
-                <f:facet name="header"><h:outputText value="Created Timestamp"/></f:facet>
-            </h:column>
-            
-            <h:column>
-                <h:outputText value="#{employee.updatedDateTime}">
-                    <f:convertDateTime type="localDateTime" dateStyle="short"/>
-                </h:outputText>
-                <f:facet name="header"><h:outputText value="Updated Timestamp"/></f:facet>
-            </h:column>
-            
-            <h:column>
-                <h:outputText value="#{employee.employeeType}"/>
-                <f:facet name="header"><h:outputText value="Employee Type"></h:outputText></f:facet>
-            </h:column>
-            
-             <h:column>
+        <h:panelGroup class="container">
+        <h:panelGroup class="row justify-content-center align-self-center">   
+            <h:panelGroup class="col">
                 <h:form>
-                    <h:commandLink value="View " action="#{adminController.prepareViewEmployee(employee)}"/>
-                    <h:commandLink value="Update " action="#{adminController.prepareUpdatePet(employee)}"/>
-                    <h:commandLink value="Delete " action="#{adminController.prepareDeleteEmployee(employee)}"/>
-                </h:form>
-                <f:facet name="header"><h:outputText value="Actions"/></f:facet>
-            </h:column>
-            
-        </h:dataTable>
-        <h:form>
-            <h:commandButton class="btn btn-lg btn-primary btn-block" value="Add Employee" action="#{adminController.prepareCreateEmployee()}"/>
+            <h:commandButton class="btn btn-lg btn-primary btn-block" value="Manage Employee" action="manageEmployee?faces-redirect=true"/>
         </h:form>
+            </h:panelGroup>  
+              <h:panelGroup class="col">
+                <h:form>
+            <h:commandButton class="btn btn-lg btn-primary btn-block" value="Manage Products" action="manageProducts?faces-redirect=true"/>
+        </h:form>
+            </h:panelGroup>  
+              <h:panelGroup class="col">
+                <h:form>
+            <h:commandButton class="btn btn-lg btn-primary btn-block" value="Manage Salons" action="manageSalons?faces-redirect=true"/>
+        </h:form>
+            </h:panelGroup>  
+        </h:panelGroup>
+        <h:panelGroup class="row">   
+            <h:panelGroup class="col">
+                <h:form>
+            <h:commandButton class="btn btn-lg btn-primary btn-block" value="Manage Appointments" action="manageAppointments?faces-redirect=true"/>
+        </h:form>
+            </h:panelGroup>  
+              <h:panelGroup class="col">
+                <h:form>
+            <h:commandButton class="btn btn-lg btn-primary btn-block" value="#" action="#"/>
+        </h:form>
+            </h:panelGroup>  
+              <h:panelGroup class="col">
+                <h:form>
+            <h:commandButton class="btn btn-lg btn-primary btn-block" value="#" action="#"/>
+        </h:form>
+            </h:panelGroup>  
+        </h:panelGroup>
+        </h:panelGroup>
     </ui:define>
 
 </ui:composition>

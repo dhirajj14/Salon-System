@@ -9,12 +9,15 @@ import java.io.Serializable;
 import java.util.ArrayList;
 import java.util.List;
 import javax.persistence.Entity;
+import javax.persistence.NamedQuery;
 import javax.persistence.OneToMany;
+import javax.persistence.OneToOne;
 
 /**
  *
  * @author dhira
  */
+@NamedQuery(name = "cart.findByProduct", query = "select c from Cart c where c.products = :product")
 @Entity
 public class Cart extends AbstractIdentifiedEntity implements Serializable {
 
@@ -22,10 +25,14 @@ public class Cart extends AbstractIdentifiedEntity implements Serializable {
     private List<Products> products = new ArrayList<>();
 
     private double cartBalance;
+    
+    @OneToOne
+    private SalonCustomers salonCustomers;
+
 
     public Cart() {
     }
-
+    
     public Cart(double cartBalance) {
         this.cartBalance = cartBalance;
     }
@@ -57,6 +64,13 @@ public class Cart extends AbstractIdentifiedEntity implements Serializable {
         }
     }
 
+  public SalonCustomers getSalonCustomers() {
+        return salonCustomers;
+    }
+
+    public void setSalonCustomers(SalonCustomers salonCustomers) {
+        this.salonCustomers = salonCustomers;
+    }    
     /**
      * Set the value of cartBalance
      *

@@ -60,4 +60,6 @@
             <role-name>MANAGER_ROLE</role-name>
         </auth-constraint>
     </security-constraint>
+    
+    
 </web-app>

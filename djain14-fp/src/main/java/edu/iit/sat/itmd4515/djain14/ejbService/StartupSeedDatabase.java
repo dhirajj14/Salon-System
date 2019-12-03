@@ -120,8 +120,8 @@ public class StartupSeedDatabase {
         sc1.setUser(customer1);
         SalonCustomers sc2 = new SalonCustomers("Customer 2", "31st Chicago 60616", "d@gmail.com", "123456789");
         sc1.setUser(customer2);
-        Appointment a1 = new Appointment(LocalDate.of(2019, Month.NOVEMBER, 30), ServiceType.hairCut, LocalTime.of(10, 30));
-        Appointment a2 = new Appointment(LocalDate.of(2019, Month.NOVEMBER, 30), ServiceType.hairColor, LocalTime.of(12, 30));
+        Appointment a1 = new Appointment(LocalDate.of(2020, Month.NOVEMBER, 30), ServiceType.hairCut, LocalTime.of(10, 30));
+        Appointment a2 = new Appointment(LocalDate.of(2020, Month.NOVEMBER, 30), ServiceType.hairColor, LocalTime.of(12, 30));
         Employee e1 = new Employee("Employee 1", "31st Chicago 60616", "e1@gmail.com", "123456789", EmployeeType.hairCut);
         e1.setUser(employee1);
         Employee e2 = new Employee("Employee 2", "31st Chicago 60616", "e2@gmail.com", "123456789", EmployeeType.hairColor);
@@ -144,8 +144,9 @@ public class StartupSeedDatabase {
         sc1.addAppointment(a2);
         a1.setEmployee(e1);
         a2.setEmployee(e2);
-        sc1.setCart(c1);
-        s1.addProduct(ps1);
+        c1.setSalonCustomers(sc1);
+       
+        ps1.setSalon(s3);
         e1.setSalon(s1);
         e2.setSalon(s1);
         e3.setSalon(s2);

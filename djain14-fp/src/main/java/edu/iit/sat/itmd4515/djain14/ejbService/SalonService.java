@@ -6,6 +6,7 @@
 package edu.iit.sat.itmd4515.djain14.ejbService;
 
 import edu.iit.sat.itmd4515.djain14.domain.Manager;
+import edu.iit.sat.itmd4515.djain14.domain.Products;
 import edu.iit.sat.itmd4515.djain14.domain.Salon;
 import java.util.List;
 import javax.ejb.Stateless;
@@ -36,6 +37,10 @@ public class SalonService extends AbstractService<Salon> {
 
     public Salon findByManager(Manager manager) {
         return em.createNamedQuery("salon.findByManager", Salon.class).setParameter("manager", manager).getSingleResult();
+    }
+    
+     public Salon findByProduct(Products products) {
+        return em.createNamedQuery("salon.findByProduct", Salon.class).setParameter("product", products).getSingleResult();
     }
 
 }

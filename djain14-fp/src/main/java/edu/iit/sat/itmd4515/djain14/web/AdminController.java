@@ -7,6 +7,7 @@ package edu.iit.sat.itmd4515.djain14.web;
 
 
 import edu.iit.sat.itmd4515.djain14.domain.Employee;
+import edu.iit.sat.itmd4515.djain14.domain.Products;
 import edu.iit.sat.itmd4515.djain14.domain.Salon;
 import edu.iit.sat.itmd4515.djain14.ejbService.EmployeeService;
 import edu.iit.sat.itmd4515.djain14.ejbService.SalonService;
@@ -29,6 +30,9 @@ public class AdminController {
     private Employee employee;
     
     private Salon salon;
+    
+    private Products products;
+    
 
     @EJB
     private EmployeeService employeeSVC;
@@ -81,7 +85,7 @@ public class AdminController {
             employeeSVC.Create(employee);
         }
          
-        return "/admin/welcome.xhtml?faces-redirect=true";
+        return "/admin/manageEmployee.xhtml?faces-redirect=true";
     }
     
     public String doDeleteEmployee() {
@@ -89,7 +93,7 @@ public class AdminController {
 
         employeeSVC.remove(employee);
 
-        return "/admin/welcome.xhtml?faces-redirect=true";
+        return "/admin/manageEmployee.xhtml?faces-redirect=true";
     }
     
 

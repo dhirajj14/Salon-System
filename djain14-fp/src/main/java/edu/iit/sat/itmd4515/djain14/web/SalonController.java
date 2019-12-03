@@ -53,7 +53,7 @@ public class SalonController {
 
     @PostConstruct
     private void postContruct() {
-        salon = salonSVC.findByManager(managerController.getManager());
+        salon = new Salon();
         
     }
 
@@ -77,14 +77,6 @@ public class SalonController {
 
     public void setManager(Manager manager) {
         this.manager = manager;
-    }
-
-    public Employee getEmployee() {
-        return employee;
-    }
-
-    public void setEmployee(Employee employee) {
-        this.employee = employee;
     }
     
 }

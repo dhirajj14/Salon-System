@@ -17,6 +17,7 @@ import javax.persistence.NamedQuery;
  */
 @NamedQuery(name = "products.findAll", query = "select ps from Products ps")
 @NamedQuery(name = "products.findByName", query = "select ps from Products ps where ps.productName = :productName")
+@NamedQuery(name = "products.findAllBySalon", query = "select p from Products p Where p.salon = :salon")
 @Entity
 public class Products extends AbstractIdentifiedEntity implements Serializable {
 
@@ -24,6 +25,10 @@ public class Products extends AbstractIdentifiedEntity implements Serializable {
     private int productQuantity;
     private double productPrice;
     private String productSize;
+    
+    @ManyToOne
+    private Salon salon;
+
 
     public Products() {
     }
@@ -65,6 +70,13 @@ public class Products extends AbstractIdentifiedEntity implements Serializable {
 
     public void setProductSize(String productSize) {
         this.productSize = productSize;
+    }
+     public Salon getSalon() {
+        return salon;
+    }
+
+    public void setSalon(Salon salon) {
+        this.salon = salon;
     }
 
     @Override

@@ -49,6 +49,8 @@ public class LoginController {
     private ExternalContext externalContext;
    
 
+    private String address="";
+    
     public LoginController() {
     }
     
@@ -58,6 +60,7 @@ public class LoginController {
     
     public boolean isAdmin(){
         return securityContext.isCallerInRole("ADMIN_ROLE");
+        
     }
     
     public boolean isEmployee(){
@@ -137,8 +140,17 @@ public class LoginController {
                LOG.info("case is SUCCESS");
                break;
        }
-        
-        return "/welcome.xhtml?faces-redirect=true";
+       
+       if(isAdmin()){
+           address = "admin";
+       }if(isCustomer()){
+           address = "customer";
+       }if(isEmployee()){
+           address = "employee";
+       }if(isManagerAdmin()){
+           address = "manager";
+       }
+       return "/"+address+"/welcome.xhtml?faces-redirect=true";
     }
     
     public String doLogout(){

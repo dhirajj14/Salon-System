@@ -21,13 +21,11 @@ import javax.persistence.OneToOne;
 @Entity
 @NamedQuery(name = "salon.findAll", query = "select s from Salon s")
 @NamedQuery(name = "salon.findByManager", query = "select s from Salon s where s.manager = :manager")
+
 public class Salon extends AbstractNamedEntity implements Serializable {
 
     @OneToOne
     private Manager manager;
-
-    @OneToMany
-    private List<Products> products = new ArrayList<>();
 
     public Manager getManager() {
         return manager;
@@ -66,27 +64,6 @@ public class Salon extends AbstractNamedEntity implements Serializable {
 
     public void setSalonContact(String salonContact) {
         this.salonContact = salonContact;
-    }
-
-    public List<Products> getProducts() {
-        return products;
-    }
-
-    public void setProducts(List<Products> products) {
-        this.products = products;
-    }
-
-    public void addProduct(Products p) {
-        if (!this.products.contains(p)) {
-            this.products.add(p);
-        }
-
-    }
-
-    public void removeProduct(Products a) {
-        if (this.products.contains(a)) {
-            this.products.remove(a);
-        }
     }
 
     public void addemployee(Employee e) {

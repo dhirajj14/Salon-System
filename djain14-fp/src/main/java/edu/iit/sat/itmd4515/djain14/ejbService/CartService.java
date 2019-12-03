@@ -6,6 +6,7 @@
 package edu.iit.sat.itmd4515.djain14.ejbService;
 
 import edu.iit.sat.itmd4515.djain14.domain.Cart;
+import edu.iit.sat.itmd4515.djain14.domain.Products;
 import java.util.List;
 import javax.ejb.Stateless;
 import javax.persistence.EntityManager;
@@ -32,6 +33,10 @@ public class CartService extends AbstractService<Cart> {
 
     public Cart findByName(String fullName) {
         return em.createNamedQuery("orderHistory.findByName", Cart.class).getSingleResult();
+    }
+    
+     public List<Cart> findByProduct(Products product) {
+        return em.createNamedQuery("cart.findByProduct", Cart.class).setParameter("product", product).getResultList();
     }
 
 }
