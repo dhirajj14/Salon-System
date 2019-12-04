@@ -48,7 +48,6 @@ public class ProductsService extends AbstractService<Products> {
     @Override
     public void update(Products productsFromUserForm) {
         Products productsFromDatabase = em.getReference(entityClass, productsFromUserForm.getId());
-        
         productsFromDatabase.setProductName(productsFromUserForm.getProductName());
         productsFromDatabase.setProductPrice(productsFromUserForm.getProductPrice());
         productsFromDatabase.setProductQuantity(productsFromUserForm.getProductQuantity());

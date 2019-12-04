@@ -151,9 +151,11 @@ public class StartupSeedDatabase {
         e2.setSalon(s1);
         e3.setSalon(s2);
         s1.setManager(m1);
+        m1.setSalon_flag(1);
         s1.addemployee(e1);
         s1.addemployee(e2);
         s2.setManager(m2);
+        m2.setSalon_flag(1);
         s2.addemployee(e3);
         c1.addProducts(ps1);
         c1.addProducts(ps1);

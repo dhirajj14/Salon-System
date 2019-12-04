@@ -5,12 +5,14 @@
  */
 package edu.iit.sat.itmd4515.djain14.web;
 
-import edu.iit.sat.itmd4515.djain14.domain.Employee;
 import edu.iit.sat.itmd4515.djain14.domain.Manager;
+
 import edu.iit.sat.itmd4515.djain14.domain.Salon;
-import edu.iit.sat.itmd4515.djain14.ejbService.EmployeeService;
 import edu.iit.sat.itmd4515.djain14.ejbService.ManagerService;
+
 import edu.iit.sat.itmd4515.djain14.ejbService.SalonService;
+import java.util.ArrayList;
+import java.util.List;
 import java.util.logging.Logger;
 import javax.annotation.PostConstruct;
 import javax.ejb.EJB;
@@ -20,49 +22,100 @@ import javax.inject.Named;
 
 /**
  *
- * @author dhira
+ * @author sas691
  */
 @Named
 @RequestScoped
-
 public class SalonController {
-    
 
-    private Salon salon;
-    
-    private Manager manager;
-    
-    private Employee employee;
-    @EJB
-    private SalonService salonSVC;
-    
-    @EJB
-    private ManagerService managerSVC;
-    
-    @Inject
-    private LoginController loginController;
-    
-    @Inject
-    private ManagerController managerController;
-    
     private static final Logger LOG = Logger.getLogger(SalonController.class.getName());
 
-   
+
+    private Salon salon;
+
+    private Manager manager;
+
+    String address = "";
+
+  
+    @EJB
+    private SalonService salonSVC;
+
+    @EJB
+    private ManagerService managerSVC;
+
+    @Inject
+    private LoginController loginController;
+
+    private List<Salon> sList = new ArrayList<>();
+
     public SalonController() {
     }
 
     @PostConstruct
     private void postContruct() {
         salon = new Salon();
-        
+
+        if (loginController.isAdmin()) {
+            sList = salonSVC.findAll();
+        }
+       
+
     }
 
-    public String doSaveSalon(){
-        LOG.info("Inside ManagerController doSaveManager with " + manager.toString() );
-        managerSVC.Create(manager);
-        return "welcome.xhtml";
+    public String prepareViewSalons(Salon s) {
+        this.salon = s;
+        LOG.info("Inside doViewsalons with " + this.salon.toString());
+        return "/admin/viewSalon.xhtml";
     }
+
+    public String prepareUpdateSalons(Salon s) {
+        this.salon = s;
+        LOG.info("Inside prepareUpdatesalons with " + salon.toString());
+        return "/admin/editSalon.xhtml";
+    }
+
+    public String prepareCreateSalons() {
+        this.salon = new Salon();
+        LOG.info("Inside doCreateAdmin");
+        return "/admin/editSalon.xhtml";
+    }
+
+    public String prepareDeleteSalons(Salon p) {
+        this.salon = p;
+        LOG.info("Inside doDeletesalons with " + this.salon.toString());
+        return "/admin/deleteSalon.xhtml";
+    }
+
+    //action Methods
+    public String doSaveSalon() {
+        LOG.info("Inside AdminController doSavesalon with " + this.salon.toString());
+        if (loginController.isAdmin()) {
+            if (this.salon.getId() != null) {
+                LOG.info("updating on " + this.salon.toString());
+                salonSVC.update(salon);
+            } else {
+                salonSVC.Create(salon);
+            }
+        }
+
+      
+
+        return "/admin/manageSalons.xhtml?faces-redirect=true";
+    }
+
+    public String doDeleteSalon() {
+        LOG.info("Inside AdminController doDeleteEmployee with " + this.salon.toString());
+        salonSVC.remove(salon);
+        return "/admin/manageSalons.xhtml?faces-redirect=true";
+    }
+
+    public List<Salon> getsalonList() {
+        return sList;
+    }
+
     
+
     public Salon getSalon() {
         return salon;
     }
@@ -70,13 +123,4 @@ public class SalonController {
     public void setSalon(Salon salon) {
         this.salon = salon;
     }
-    
-     public Manager getManager() {
-        return manager;
-    }
-
-    public void setManager(Manager manager) {
-        this.manager = manager;
-    }
-    
 }

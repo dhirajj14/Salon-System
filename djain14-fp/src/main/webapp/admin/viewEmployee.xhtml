@@ -9,10 +9,10 @@
     </ui:define>
 
     <ui:define name="content">
-        <ezcomp:employee employee="#{adminController.employee}"
+        <ezcomp:employee employee="#{employeeController.employee}"
                          admin ="#{loginController.admin}"
                          readonly="true" 
-                         action="#{adminController.doSaveEmployee()}"/>
+                         action="#{employeeController.doSaveEmployee()}"/>
     </ui:define>
 
 </ui:composition>

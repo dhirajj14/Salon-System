@@ -60,8 +60,8 @@
              <h:column>
                 <h:form>
                     <h:commandLink value="View " action="#{adminController.prepareViewEmployee(employee)}"/>
-                    <h:commandLink value="Update " action="#{adminController.prepareUpdatePet(employee)}"/>
-                    <h:commandLink value="Delete " action="#{adminController.prepareDeleteEmployee(employee)}"/>
+                    <h:commandLink value="Update " action="#{employeeController.prepareUpdateEmployee(employee)}"/>
+                    <h:commandLink value="Delete " action="#{employeeController.prepareDeleteEmployee(employee)}"/>
                 </h:form>
                 <f:facet name="header"><h:outputText value="Actions"/></f:facet>
             </h:column>
@@ -70,7 +70,7 @@
         <h:panelGroup class="row">   
             <h:panelGroup class="col">
                 <h:form>
-            <h:commandButton class="btn btn-lg btn-primary btn-block" value="Add Employee" action="#{adminController.prepareCreateEmployee()}"/>
+            <h:commandButton class="btn btn-lg btn-primary btn-block" value="Add Employee" action="#{employeeController.prepareCreateEmployee()}"/>
         </h:form>
             </h:panelGroup>  
         </h:panelGroup>

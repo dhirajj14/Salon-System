@@ -1,0 +1,73 @@
+<?xml version='1.0' encoding='UTF-8' ?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:cc="http://xmlns.jcp.org/jsf/composite"
+      xmlns:h="http://xmlns.jcp.org/jsf/html"
+      xmlns:f="http://xmlns.jcp.org/jsf/core"
+      xmlns:ui="http://xmlns.jcp.org/jsf/facelets">
+
+    <!-- INTERFACE -->
+    <cc:interface>
+        <cc:attribute name="salon" required="true" type="edu.iit.sat.itmd4515.djain14.domain.Salon"/>
+        <cc:attribute name="buttonValue" required="false" default="Save" type="java.lang.String" />
+         <cc:attribute name="admin" required="false" default="false" type="java.lang.Boolean" />
+         <cc:attribute name="readonly" required="false" default="true" type="java.lang.Boolean" />
+         <cc:attribute name="salonAction" required="false" default="" type="java.lang.String" />
+        <cc:attribute name="action" required="false" method-signature="java.lang.String action()" />
+    </cc:interface>
+
+    <!-- IMPLEMENTATION -->
+    <cc:implementation>
+       
+        <h:form>
+             <ui:fragment rendered="#{cc.attrs.admin}">
+              <h:panelGroup layout="block" class="form-group">
+                  <h:outputLabel for="salonId" value="Salon ID #{cc.attrs.salon.id} v#{cc.attrs.salon.version}"/>
+                <h:inputHidden class="form-control" id="salonId" value="#{cc.attrs.salon.id}"/>
+                <h:inputHidden class="form-control" id="salonVersion" value="#{cc.attrs.salon.version}"/>
+                <h:message for="salonId" errorClass="text-danger"/>
+            </h:panelGroup>    
+            
+            
+
+            <h:panelGroup layout="block" class="form-group">
+                <h:outputLabel for="fullName" value="Salon Name:"/>
+                <h:inputText 
+                    readonly="#{cc.attrs.readonly ? 'true' : 'false'}" 
+                    class="form-control" 
+                    id="fullName" 
+                    value="#{cc.attrs.salon.fullName}"/>
+                <h:message for="fullName" errorClass="text-danger"/>
+            </h:panelGroup>
+
+            <h:panelGroup layout="block" class="form-group">
+                <h:outputLabel for="address" value="Address:"/>
+                <h:inputText 
+                    readonly="#{cc.attrs.readonly ? 'true' : 'false'}"
+                    class="form-control" 
+                    id="address" 
+                    value="#{cc.attrs.salon.salonLocation}"/>
+                <h:message for="address" errorClass="text-danger"/>
+            </h:panelGroup>
+
+
+            <h:panelGroup layout="block" class="form-group">
+                <h:outputLabel for="contact" value="Contact No.:"/>
+                <h:inputText readonly="#{cc.attrs.readonly ? 'true' : 'false'}"
+                             class="form-control"
+                             id="contact"
+                             value="#{cc.attrs.salon.salonContact}"/>
+                <h:message for="contact" errorClass="text-danger"/>
+            </h:panelGroup>
+     
+            </ui:fragment>
+            
+            
+            <ui:fragment rendered="#{not cc.attrs.readonly  or cc.attrs.salonAction == 'delete'}">
+                 <h:commandButton class="btn btn-lg btn-primary btn-block" value="#{cc.attrs.buttonValue}" action="#{cc.attrs.action}"/>
+             </ui:fragment>
+            
+             </h:form>  
+        
+    </cc:implementation>
+</html>

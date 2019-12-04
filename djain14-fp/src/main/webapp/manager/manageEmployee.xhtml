@@ -12,7 +12,7 @@
     <ui:define name="content">
         <h:dataTable 
             class="table table-striped table-hover"
-            value="#{managerController.employeeList}" var="employee">
+            value="#{employeeController.employeeList}" var="employee">
             <h:column>
                 <h:outputText value="#{employee.id}"/>
                 <f:facet name="header"><h:outputText value="Employee ID"></h:outputText></f:facet>
@@ -59,9 +59,9 @@
             
              <h:column>
                 <h:form>
-                    <h:commandLink value="View " action="#{managerController.prepareViewEmployee(employee)}"/>
-                    <h:commandLink value="Update " action="#{managerController.prepareUpdateEmployee(employee)}"/>
-                    <h:commandLink value="Delete " action="#{managerController.prepareDeleteEmployee(employee)}"/>
+                    <h:commandLink value="View " action="#{employeeController.prepareViewEmployee(employee)}"/>
+                    <h:commandLink value="Update " action="#{employeeController.prepareUpdateEmployee(employee)}"/>
+                    <h:commandLink value="Delete " action="#{employeeController.prepareDeleteEmployee(employee)}"/>
                 </h:form>
                 <f:facet name="header"><h:outputText value="Actions"/></f:facet>
             </h:column>
@@ -70,7 +70,7 @@
         <h:panelGroup class="row">   
             <h:panelGroup class="col">
                 <h:form>
-                    <h:commandButton class="btn btn-lg btn-primary btn-block" value="Add Employee" action="#{managerController.prepareCreateEmployee()}"/>
+                    <h:commandButton class="btn btn-lg btn-primary btn-block" value="Add Employee" action="#{adminController.prepareCreateEmployee()}"/>
         </h:form>
             </h:panelGroup>  
         </h:panelGroup>

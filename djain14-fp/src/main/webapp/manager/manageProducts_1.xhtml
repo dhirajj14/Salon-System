@@ -6,40 +6,40 @@
                 xmlns:f="http://xmlns.jcp.org/jsf/core">
 
     <ui:define name="title">
-        Manage Salon
+        Manage Products
     </ui:define>
 
     <ui:define name="content">
         <h:dataTable 
             class="table table-striped table-hover"
-            value="#{salonController.getsalonList()}" var="salon">
+            value="#{productController.productsList}" var="product">
             <h:column>
-                <h:outputText value="#{salon.id}"/>
-                <f:facet name="header"><h:outputText value="Salon ID"></h:outputText></f:facet>
+                <h:outputText value="#{product.id}"/>
+                <f:facet name="header"><h:outputText value="Product ID"></h:outputText></f:facet>
             </h:column>
             
             <h:column>
-                <h:outputText value="#{salon.fullName}"/>
+                <h:outputText value="#{product.productName}"/>
                 <f:facet name="header"><h:outputText value="Name"></h:outputText></f:facet>
             </h:column>
             
             <h:column>
-                <h:outputText value="#{salon.salonContact}"/>
-                <f:facet name="header"><h:outputText value="Contact"></h:outputText></f:facet>
+                <h:outputText value="#{product.productPrice}"/>
+                <f:facet name="header"><h:outputText value="Price"></h:outputText></f:facet>
             </h:column>
             
             <h:column>
-                <h:outputText value="#{salon.salonLocation}"/>
-                <f:facet name="header"><h:outputText value="Location"></h:outputText></f:facet>
+                <h:outputText value="#{product.productQuantity}"/>
+                <f:facet name="header"><h:outputText value="Quantity"></h:outputText></f:facet>
             </h:column>
             
               <h:column>
-                  <h:outputText value="#{salon.manager.fullName}"/>
-                <f:facet name="header"><h:outputText value="Manager"></h:outputText></f:facet>
+                  <h:outputText value="#{product.productSize}"/>
+                <f:facet name="header"><h:outputText value="Size"></h:outputText></f:facet>
             </h:column>
             
             <h:column>
-                <h:outputText value="#{salon.createdDateTime}">
+                <h:outputText value="#{product.createdDateTime}">
                     <f:convertDateTime type="localDateTime" dateStyle="short"/>
                 </h:outputText>
                 <f:facet name="header"><h:outputText value="Created Timestamp"/></f:facet>
@@ -49,9 +49,9 @@
             
              <h:column>
                 <h:form>
-                    <h:commandLink value="View " action="#{salonController.prepareViewSalons(salon)}"/>
-                    <h:commandLink value="Update " action="#{salonController.prepareUpdateSalons(salon)}"/>
-                    <h:commandLink value="Delete " action="#{salonController.prepareDeleteSalons(salon)}"/>
+                    <h:commandLink value="View " action="#{productController.prepareViewProducts(product)}"/>
+                    <h:commandLink value="Update " action="#{productController.prepareUpdateProducts(product)}"/>
+                    <h:commandLink value="Delete " action="#{productController.prepareDeleteProducts(product)}"/>
                 </h:form>
                 <f:facet name="header"><h:outputText value="Actions"/></f:facet>
             </h:column>
@@ -60,7 +60,7 @@
         <h:panelGroup class="row">   
             <h:panelGroup class="col">
                 <h:form>
-                    <h:commandButton class="btn btn-lg btn-primary btn-block" value="Add Salon" action="#{salonController.prepareCreateSalons()}"/>
+                    <h:commandButton class="btn btn-lg btn-primary btn-block" value="Add Products" action="#{productController.prepareCreateProducts()}"/>
         </h:form>
             </h:panelGroup>  
         </h:panelGroup>

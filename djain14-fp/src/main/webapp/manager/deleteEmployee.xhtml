@@ -5,14 +5,14 @@
                 xmlns:ezcomp="http://xmlns.jcp.org/jsf/composite/ezcomp">
 
     <ui:define name="title">
-        Confirm Deletion of pet #{managerController.employee.fullName}
+        Confirm Deletion of pet #{employeeController.employee.fullName}
     </ui:define>
 
     <ui:define name="content">
-        <ezcomp:employee employee="#{managerController.employee}" 
+        <ezcomp:employee employee="#{employeeController.employee}" 
                          employeeAction="delete" 
                          buttonValue="Confirm Delete" 
-                         action="#{managerController.doDeleteEmployee()}"/>
+                         action="#{employeeController.doDeleteEmployee()}"/>
     </ui:define>
 
 </ui:composition>

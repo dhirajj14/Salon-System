@@ -35,6 +35,11 @@ public class Manager extends AbstractNamedEntity implements Serializable {
 
     @NotNull
     private String contact;
+    
+    @NotNull
+    private int salon_flag = 0;
+
+   
 
     public Manager() {
     }
@@ -44,7 +49,6 @@ public class Manager extends AbstractNamedEntity implements Serializable {
         this.address = address;
         this.emailId = emailId;
         this.contact = contact;
-
     }
 
     public User getUser() {
@@ -107,6 +111,14 @@ public class Manager extends AbstractNamedEntity implements Serializable {
      */
     public void setAddress(String address) {
         this.address = address;
+    }
+    
+     public int getSalon_flag() {
+        return salon_flag;
+    }
+
+    public void setSalon_flag(int salon_flag) {
+        this.salon_flag = salon_flag;
     }
 
     @Override
