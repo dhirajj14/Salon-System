@@ -6,8 +6,10 @@
 package edu.iit.sat.itmd4515.djain14.web;
 
 
-import edu.iit.sat.itmd4515.djain14.domain.Salon;
-import edu.iit.sat.itmd4515.djain14.ejbService.SalonService;
+
+
+import edu.iit.sat.itmd4515.djain14.domain.security.Group;
+import edu.iit.sat.itmd4515.djain14.ejbService.GroupService;
 import javax.ejb.EJB;
 import javax.faces.component.UIComponent;
 import javax.faces.context.FacesContext;
@@ -18,19 +20,20 @@ import javax.faces.convert.FacesConverter;
  *
  * @author sas691
  */
-@FacesConverter(managed = true, value="salonConverter")
-public class SalonConverter implements Converter {
+@FacesConverter(managed = true, value="groupConverter", forClass = Group.class)
+public class GroupConverter implements Converter {
 
     @EJB
-    private SalonService salonSVC;
+    private GroupService groupSVC;
+    
+    private Group group;
     
     @Override
     public Object getAsObject(FacesContext context, UIComponent component, String value) {
         if(value == null || value.isEmpty()){
             return null;
         }
-           System.out.println("salon message "+value);
-        return salonSVC.findByName(value);
+        return groupSVC.find(value);
     }
 
     @Override
@@ -38,8 +41,7 @@ public class SalonConverter implements Converter {
         if(value == null ){
             return "";
         }
-        
-        return String.valueOf(((Salon)value).getId());
+        return String.valueOf(((Group)value));
     }
     
 }

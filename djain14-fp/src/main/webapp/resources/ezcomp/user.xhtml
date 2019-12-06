@@ -1,0 +1,72 @@
+<?xml version='1.0' encoding='UTF-8' ?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:cc="http://xmlns.jcp.org/jsf/composite"
+      xmlns:h="http://xmlns.jcp.org/jsf/html"
+      xmlns:f="http://xmlns.jcp.org/jsf/core"
+      xmlns:ui="http://xmlns.jcp.org/jsf/facelets">
+
+    <!-- INTERFACE -->
+    <cc:interface>
+        <cc:attribute name="user" required="true" type="edu.iit.sat.itmd4515.djain14.domain.security.User"/>
+        <cc:attribute name="buttonValue" required="false" default="Save" type="java.lang.String" />
+         <cc:attribute name="admin" required="false" default="false" type="java.lang.Boolean" />
+         <cc:attribute name="readonly" required="false" default="true" type="java.lang.Boolean" />
+         <cc:attribute name="userAction" required="false" default="" type="java.lang.String" />
+         <cc:attribute name="groupAction" required="false" default="" type="java.lang.String" />
+        <cc:attribute name="action" required="false" method-signature="java.lang.String action()" />
+    </cc:interface>
+
+    <!-- IMPLEMENTATION -->
+    <cc:implementation>
+        <h:form>
+           
+            
+            <h:panelGroup layout="block" class="form-group">
+                <h:outputLabel for="userName" value="User Name:"/>
+                <h:inputText 
+                    readonly="#{cc.attrs.readonly ? 'true' : 'false'}" 
+                    class="form-control" 
+                    id="userName" 
+                    value="#{cc.attrs.user.userName}"/>
+                <h:message for="userName" errorClass="text-danger"/>
+            </h:panelGroup>
+
+            <h:panelGroup layout="block" class="form-group">
+                <h:outputLabel for="password" value="Password:"/>
+                <h:inputText 
+                    readonly="#{cc.attrs.readonly ? 'true' : 'false'}"
+                    class="form-control" 
+                    id="address" 
+                    value="#{cc.attrs.user.password}"/>
+                <h:message for="password" errorClass="text-danger"/>
+            </h:panelGroup>
+
+
+            <h:panelGroup layout="block" class="form-group">
+                <h:outputLabel for="groupType" value="Group Type:"/>
+                <h:selectManyListbox
+                    readonly="#{cc.attrs.readonly ? 'true' : 'false'}"
+                    disabled="#{cc.attrs.readonly ? 'true' : 'false'}"
+                    converter="groupConverter"
+                    class="form-control"
+                    id="groupType" 
+                    value="#{cc.attrs.user.groups}">
+                    <f:selectItems value="#{groupService.findAll()}" 
+                                   var="g"
+                                   itemLabel="#{g.groupName}"
+                                   itemValue="#{g}"/>
+                </h:selectManyListbox>
+
+                <h:message for="groupType" errorClass="text-danger"/>
+            </h:panelGroup>
+            
+
+            <ui:fragment rendered="#{not cc.attrs.readonly  or cc.attrs.userAction == 'delete'}">
+                 <h:commandButton class="btn btn-lg btn-primary btn-block" value="#{cc.attrs.buttonValue}" action="#{cc.attrs.action}"/>
+             </ui:fragment>
+            
+            
+        </h:form>
+    </cc:implementation>
+</html>

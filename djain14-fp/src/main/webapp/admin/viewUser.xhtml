@@ -9,10 +9,10 @@
     </ui:define>
 
     <ui:define name="content">
-        <ezcomp:salon salon="#{salonController.salon}"
-                         admin ="#{loginController.admin}"
-                         readonly="true" 
-                         action="#{salonController.doSaveSalon()}"/>
+        <ezcomp:user user="#{userController.user}"
+                     admin ="#{loginController.admin}"
+                     readonly="true" 
+                     action="#{userController.doSaveUser()}"/>
     </ui:define>
 
 </ui:composition>
