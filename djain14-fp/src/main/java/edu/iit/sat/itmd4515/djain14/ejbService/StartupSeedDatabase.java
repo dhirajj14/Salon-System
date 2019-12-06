@@ -143,7 +143,10 @@ public class StartupSeedDatabase {
         sc1.addAppointment(a1);
         sc1.addAppointment(a2);
         a1.setEmployee(e1);
+        
+      
         a2.setEmployee(e2);
+        
         c1.setSalonCustomers(sc1);
        
         ps1.setSalon(s3);
@@ -159,6 +162,8 @@ public class StartupSeedDatabase {
         s2.addemployee(e3);
         c1.addProducts(ps1);
         c1.addProducts(ps1);
+        a1.setSalon(e1.getSalon());
+        a2.setSalon(e2.getSalon());
 
         OrderHistory o = new OrderHistory(c1.getCartBalance(), "400 E 33RD Street", "Card", LocalDate.now());
         sc1.addOrderHistory(o);

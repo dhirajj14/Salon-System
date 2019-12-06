@@ -29,8 +29,7 @@ public class SalonConverter implements Converter {
         if(value == null || value.isEmpty()){
             return null;
         }
-           System.out.println("salon message "+value);
-        return salonSVC.findByName(value);
+        return salonSVC.find(Long.valueOf(value));
     }
 
     @Override

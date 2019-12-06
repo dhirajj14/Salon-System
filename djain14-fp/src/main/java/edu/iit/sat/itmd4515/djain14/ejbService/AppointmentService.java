@@ -31,8 +31,20 @@ public class AppointmentService extends AbstractService<Appointment> {
         return em.createNamedQuery("appointment.findByEmployee", Appointment.class).setParameter("employee", e).getResultList();
     }
     
-     public List<Salon> findBySalon(Salon s) {
-        return em.createNamedQuery("salon.findBySalon", Salon.class).setParameter("salon", s).getResultList();
+     public List<Appointment> findAllBySalon(Salon s) {
+        return em.createNamedQuery("appointment.findBySalon", Appointment.class).setParameter("salon", s).getResultList();
+    }
+     
+    @Override
+    public void update(Appointment appointmentFromUserForm) {
+        Appointment appointmentFromDatabase = em.getReference(entityClass, appointmentFromUserForm.getId());
+        
+        appointmentFromDatabase.setDate(appointmentFromUserForm.getDate());
+        appointmentFromDatabase.setTime(appointmentFromUserForm.getTime());
+        appointmentFromDatabase.setServiceType(appointmentFromUserForm.getServiceType());
+        appointmentFromDatabase.setEmployee(appointmentFromUserForm.getEmployee());
+        appointmentFromDatabase.setSalon(appointmentFromUserForm.getSalon());
+        em.merge(appointmentFromDatabase);
     }
 
 }

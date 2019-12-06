@@ -1,0 +1,18 @@
+<?xml version='1.0' encoding='UTF-8' ?>
+<!DOCTYPE composition PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<ui:composition xmlns:ui="http://xmlns.jcp.org/jsf/facelets"
+                template="./../WEB-INF/templates/mytemplate.xhtml"
+                xmlns:ezcomp="http://xmlns.jcp.org/jsf/composite/ezcomp">
+
+    <ui:define name="title">
+       Employee Page
+    </ui:define>
+
+    <ui:define name="content">
+        <ezcomp:appointment appointment="#{appointmentController.appointment}" 
+                         admin ="#{loginController.admin}"
+                         readonly="false" 
+                         action="#{appointmentController.doSaveAppointment()}"/>
+    </ui:define>
+
+</ui:composition>

@@ -6,6 +6,7 @@
 package edu.iit.sat.itmd4515.djain14.web;
 
 import edu.iit.sat.itmd4515.djain14.domain.EmployeeType;
+import edu.iit.sat.itmd4515.djain14.domain.ServiceType;
 import javax.enterprise.context.ApplicationScoped;
 import javax.inject.Named;
 
@@ -22,6 +23,10 @@ public class AppConfig {
 
     public EmployeeType[] getEmployeeType(){
         return EmployeeType.values();
+}
+    
+    public ServiceType[] getServiceType(){
+        return ServiceType.values();
 }
     
 }
