@@ -9,9 +9,11 @@ import edu.iit.sat.itmd4515.djain14.domain.Appointment;
 import edu.iit.sat.itmd4515.djain14.domain.Employee;
 import edu.iit.sat.itmd4515.djain14.domain.Manager;
 import edu.iit.sat.itmd4515.djain14.domain.Salon;
+import edu.iit.sat.itmd4515.djain14.domain.SalonCustomers;
 import edu.iit.sat.itmd4515.djain14.ejbService.AppointmentService;
 import edu.iit.sat.itmd4515.djain14.ejbService.EmployeeService;
 import edu.iit.sat.itmd4515.djain14.ejbService.ManagerService;
+import edu.iit.sat.itmd4515.djain14.ejbService.SalonCustomerService;
 import edu.iit.sat.itmd4515.djain14.ejbService.SalonService;
 import java.util.ArrayList;
 import java.util.List;
@@ -36,9 +38,24 @@ public class AppointmentController {
     
     @EJB
     private ManagerService managerSVC;
-
+    
     @EJB
     private SalonService salonSVC;
+    
+    @EJB
+    private SalonCustomerService salonCustomerSVC;
+    
+
+     private Employee employee;
+    
+    private Salon salon;
+    
+    private SalonCustomers salonCustomers;
+
+    private Manager manager;
+    
+    private Appointment appointment;
+   
     
     @EJB
     private AppointmentService appointmentSVC;
@@ -48,16 +65,7 @@ public class AppointmentController {
     
     private static final Logger LOG = Logger.getLogger(AppointmentController.class.getName());
 
-    private Employee employee;
-    
-    private Salon salon;
-    
-    
    
-    
-    private Manager manager;
-    
-    private Appointment appointment;
 
    
     private String address;
@@ -75,13 +83,20 @@ public class AppointmentController {
           if (loginController.isAdmin()) {
             aList = appointmentSVC.findAll();
             address = "admin";
-        }
-        if (loginController.isManagerAdmin()) {
+        }else if(loginController.isManagerAdmin()){
              manager = managerSVC.findByName(loginController.getRemoteUser());
              salon = salonSVC.findByManager(manager);
              aList = appointmentSVC.findAllBySalon(salon);
              address = "manager";
-        }
+          }else if(loginController.isCustomer()){
+              salonCustomers = salonCustomerSVC.findByName(loginController.getRemoteUser());
+              aList = appointmentSVC.findAllByCustomer(salonCustomers);
+              address = "customer";
+          }else if(loginController.isEmployee()){
+              employee = employeeSVC.findByUserName(loginController.getRemoteUser());
+              aList = appointmentSVC.findAllByEmployee(employee);
+              address = "employee";
+          }
     }
 
    public String prepareViewAppointment(Appointment a) {
@@ -93,13 +108,12 @@ public class AppointmentController {
     public String prepareUpdateAppointment(Appointment a) {
         this.appointment = a;
         LOG.info("Inside doUpdateAppointment with " + this.appointment.toString());
-        return "/" + address + "/editAppointment.xhtml";
+        return "/"+ address +"/editAppointment.xhtml";
     }
 
     public String prepareCreateAppointment() {
 
         this.appointment = new Appointment();
-
         LOG.info("Inside doCreateAppointment with " + this.appointment.toString());
         return "/" + address + "/editAppointment.xhtml";
 
@@ -113,30 +127,44 @@ public class AppointmentController {
 
     //action Methods
     public String doSaveAppointment() {
-        LOG.info("Inside ManagerController doSaveAppointment with " + this.appointment.toString());
+        LOG.info("Inside AppointmentController doSaveAppointment with " + this.appointment.toString());
         
         
         if (loginController.isAdmin()) {
            if (this.appointment.getId() != null) {
             LOG.info("updating on " + this.appointment.toString());
+               
             appointmentSVC.update(appointment);
         } else {
             LOG.info("Creating " + this.toString());
+            
             appointmentSVC.Create(appointment);
         }
         }
+        
+        if(loginController.isManagerAdmin()){
 
          if (this.appointment.getId() != null) {
             LOG.info("updating on " + this.appointment.toString());
-            appointment.setSalon(salon);
             appointmentSVC.update(appointment);
         } else {
             LOG.info("Creating " + this.toString());
-            appointment.setSalon(salon);
-            appointmentSVC.Create(appointment);
+           appointmentSVC.Create(appointment);
+        }
         }
         
-
+        if(loginController.isCustomer()){
+            if (this.appointment.getId() != null) {
+            LOG.info("updating on " + this.appointment.toString());
+            appointment.setSalonCustomers(salonCustomers);
+            appointmentSVC.update(appointment);
+        } else {
+            LOG.info("Creating " + this.toString());
+            appointment.setSalonCustomers(salonCustomers);
+           appointmentSVC.Create(appointment);
+        }
+        }
+        
         return "/" + address + "/welcome.xhtml?faces-redirect=true";
     }
 
@@ -182,6 +210,14 @@ public class AppointmentController {
 
     public void setAppointment(Appointment appointment) {
         this.appointment = appointment;
+    }
+    
+     public SalonCustomers getSalonCustomers() {
+        return salonCustomers;
+    }
+
+    public void setSalonCustomers(SalonCustomers salonCustomers) {
+        this.salonCustomers = salonCustomers;
     }
     
     

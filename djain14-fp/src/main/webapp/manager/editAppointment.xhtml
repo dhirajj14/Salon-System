@@ -5,11 +5,14 @@
                 xmlns:ezcomp="http://xmlns.jcp.org/jsf/composite/ezcomp">
 
     <ui:define name="title">
-      Product Page
+       Employee Page
     </ui:define>
 
     <ui:define name="content">
-        <ezcomp:products products ="#{productController.products}" readonly="true"/>
+        <ezcomp:appointment appointment="#{appointmentController.appointment}" 
+                        
+                         readonly="false" 
+                         action="#{appointmentController.doSaveAppointment()}"/>
     </ui:define>
 
 </ui:composition>

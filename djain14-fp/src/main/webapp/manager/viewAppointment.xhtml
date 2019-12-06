@@ -8,8 +8,9 @@
       Product Page
     </ui:define>
 
-    <ui:define name="content">
-        <ezcomp:products products ="#{productController.products}" readonly="true"/>
+    <ui:define name="content">       
+        <ezcomp:appointment appointment="#{appointmentController.appointment}"/>
+        
     </ui:define>
 
 </ui:composition>

@@ -4,7 +4,7 @@
       xmlns:cc="http://xmlns.jcp.org/jsf/composite"
       xmlns:h="http://xmlns.jcp.org/jsf/html"
       xmlns:f="http://xmlns.jcp.org/jsf/core"
-      xmlns:p="http://primefaces.org/ui"
+      xmlns:p="http://xmlns.jcp.org/jsf/passthrough"
       xmlns:ui="http://xmlns.jcp.org/jsf/facelets">
 
     <!-- INTERFACE -->
@@ -12,6 +12,7 @@
         <cc:attribute name="appointment" required="true" type="edu.iit.sat.itmd4515.djain14.domain.Appointment"/>
         <cc:attribute name="buttonValue" required="false" default="Save" type="java.lang.String" />
          <cc:attribute name="admin" required="false" default="false" type="java.lang.Boolean" />
+          <cc:attribute name="customer" required="false" default="false" type="java.lang.Boolean" />
          <cc:attribute name="readonly" required="false" default="true" type="java.lang.Boolean" />
          <cc:attribute name="appointmentAction" required="false" default="" type="java.lang.String" />
         <cc:attribute name="action" required="false" method-signature="java.lang.String action()" />
@@ -28,24 +29,24 @@
             </h:panelGroup>    
             
             
-
             <h:panelGroup layout="block" class="form-group">
                 <h:outputLabel for="fullName" value="Customer Name:"/>
-                <h:inputText 
+                <h:inputText
+                    
                     readonly="true" 
                     class="form-control" 
                     id="fullName" 
-                    value="#{cc.attrs.appointment.salonCustomers.fullName}"/>
+                    value="#{cc.attrs.customer ? appointmentController.salonCustomers.fullName :cc.attrs.appointment.salonCustomers.fullName}"/>
                 <h:message for="fullName" errorClass="text-danger"/>
             </h:panelGroup>
-
+            
             <h:panelGroup layout="block" class="form-group">
                 <h:outputLabel for="date" value="Appointment Date:"/>
                 <h:inputText
                     readonly="#{cc.attrs.readonly ? 'true' : 'false'}"
                     class="form-control" 
                     id="date"  
-                    
+                    p:type="date" 
                     value="#{cc.attrs.appointment.date}">
                     <f:convertDateTime type="localDate" pattern="yyyy-MM-dd"/>
                 </h:inputText>
@@ -57,9 +58,9 @@
                 <h:inputText readonly="#{cc.attrs.readonly ? 'true' : 'false'}"
                              class="form-control" 
                              id="time" 
-                             
+                             p:type="time" 
                              value="#{cc.attrs.appointment.time}">
-                    <f:convertDateTime type="localTime" pattern="HH:mm:ss"/>
+                    <f:convertDateTime type="localTime" pattern="HH:mm"/>
                 </h:inputText>
                 <h:message for="time" errorClass="text-danger"/>
             </h:panelGroup>
@@ -85,14 +86,15 @@
             </h:panelGroup>
             
           
-            <ui:fragment rendered="#{cc.attrs.admin}">
+           
             <h:panelGroup layout="block" class="form-group">
                 <h:outputLabel for="salon" value="salon"/>
                 <h:selectOneMenu  
-                   readonly="#{cc.attrs.readonly ? 'true' : 'false'}"
+                    readonly="#{(cc.attrs.admin or cc.attrs.customer) ? 'false' : 'true'}"
                     disabled="#{cc.attrs.readonly ? 'true' : 'false'}"
                     class="form-control"
                     converter="salonConverter"
+                    value="#{cc.attrs.appointment.salon}"
                     id="salon" >
                    
                     <f:selectItems value="#{salonService.findAll()}" 
@@ -100,12 +102,12 @@
                                    itemLabel="#{salon.fullName}"
                                    itemValue="#{salon}">
                     </f:selectItems>
-                    <p:ajax update="employee"/>
+                  
                 </h:selectOneMenu>
 
                 <h:message for="salon" errorClass="text-danger"/>
             </h:panelGroup>
-            </ui:fragment>
+          
             
               <h:panelGroup layout="block" class="form-group">
                 <h:outputLabel for="employee" value="employee"/>
@@ -118,7 +120,7 @@
                     value="#{cc.attrs.appointment.employee}">
                     
                    
-                    <f:selectItems value="#{cc.attrs.admin ? employeeService.findAll() : employeeService.findAllBySalon(cc.attrs.appointment.salon)}" 
+                    <f:selectItems value="#{(cc.attrs.admin or cc.attrs.customer )? employeeService.findAll() : employeeService.findAllBySalon(cc.attrs.appointment.salon)}" 
                                    var="employee"
                                    itemLabel="#{employee.fullName}"
                                    itemValue="#{employee}">

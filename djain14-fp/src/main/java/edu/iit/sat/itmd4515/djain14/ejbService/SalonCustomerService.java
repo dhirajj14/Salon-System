@@ -4,7 +4,6 @@
  * and open the template in the editor.
  */
 package edu.iit.sat.itmd4515.djain14.ejbService;
-
 import edu.iit.sat.itmd4515.djain14.domain.SalonCustomers;
 import java.util.List;
 import javax.ejb.Stateless;
@@ -27,14 +26,7 @@ public class SalonCustomerService extends AbstractService<SalonCustomers> {
         return em.createNamedQuery("salonCustomers.findAll", SalonCustomers.class).getResultList();
     }
 
-    public SalonCustomers findByName(String fullName) {
-        return em.createNamedQuery("salonCustomers.findByName", SalonCustomers.class).getSingleResult();
+    public SalonCustomers findByName(String name) {
+        return em.createNamedQuery("salonCustomers.findByName", SalonCustomers.class).setParameter("user", name).getSingleResult();
     }
-
-    public SalonCustomers findByUserName(String userName) {
-        return em.createNamedQuery("saloncustomers.findByUserName", SalonCustomers.class)
-                .setParameter("userName", userName)
-                .getSingleResult();
-    }
-
 }

@@ -8,6 +8,7 @@ package edu.iit.sat.itmd4515.djain14.ejbService;
 import edu.iit.sat.itmd4515.djain14.domain.Appointment;
 import edu.iit.sat.itmd4515.djain14.domain.Employee;
 import edu.iit.sat.itmd4515.djain14.domain.Salon;
+import edu.iit.sat.itmd4515.djain14.domain.SalonCustomers;
 import java.util.List;
 import javax.ejb.Stateless;
 
@@ -31,8 +32,16 @@ public class AppointmentService extends AbstractService<Appointment> {
         return em.createNamedQuery("appointment.findByEmployee", Appointment.class).setParameter("employee", e).getResultList();
     }
     
+     public List<Appointment> findAllByCustomer(SalonCustomers sc) {
+        return em.createNamedQuery("appointment.findAllByCustomer", Appointment.class).setParameter("customer", sc).getResultList();
+    }
+     
+      public List<Appointment> findAllByEmployee(Employee e) {
+        return em.createNamedQuery("appointment.findAllByEmployee", Appointment.class).setParameter("employee", e).getResultList();
+    }
+    
      public List<Appointment> findAllBySalon(Salon s) {
-        return em.createNamedQuery("appointment.findBySalon", Appointment.class).setParameter("salon", s).getResultList();
+        return em.createNamedQuery("appointment.findAllBySalon", Appointment.class).setParameter("salon", s).getResultList();
     }
      
     @Override

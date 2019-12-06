@@ -23,6 +23,8 @@ import javax.validation.constraints.NotNull;
 @NamedQuery(name = "appointment.findAll", query = "select a from Appointment a")
 @NamedQuery(name = "appointment.findByEmployee", query = "select a from Appointment a where a.employee = :employee")
 @NamedQuery(name = "appointment.findAllBySalon", query = "select a from Appointment a Where a.salon = :salon")
+@NamedQuery(name = "appointment.findAllByCustomer", query = "select a from Appointment a Where a.salonCustomers= :customer")
+@NamedQuery(name = "appointment.findAllByEmployee", query = "select a from Appointment a Where a.employee= :employee")
 @Entity
 public class Appointment extends AbstractIdentifiedEntity implements Serializable {
 

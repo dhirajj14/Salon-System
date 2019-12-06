@@ -24,7 +24,7 @@ import javax.validation.constraints.NotNull;
  */
 @NamedQuery(name = "employee.findAll", query = "select e from Employee e")
 @NamedQuery(name = "employee.findByName", query = "select e from Employee e where e.fullName = :fullName")
-@NamedQuery(name = "employee.findByUserName", query = "select e from Employee e where e.user = :user")
+@NamedQuery(name = "employee.findByUserName", query = "select e from Employee e where e.user.userName = :user")
 @NamedQuery(name = "employee.findAllBySalon", query = "select e from Employee e Where e.salon = :salon")
 @Entity
 public class Employee extends AbstractNamedEntity implements Serializable {

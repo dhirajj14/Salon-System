@@ -24,10 +24,9 @@ import org.eclipse.persistence.jpa.config.Cascade;
  *
  * @author dhira
  */
-@Table(name = "customers_details")
-@NamedQuery(name = "saloncustomers.findAll", query = "select sc from SalonCustomers sc")
-@NamedQuery(name = "saloncustomers.findByName", query = "select sc from SalonCustomers sc where sc.fullName = :fullName")
-@NamedQuery(name = "saloncustomers.findByUserName", query = "select sc from SalonCustomers sc where sc.user = :userName")
+
+@NamedQuery(name = "salonCustomers.findAll", query = "select sc from SalonCustomers sc")
+@NamedQuery(name = "salonCustomers.findByName", query = "select sc from SalonCustomers sc where sc.user.userName = :user")
 @Entity
 public class SalonCustomers extends AbstractNamedEntity implements Serializable {
 
@@ -35,10 +34,6 @@ public class SalonCustomers extends AbstractNamedEntity implements Serializable 
     @JoinColumn(name = "USERNAME")
     private User user;
 
-    
-
-    @ManyToOne
-    private SalonCustomers salonCustomers;
 
     @OneToMany
     private List<OrderHistory> orderHistories = new ArrayList();
