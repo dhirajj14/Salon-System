@@ -61,25 +61,25 @@ public class UserController {
 
     public String prepareViewUser(User u) {
         this.user = u;
-        LOG.info("Inside doViewProducts with " + this.user.toString());
+        LOG.info("Inside doViewUser with " + this.user.toString());
         return "/admin/viewUser.xhtml";
     }
 
     public String prepareUpdateUser(User u) {
         this.user = u;
-        LOG.info("Inside prepareUpdateProducts with " + user.toString());
+        LOG.info("Inside prepareUpdateUser with " + user.toString());
         return "/admin/editUser.xhtml";
     }
 
     public String prepareCreateUser() {
         this.user = new User();
-        LOG.info("Inside doCreateAdmin");
+        LOG.info("Inside doCreateUser");
         return "/admin/editUser.xhtml";
     }
 
     public String prepareDeleteUser(User u) {
         this.user = u;
-        LOG.info("Inside doDeleteProducts with " + this.user.toString());
+        LOG.info("Inside doDeleteUser with " + this.user.toString());
         return "/admin/deleteUser.xhtml";
     }
 
