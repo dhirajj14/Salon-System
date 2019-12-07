@@ -3,7 +3,9 @@
 <ui:composition xmlns="http://www.w3.org/1999/xhtml"
                 xmlns:ui="http://xmlns.jcp.org/jsf/facelets"
                 template="/WEB-INF/templates/mytemplate.xhtml"
-                xmlns:h="http://xmlns.jcp.org/jsf/html">
+                xmlns:h="http://xmlns.jcp.org/jsf/html"
+                xmlns:p="http://primefaces.org/ui"
+                xmlns:f="http://xmlns.jcp.org/jsf/core">
 
     <ui:define name="title">
         Products
@@ -13,9 +15,11 @@
         <div class="col-md-8">
             <div class="row">
                 <ui:repeat value="#{productsService.findAll()}" var="product">
-                    <div class="col-md-3">
+                    <div class="col-md-3" style="margin: 10px">
                         <h5><h:outputText value="#{product.productName}"/></h5>
-                        <img src="#" alt="#" class="ima_thumb"/>
+                        <p:graphicImage value="#{imageRetrive.image}" alt="#" style="height: 250px; width: 175px;">
+                            <f:param name="id" value="#{product.id}"/>
+                        </p:graphicImage>
                         <p class="price">Price: <h:outputText value="#{product.productPrice}"/></p>
                         <p class="price">Details:<h:outputText value="#{product.productSize}"/></p>
                         <h:button class="btn-sm btn-success" value="Details" />

@@ -7,6 +7,7 @@ package edu.iit.sat.itmd4515.djain14.domain;
 
 import java.io.Serializable;
 import javax.persistence.Entity;
+import javax.persistence.Lob;
 import javax.persistence.ManyToOne;
 import javax.persistence.NamedQuery;
 
@@ -17,6 +18,7 @@ import javax.persistence.NamedQuery;
  */
 @NamedQuery(name = "products.findAll", query = "select ps from Products ps")
 @NamedQuery(name = "products.findByName", query = "select ps from Products ps where ps.productName = :productName")
+@NamedQuery(name = "products.findImageById", query = "select ps from Products ps where ps.id = :productId")
 @NamedQuery(name = "products.findAllBySalon", query = "select p from Products p Where p.salon = :salon")
 @Entity
 public class Products extends AbstractIdentifiedEntity implements Serializable {
@@ -25,6 +27,11 @@ public class Products extends AbstractIdentifiedEntity implements Serializable {
     private int productQuantity;
     private double productPrice;
     private String productSize;
+    
+    @Lob
+    private byte[] productImage;
+
+   
     
     @ManyToOne
     private Salon salon;
@@ -79,6 +86,15 @@ public class Products extends AbstractIdentifiedEntity implements Serializable {
         this.salon = salon;
     }
 
+     public byte[] getProductImage() {
+        return productImage;
+    }
+
+    public void setProductImage(byte[] productImage) {
+        this.productImage = productImage;
+    }
+    
+    
     @Override
     public String toString() {
         return "Products{" + "productName=" + productName + ", productQuantity=" + productQuantity + ", productPrice=" + productPrice + ", productSize=" + productSize + '}';

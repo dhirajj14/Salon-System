@@ -40,6 +40,10 @@ public class ProductsService extends AbstractService<Products> {
         return em.createNamedQuery("products.findByName", Products.class).getSingleResult();
     }
     
+     public Products findImageById(Long id) {
+        return em.createNamedQuery("products.findImageById", Products.class).setParameter("productId", id).getSingleResult();
+    }
+    
      public List<Products> findAllBySalon(Salon salon) {
         return em.createNamedQuery("products.findAllBySalon", Products.class).setParameter("salon", salon).getResultList();
     }

@@ -11,14 +11,21 @@ import edu.iit.sat.itmd4515.djain14.domain.Salon;
 import edu.iit.sat.itmd4515.djain14.ejbService.ManagerService;
 import edu.iit.sat.itmd4515.djain14.ejbService.ProductsService;
 import edu.iit.sat.itmd4515.djain14.ejbService.SalonService;
+import java.io.ByteArrayInputStream;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.logging.Logger;
 import javax.annotation.PostConstruct;
 import javax.ejb.EJB;
 import javax.enterprise.context.RequestScoped;
+import javax.faces.application.FacesMessage;
+import javax.faces.context.FacesContext;
 import javax.inject.Inject;
 import javax.inject.Named;
+import org.primefaces.event.FileUploadEvent;
+import org.primefaces.model.DefaultStreamedContent;
+import org.primefaces.model.StreamedContent;
+import org.primefaces.model.UploadedFile;
 
 /**
  *
@@ -49,6 +56,10 @@ public class ProductController {
 
     @Inject
     private LoginController loginController;
+    
+    private UploadedFile file;
+
+   
 
     private List<Products> pList = new ArrayList<>();
 
@@ -58,7 +69,6 @@ public class ProductController {
     @PostConstruct
     private void postContruct() {
         products = new Products();
-
         if (loginController.isAdmin()) {
             pList = productsSVC.findAll();
             address = "admin";
@@ -102,8 +112,10 @@ public class ProductController {
         if (loginController.isAdmin()) {
             if (this.products.getId() != null) {
                 LOG.info("updating on " + this.products.toString());
+                upload();
                 productsSVC.update(products);
             } else {
+                upload();
                 productsSVC.Create(products);
             }
         }
@@ -123,7 +135,7 @@ public class ProductController {
     }
 
     public String doDeleteProducts() {
-        LOG.info("Inside AdminController doDeleteEmployee with " + this.products.toString());
+        LOG.info("Inside AdminController doDeleteProducts with " + this.products.toString());
         productsSVC.remove(products);
         return "/" + address + "/manageProducts.xhtml?faces-redirect=true";
     }
@@ -147,4 +159,26 @@ public class ProductController {
     public void setSalon(Salon salon) {
         this.salon = salon;
     }
+    
+     public UploadedFile getFile() {
+        return file;
+    }
+
+    public void setFile(UploadedFile file) {
+        this.file = file;
+    }
+    
+    public void upload() {  
+      byte[] content = file.getContents();
+      System.out.print("Image: "+content);
+      products.setProductImage(content);
+    }
+    public void handleFileUpload(FileUploadEvent event) {
+        FacesMessage msg = new FacesMessage("Successful", event.getFile().getFileName() + " is uploaded.");
+        FacesContext.getCurrentInstance().addMessage(null, msg);
+    }
+    
+    public StreamedContent getImage(byte[] image) {
+    return new DefaultStreamedContent(new ByteArrayInputStream(image), "image");
+}
 }

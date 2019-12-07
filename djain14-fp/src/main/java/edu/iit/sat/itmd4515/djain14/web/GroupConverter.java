@@ -20,7 +20,7 @@ import javax.faces.convert.FacesConverter;
  *
  * @author sas691
  */
-@FacesConverter(managed = true, value="groupConverter", forClass = Group.class)
+@FacesConverter(managed = true, value="groupConverter")
 public class GroupConverter implements Converter {
 
     @EJB
