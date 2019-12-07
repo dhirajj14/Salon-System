@@ -59,6 +59,25 @@
                              value="#{cc.attrs.salon.salonContact}"/>
                 <h:message for="contact" errorClass="text-danger"/>
             </h:panelGroup>
+                 
+           <h:panelGroup layout="block" class="form-group">
+                <h:outputLabel for="manager" value="Select Manager"/>
+                <h:selectOneMenu  
+                    readonly="#{cc.attrs.readonly ? 'true' : 'false'}"
+                    disabled="#{cc.attrs.readonly ? 'true' : 'false'}"
+                    class="form-control"
+                    converter="managerConverter"
+                    id="manager" 
+                    value="#{cc.attrs.salon.manager}">
+                    <f:selectItems value="#{managerService.findByFlag(0)}" 
+                                   var="manager"
+                                   itemLabel="#{manager.fullName}"
+                                   itemValue="#{manager}">
+                    </f:selectItems>
+                </h:selectOneMenu>
+
+                <h:message for="manager" errorClass="text-danger"/>
+            </h:panelGroup>
      
             </ui:fragment>
             

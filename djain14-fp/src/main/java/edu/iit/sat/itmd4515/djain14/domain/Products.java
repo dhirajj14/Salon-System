@@ -10,6 +10,7 @@ import javax.persistence.Entity;
 import javax.persistence.Lob;
 import javax.persistence.ManyToOne;
 import javax.persistence.NamedQuery;
+import javax.validation.constraints.NotNull;
 
 /**
  *
@@ -23,9 +24,16 @@ import javax.persistence.NamedQuery;
 @Entity
 public class Products extends AbstractIdentifiedEntity implements Serializable {
 
+    @NotNull(message = "Product Name Cannot Be Null")
     private String productName;
+    
+    @NotNull(message = "Product Quantity Cannot Be Null")
     private int productQuantity;
+    
+    @NotNull(message = "Product Price Cannot Be Null")
     private double productPrice;
+    
+    @NotNull(message = "Product Size Cannot Be Null")
     private String productSize;
     
     @Lob
@@ -40,11 +48,12 @@ public class Products extends AbstractIdentifiedEntity implements Serializable {
     public Products() {
     }
 
-    public Products(String productName, int productQuantity, double productPrice, String productSize) {
+    public Products(String productName, int productQuantity, double productPrice, String productSize, byte[] productImage) {
         this.productName = productName;
         this.productQuantity = productQuantity;
         this.productPrice = productPrice;
         this.productSize = productSize;
+        this.productImage = productImage;
     }
 
     public String getProductName() {

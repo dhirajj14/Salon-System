@@ -8,6 +8,7 @@ package edu.iit.sat.itmd4515.djain14.ejbService;
 import edu.iit.sat.itmd4515.djain14.domain.Manager;
 import java.util.List;
 import javax.ejb.Stateless;
+import javax.inject.Named;
 import javax.persistence.EntityManager;
 import javax.persistence.PersistenceContext;
 
@@ -15,6 +16,7 @@ import javax.persistence.PersistenceContext;
  *
  * @author dhira
  */
+@Named
 @Stateless
 public class ManagerService extends AbstractService<Manager> {
 
@@ -32,6 +34,25 @@ public class ManagerService extends AbstractService<Manager> {
 
     public Manager findByName(String name) {
         return em.createNamedQuery("manager.findByName", Manager.class).setParameter("user", name).getSingleResult();
+    }
+    
+     public Manager findByManagerName(String name) {
+        return em.createNamedQuery("manager.findByManagerName", Manager.class).setParameter("name", name).getSingleResult();
+    }
+    
+     public List<Manager> findByFlag(int flag) {
+        return em.createNamedQuery("manager.findByFlag", Manager.class).setParameter("flag", flag).getResultList();
+    }
+    
+     @Override
+    public void update(Manager managerFromUserForm) {
+        Manager managerFromDatabase  = em.getReference(entityClass, managerFromUserForm.getId());
+        managerFromDatabase.setFullName(managerFromUserForm.getFullName());
+        managerFromDatabase.setAddress(managerFromUserForm.getAddress());
+        managerFromDatabase.setContact(managerFromUserForm.getContact());
+        managerFromDatabase.setEmailId(managerFromUserForm.getEmailId());
+        managerFromDatabase.setSalon_flag(managerFromUserForm.getSalon_flag());
+        em.merge(managerFromDatabase);
     }
 
 }

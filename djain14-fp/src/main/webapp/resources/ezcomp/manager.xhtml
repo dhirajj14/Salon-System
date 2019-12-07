@@ -8,11 +8,11 @@
 
     <!-- INTERFACE -->
     <cc:interface>
-        <cc:attribute name="salon" required="true" type="edu.iit.sat.itmd4515.djain14.domain.Salon"/>
+        <cc:attribute name="manager" required="true" type="edu.iit.sat.itmd4515.djain14.domain.Manager"/>
         <cc:attribute name="buttonValue" required="false" default="Save" type="java.lang.String" />
          <cc:attribute name="admin" required="false" default="false" type="java.lang.Boolean" />
          <cc:attribute name="readonly" required="false" default="true" type="java.lang.Boolean" />
-         <cc:attribute name="salonAction" required="false" default="" type="java.lang.String" />
+         <cc:attribute name="managerAction" required="false" default="" type="java.lang.String" />
         <cc:attribute name="action" required="false" method-signature="java.lang.String action()" />
     </cc:interface>
 
@@ -22,21 +22,21 @@
         <h:form>
              <ui:fragment rendered="#{cc.attrs.admin}">
               <h:panelGroup layout="block" class="form-group">
-                  <h:outputLabel for="salonId" value="Salon ID #{cc.attrs.salon.id} v#{cc.attrs.salon.version}"/>
-                <h:inputHidden class="form-control" id="salonId" value="#{cc.attrs.salon.id}"/>
-                <h:inputHidden class="form-control" id="salonVersion" value="#{cc.attrs.salon.version}"/>
-                <h:message for="salonId" errorClass="text-danger"/>
+                  <h:outputLabel for="managerId" value="Manager ID #{cc.attrs.manager.id} v#{cc.attrs.manager.version}"/>
+                  <h:inputHidden class="form-control" id="managerId" value="#{cc.attrs.manager.id}"/>
+                  <h:inputHidden class="form-control" id="managerVersion" value="#{cc.attrs.manager.version}"/>
+                <h:message for="managerId" errorClass="text-danger"/>
             </h:panelGroup>    
             
             
 
             <h:panelGroup layout="block" class="form-group">
-                <h:outputLabel for="fullName" value="Salon Name:"/>
+                <h:outputLabel for="fullName" value="Manager Name:"/>
                 <h:inputText 
                     readonly="#{cc.attrs.readonly ? 'true' : 'false'}" 
                     class="form-control" 
                     id="fullName" 
-                    value="#{cc.attrs.salon.fullName}"/>
+                    value="#{cc.attrs.manager.fullName}"/>
                 <h:message for="fullName" errorClass="text-danger"/>
             </h:panelGroup>
 
@@ -46,7 +46,7 @@
                     readonly="#{cc.attrs.readonly ? 'true' : 'false'}"
                     class="form-control" 
                     id="address" 
-                    value="#{cc.attrs.salon.salonLocation}"/>
+                    value="#{cc.attrs.manager.address}"/>
                 <h:message for="address" errorClass="text-danger"/>
             </h:panelGroup>
 
@@ -56,14 +56,22 @@
                 <h:inputText readonly="#{cc.attrs.readonly ? 'true' : 'false'}"
                              class="form-control"
                              id="contact"
-                             value="#{cc.attrs.salon.salonContact}"/>
+                             value="#{cc.attrs.manager.contact}"/>
                 <h:message for="contact" errorClass="text-danger"/>
             </h:panelGroup>
      
+                 <h:panelGroup layout="block" class="form-group">
+                <h:outputLabel for="emailId" value="Email-Id.:"/>
+                <h:inputText readonly="#{cc.attrs.readonly ? 'true' : 'false'}"
+                             class="form-control"
+                             id="emailId"
+                             value="#{cc.attrs.manager.emailId}"/>
+                <h:message for="emailId" errorClass="text-danger"/>
+            </h:panelGroup>
             </ui:fragment>
             
             
-            <ui:fragment rendered="#{not cc.attrs.readonly  or cc.attrs.salonAction == 'delete'}">
+            <ui:fragment rendered="#{not cc.attrs.readonly  or cc.attrs.managerAction == 'delete'}">
                  <h:commandButton class="btn btn-lg btn-primary btn-block" value="#{cc.attrs.buttonValue}" action="#{cc.attrs.action}"/>
              </ui:fragment>
             

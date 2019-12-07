@@ -124,9 +124,11 @@ public class ProductController {
             if (this.products.getId() != null) {
                 LOG.info("updating on " + this.products.toString());
                 products.setSalon(salon);
+                upload();
                 productsSVC.update(products);
             } else {
                 products.setSalon(salon);
+                upload();
                 productsSVC.Create(products);
             }
         }

@@ -18,6 +18,9 @@ import javax.validation.constraints.NotNull;
  * @author dhira
  */
 @NamedQuery(name = "manager.findByName", query = "select m from Manager m where m.user.userName = :user")
+@NamedQuery(name = "manager.findByManagerName", query = "select m from Manager m where m.fullName = :name")
+@NamedQuery(name = "manager.findByFlag", query = "select m from Manager m where m.salon_flag = :flag")
+@NamedQuery(name = "manager.findAll", query = "select m from Manager m")
 @Entity
 public class Manager extends AbstractNamedEntity implements Serializable {
 

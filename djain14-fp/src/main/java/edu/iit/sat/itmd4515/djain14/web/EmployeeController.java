@@ -69,7 +69,7 @@ public class EmployeeController {
              manager = managerSVC.findByName(loginController.getRemoteUser());
              salon = salonSVC.findByManager(manager);
              eList = employeeSVC.findAllBySalon(salon);
-            address = "manager";
+             address = "manager";
         }
     }
 
@@ -115,6 +115,7 @@ public class EmployeeController {
         }
         }
 
+        if(loginController.isManagerAdmin()){
          if (this.employee.getId() != null) {
             LOG.info("updating on " + this.employee.toString());
             employee.setSalon(salon);
@@ -124,9 +125,9 @@ public class EmployeeController {
             employee.setSalon(salon);
             employeeSVC.Create(employee);
         }
-        
+        }
 
-        return "/" + address + "/welcome.xhtml?faces-redirect=true";
+        return "/" + address + "/manageEmployee.xhtml?faces-redirect=true";
     }
 
     public String doDeleteEmployee() {

@@ -60,6 +60,7 @@ public class SalonService extends AbstractService<Salon> {
         salonFromDatabase.setFullName(salonFromUserForm.getFullName());
         salonFromDatabase.setSalonContact(salonFromUserForm.getSalonContact());
         salonFromDatabase.setSalonLocation(salonFromUserForm.getSalonLocation());
+        salonFromDatabase.setManager(salonFromUserForm.getManager());
         em.merge(salonFromDatabase);
     }
      

@@ -5,20 +5,15 @@
                 xmlns:ezcomp="http://xmlns.jcp.org/jsf/composite/ezcomp">
 
     <ui:define name="title">
-        Confirm Deletion of Appointment #{appointmentController.appointment.serviceType}
+        Confirm Deletion of Manager #{managerController.manager.fullName}
     </ui:define>
 
     <ui:define name="content">
-        
-        <ezcomp:appointment appointment="#{appointmentController.appointment}" 
+        <ezcomp:manager manager="#{managerController.manager}" 
+                         managerAction="delete" 
                          admin ="#{loginController.admin}"
-                         appointmentAction="delete" 
-                         readonly="false" 
                          buttonValue="Confirm Delete" 
-                         action="#{appointmentController.doDeleteAppointment()}"/>
-         
-      
-                         
+                         action="#{managerController.doDeleteManager()}"/>
     </ui:define>
 
 </ui:composition>

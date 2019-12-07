@@ -17,6 +17,10 @@ import edu.iit.sat.itmd4515.djain14.domain.SalonCustomers;
 import edu.iit.sat.itmd4515.djain14.domain.ServiceType;
 import edu.iit.sat.itmd4515.djain14.domain.security.Group;
 import edu.iit.sat.itmd4515.djain14.domain.security.User;
+import java.io.File;
+import java.io.IOException;
+import java.nio.file.Files;
+import java.nio.file.Paths;
 import java.time.LocalDate;
 import java.time.LocalTime;
 import java.time.Month;
@@ -37,6 +41,8 @@ import javax.persistence.PersistenceContext;
 public class StartupSeedDatabase {
 
     private static final Logger LOG = Logger.getLogger(StartupSeedDatabase.class.getName());
+    
+    private byte[] image;
 
     @PersistenceContext(name = "itmd4515PU")
     EntityManager em;
@@ -128,7 +134,12 @@ public class StartupSeedDatabase {
         Employee e3 = new Employee("Employee 3", "31st Chicago 60616", "e3@gmail.com", "123456789", EmployeeType.skinCare);
         e2.setUser(employee2);
         e3.setUser(employee3);
-        Products ps1 = new Products("Hair Cream", 4, 50, "50gms");
+        try{
+        image = Files.readAllBytes(Paths.get("G:\\Illinois Institute of Technology\\IIT Work\\ITMD 515_Advanced System Programing\\Week 5\\itmd4515-f19-fp-dhirajj14\\djain14-fp\\src\\main\\webapp\\resources\\images\\1.png"));
+        }catch(IOException e){
+            System.err.println("file"+e);
+        }
+        Products ps1 = new Products("Hair Cream", 4, 50, "50gms", image);
         Salon s1 = new Salon("One Cut", "Chicago", "1234567890");
         Salon s2 = new Salon("Two Cut", "Chicago", "1233467890");
         Salon s3 = new Salon("Three Cut", "Chicago", "134567890");

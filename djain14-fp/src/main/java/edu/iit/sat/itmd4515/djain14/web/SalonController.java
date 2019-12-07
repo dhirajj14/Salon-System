@@ -55,7 +55,7 @@ public class SalonController {
     @PostConstruct
     private void postContruct() {
         salon = new Salon();
-
+        manager = new Manager();
         if (loginController.isAdmin()) {
             sList = salonSVC.findAll();
         }
@@ -71,6 +71,10 @@ public class SalonController {
 
     public String prepareUpdateSalons(Salon s) {
         this.salon = s;
+       
+        this.manager = managerSVC.findByManagerName(salon.getManager().getFullName());
+        manager.setSalon_flag(0);
+        managerSVC.update(manager);
         LOG.info("Inside prepareUpdatesalons with " + salon.toString());
         return "/admin/editSalon.xhtml";
     }
@@ -94,8 +98,14 @@ public class SalonController {
             if (this.salon.getId() != null) {
                 LOG.info("updating on " + this.salon.toString());
                 salonSVC.update(salon);
+                this.manager = managerSVC.findByManagerName(salon.getManager().getFullName());
+                manager.setSalon_flag(1);
+                 managerSVC.update(manager);
             } else {
                 salonSVC.Create(salon);
+               this.manager = managerSVC.findByManagerName(salon.getManager().getFullName());
+                 manager.setSalon_flag(1);
+                  managerSVC.update(manager);
             }
         }
 
@@ -106,7 +116,11 @@ public class SalonController {
 
     public String doDeleteSalon() {
         LOG.info("Inside AdminController doDeleteEmployee with " + this.salon.toString());
+        this.manager = managerSVC.findByManagerName(salon.getManager().getFullName());
+        manager.setSalon_flag(0);
+         managerSVC.update(manager);
         salonSVC.remove(salon);
+         
         return "/admin/manageSalons.xhtml?faces-redirect=true";
     }
 
