@@ -6,8 +6,11 @@
 package edu.iit.sat.itmd4515.djain14.web;
 
 
+
+
+
+
 import edu.iit.sat.itmd4515.djain14.domain.Employee;
-import edu.iit.sat.itmd4515.djain14.domain.Salon;
 import edu.iit.sat.itmd4515.djain14.ejbService.EmployeeService;
 import javax.ejb.EJB;
 import javax.faces.component.UIComponent;
@@ -19,18 +22,19 @@ import javax.faces.convert.FacesConverter;
  *
  * @author sas691
  */
-@FacesConverter(managed = true, value="employeeConverter")
-public class employeeConverter implements Converter {
+@FacesConverter(managed = true, value="employeeConverter", forClass = Employee.class)
+public class EmployeeConverter implements Converter {
 
     @EJB
     private EmployeeService employeeSVC;
+    
+    private Employee employee;
     
     @Override
     public Object getAsObject(FacesContext context, UIComponent component, String value) {
         if(value == null || value.isEmpty()){
             return null;
         }
-        
         return employeeSVC.find(Long.valueOf(value));
     }
 
@@ -39,7 +43,6 @@ public class employeeConverter implements Converter {
         if(value == null ){
             return "";
         }
-        
         return String.valueOf(((Employee)value).getId());
     }
     
