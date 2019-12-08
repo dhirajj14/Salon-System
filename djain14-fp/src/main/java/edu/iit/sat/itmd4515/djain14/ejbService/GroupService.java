@@ -19,21 +19,37 @@ import javax.inject.Named;
 @Named
 public class GroupService extends AbstractService<Group> {
 
+    /**
+     *
+     */
     public GroupService() {
         super(Group.class);
     }
 
+    /**
+     *
+     * @return
+     */
     @Override
     public List<Group> findAll() {
         return em.createNamedQuery("Group.findAll", Group.class).getResultList();
     }
     
+    /**
+     *
+     * @param user
+     * @return
+     */
     public List<Group> findByUser(User user){
          return em.createNamedQuery("Group.findByUser", Group.class).setParameter("user",user).getResultList();
     }
 
-    
-    public Group find(String name){
-        return em.find(entityClass, name);
+    /**
+     *
+     * @param name
+     * @return
+     */
+    public Group findByName(String name){
+       return em.createNamedQuery("Group.findByName", Group.class).setParameter("name",name).getSingleResult();
     }
 }

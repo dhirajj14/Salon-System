@@ -25,49 +25,66 @@ import javax.inject.Named;
 @Named
 @RequestScoped
 public class ManagerController {
-    
+
     @EJB
     private ManagerService managerSVC;
-    
+
     @EJB
     private SalonService salonSVC;
-    
-    private List <Manager> mList = new ArrayList<>();
-    
+
+    private List<Manager> mList = new ArrayList<>();
+
     private static final Logger LOG = Logger.getLogger(ManagerController.class.getName());
 
     private Salon salon;
-    
+
     private Manager manager;
-    
+
     private String address;
 
     @Inject
     private LoginController loginController;
-    
+
+    /**
+     *
+     */
     public ManagerController() {
     }
 
     @PostConstruct
-    private void postConstruct(){  
-           manager = new Manager();
-            mList = managerSVC.findAll();
-            address = "admin";
-        
+    private void postConstruct() {
+        manager = new Manager();
+        mList = managerSVC.findAll();
+        address = "admin";
+
     }
 
-   public String prepareViewManager(Manager m) {
+    /**
+     *
+     * @param m
+     * @return
+     */
+    public String prepareViewManager(Manager m) {
         this.manager = m;
         LOG.info("Inside doViewManager with " + this.manager.toString());
         return "/" + address + "/viewManager.xhtml";
     }
 
+    /**
+     *
+     * @param m
+     * @return
+     */
     public String prepareUpdateManager(Manager m) {
         this.manager = m;
         LOG.info("Inside doUpdateManager with " + this.manager.toString());
         return "/" + address + "/editManager.xhtml";
     }
 
+    /**
+     *
+     * @return
+     */
     public String prepareCreateManager() {
 
         this.manager = new Manager();
@@ -76,6 +93,11 @@ public class ManagerController {
 
     }
 
+    /**
+     *
+     * @param m
+     * @return
+     */
     public String prepareDeleteManager(Manager m) {
         this.manager = m;
         LOG.info("Inside doDeleteManager with " + this.manager.toString());
@@ -83,52 +105,80 @@ public class ManagerController {
     }
 
     //action Methods
+
+    /**
+     *
+     * @return
+     */
     public String doSaveManager() {
-        LOG.info("Inside ManagerController doSaveManager with " + this.manager.toString());
-        
-        
+        LOG.info("Inside doSaveManager with " + this.manager.toString());
+
         if (loginController.isAdmin()) {
-           if (this.manager.getId() != null) {  
-            LOG.info("updating on " + this.manager.toString());
-            if(salonSVC.findByManager(manager) !=null){
-                manager.setSalon_flag(1);
-            }else{
-                manager.setSalon_flag(0);
-            }
-            managerSVC.update(manager);
-            }else{
-            LOG.info("Creating " + this.toString());
-            managerSVC.Create(manager);
+            if (this.manager.getId() != null) {
+                LOG.info("updating on " + this.manager.toString());
+                if (salonSVC.findByManager(manager) != null) {
+                    manager.setSalon_flag(1);
+                } else {
+                    manager.setSalon_flag(0);
+                }
+                managerSVC.update(manager);
+            } else {
+                LOG.info("Creating " + this.toString());
+                managerSVC.Create(manager);
             }
         }
-        
+
         return "/" + address + "/manageManagers.xhtml?faces-redirect=true";
     }
 
+    /**
+     *
+     * @return
+     */
     public String doDeleteManager() {
-        LOG.info("Inside ManagerController doDeleteEmployee with " + this.manager.toString());
+        LOG.info("Inside doDeleteEmployee with " + this.manager.toString());
 
         managerSVC.remove(manager);
 
         return "/manager/welcome.xhtml?faces-redirect=true";
     }
 
-     public List<Manager> getManagerList() {
-            return mList;
+    /**
+     *
+     * @return
+     */
+    public List<Manager> getManagerList() {
+        return mList;
     }
-     
+
+    /**
+     *
+     * @return
+     */
     public Manager getManager() {
         return manager;
     }
 
+    /**
+     *
+     * @param manager
+     */
     public void setManager(Manager manager) {
         this.manager = manager;
     }
 
+    /**
+     *
+     * @return
+     */
     public Salon getSalon() {
         return salon;
     }
 
+    /**
+     *
+     * @param salon
+     */
     public void setSalon(Salon salon) {
         this.salon = salon;
     }

@@ -11,7 +11,7 @@ import javax.persistence.PreUpdate;
 import javax.security.enterprise.identitystore.Pbkdf2PasswordHash;
 
 /**
- *
+ *THis class creates the hashPassword for the user password
  * @author dhira
  */
 public class UserListener {

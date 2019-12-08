@@ -6,12 +6,24 @@
 package edu.iit.sat.itmd4515.djain14.domain;
 
 /**
- *
+ *This is an enum class to for the appointment to book the type of appointment
  * @author dhira
  */
 public enum ServiceType {
+
+    /**
+     *
+     */
     hairCut("Side Fade"),
+
+    /**
+     *
+     */
     hairColor("Dark Brown"),
+
+    /**
+     *
+     */
     skinCare("Face Scrub");
 
     private String label;

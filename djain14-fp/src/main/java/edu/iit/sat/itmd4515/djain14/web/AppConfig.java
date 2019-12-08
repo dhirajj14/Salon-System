@@ -18,15 +18,26 @@ import javax.inject.Named;
 @ApplicationScoped
 public class AppConfig {
 
+    /**
+     *
+     */
     public AppConfig() {
     }
 
-    public EmployeeType[] getEmployeeType(){
+    /**
+     *
+     * @return
+     */
+    public EmployeeType[] getEmployeeType() {
         return EmployeeType.values();
-}
-    
-    public ServiceType[] getServiceType(){
+    }
+
+    /**
+     *
+     * @return
+     */
+    public ServiceType[] getServiceType() {
         return ServiceType.values();
-}
-    
+    }
+
 }

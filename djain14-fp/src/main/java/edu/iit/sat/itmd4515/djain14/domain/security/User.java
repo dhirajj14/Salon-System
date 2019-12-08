@@ -18,12 +18,14 @@ import javax.persistence.NamedQuery;
 import javax.persistence.Table;
 
 /**
- *
+ *This User entity is used to create user 
+ * IT has username and password as attributes
  * @author dhira
  */
 @Entity
 @Table(name = "Sec_user")
 @EntityListeners(UserListener.class)
+@NamedQuery(name = "User.findByUserName", query = "select u from User u where u.userName = :user and u.enabled = 0")
 @NamedQuery(name = "User.findAll", query = "select u from User u")
 public class User {
 
@@ -31,35 +33,44 @@ public class User {
     private String userName;
     private String password;
     private Boolean enabled;
-    
+
     @ManyToMany(fetch = FetchType.LAZY)
     @JoinTable(name = "sec_user_groups",
             joinColumns = @JoinColumn(name = "USERNAME"),
             inverseJoinColumns = @JoinColumn(name = "GROUPNAME"))
     private List<Group> groups = new ArrayList<>();
 
-   
-
-    
+    /**
+     *
+     */
     public User() {
     }
 
+    /**
+     *
+     * @param userName
+     * @param password
+     * @param enabled
+     */
     public User(String userName, String password, Boolean enabled) {
         this.userName = userName;
         this.password = password;
         this.enabled = enabled;
     }
-     
 
-    public void addGroup(Group g){
-        if(!this.groups.contains(g)){
+    /**
+     *
+     * @param g
+     */
+    public void addGroup(Group g) {
+        if (!this.groups.contains(g)) {
             this.groups.add(g);
         }
-        if(!g.getUsers().contains(this)){
+        if (!g.getUsers().contains(this)) {
             g.getUsers().add(this);
         }
     }
-    
+
     /**
      * Get the value of userName
      *
@@ -77,7 +88,6 @@ public class User {
     public void setUserName(String userName) {
         this.userName = userName;
     }
-
 
     /**
      * Get the value of password
@@ -97,8 +107,6 @@ public class User {
         this.password = password;
     }
 
-        
-
     /**
      * Get the value of enabled
      *
@@ -116,8 +124,8 @@ public class User {
     public void setEnabled(Boolean enabled) {
         this.enabled = enabled;
     }
-    
-     /**
+
+    /**
      * Get the value of groups
      *
      * @return the value of groups

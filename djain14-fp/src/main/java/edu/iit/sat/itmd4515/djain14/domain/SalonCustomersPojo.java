@@ -29,6 +29,16 @@ public class SalonCustomersPojo {
     @NotBlank(message = "Time must not be blank")
     private String time;
 
+    /**
+     *
+     * @param fullName
+     * @param address
+     * @param emailId
+     * @param contact
+     * @param date
+     * @param serviceType
+     * @param time
+     */
     public SalonCustomersPojo(String fullName, String address, String emailId, String contact, LocalDate date, String serviceType, String time) {
         this.fullName = fullName;
         this.address = address;
@@ -39,61 +49,120 @@ public class SalonCustomersPojo {
         this.time = time;
     }
 
+    /**
+     *
+     */
     public SalonCustomersPojo() {
     }
 
+    /**
+     *
+     * @return
+     */
     public String getFullName() {
         return fullName;
     }
 
+    /**
+     *
+     * @param fullName
+     */
     public void setFullName(String fullName) {
         this.fullName = fullName;
     }
 
+    /**
+     *
+     * @return
+     */
     public String getAddress() {
         return address;
     }
 
+    /**
+     *
+     * @param address
+     */
     public void setAddress(String address) {
         this.address = address;
     }
 
+    /**
+     *
+     * @return
+     */
     public String getEmailId() {
         return emailId;
     }
 
+    /**
+     *
+     * @param emailId
+     */
     public void setEmailId(String emailId) {
         this.emailId = emailId;
     }
 
+    /**
+     *
+     * @return
+     */
     public String getContact() {
         return contact;
     }
 
+    /**
+     *
+     * @param contact
+     */
     public void setContact(String contact) {
         this.contact = contact;
     }
 
+    /**
+     *
+     * @return
+     */
     public LocalDate getdate() {
         return date;
     }
 
+    /**
+     *
+     * @param date
+     */
     public void setdate(LocalDate date) {
         this.date = date;
     }
 
+    /**
+     *
+     * @return
+     */
     public String getServiceType() {
         return serviceType;
     }
 
+    /**
+     *
+     * @param serviceType
+     */
     public void setServiceType(String serviceType) {
         this.serviceType = serviceType;
     }
 
+    /**
+     *
+     * @return
+     */
     public String getTime() {
         return time;
     }
 
+    /**
+     *
+     * @param time
+     */
     public void setTime(String time) {
         this.time = time;
     }

@@ -25,7 +25,9 @@ import org.junit.jupiter.api.TestMethodOrder;
 @TestMethodOrder(OrderAnnotation.class)
 public class SalonCustomersTest extends SalonCustomersAbstractTest{
 
-
+    /**
+     *
+     */
     @Test
     @Order(1)
     public void createTestToBeSuccesfull() {
@@ -41,6 +43,9 @@ public class SalonCustomersTest extends SalonCustomersAbstractTest{
 
     }
 
+    /**
+     *
+     */
     @Test
     @Order(2)
     public void createTestToBeFailed() {
@@ -57,6 +62,9 @@ public class SalonCustomersTest extends SalonCustomersAbstractTest{
 
     }
 
+    /**
+     *
+     */
     @Test
     @Order(3)
     public void readTestToBeSuccesfull() {
@@ -75,6 +83,9 @@ public class SalonCustomersTest extends SalonCustomersAbstractTest{
 
     }
 
+    /**
+     *
+     */
     @Test
     @Order(4)
     public void readTestToBeFailed() {
@@ -88,6 +99,9 @@ public class SalonCustomersTest extends SalonCustomersAbstractTest{
 
     }
 
+    /**
+     *
+     */
     @Test
     @Order(5)
     public void updateTestToBeSuccesfyll() {
@@ -108,6 +122,9 @@ public class SalonCustomersTest extends SalonCustomersAbstractTest{
 
     }
 
+    /**
+     *
+     */
     @Test
     @Order(6)
     public void updateTestToBeFailed() {
@@ -121,6 +138,9 @@ public class SalonCustomersTest extends SalonCustomersAbstractTest{
         }
     }
 
+    /**
+     *
+     */
     @Test
     @Order(7)
     public void deleteTestToBeSuccesfyll() {
@@ -137,6 +157,9 @@ public class SalonCustomersTest extends SalonCustomersAbstractTest{
         assertNull(removed);
     }
 
+    /**
+     *
+     */
     @Test
     @Order(8)
     public void deleteTestToBeFailed() {
@@ -150,6 +173,9 @@ public class SalonCustomersTest extends SalonCustomersAbstractTest{
         }
     }
     
+    /**
+     *
+     */
     @Test
     @Order(9)
     public void salonManagerOneToOneTest() {
@@ -167,6 +193,9 @@ public class SalonCustomersTest extends SalonCustomersAbstractTest{
         System.out.println(findSalon.getManager().getFullName());
    }
     
+    /**
+     *
+     */
     @Test
     @Order(10)
     public void salonCustomerAppointmentOneToManyTest() {

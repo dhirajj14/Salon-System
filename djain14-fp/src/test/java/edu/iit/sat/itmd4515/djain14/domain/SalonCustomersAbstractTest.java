@@ -24,23 +24,46 @@ import org.junit.jupiter.api.TestMethodOrder;
 @TestMethodOrder(OrderAnnotation.class)
 public abstract class SalonCustomersAbstractTest {
 
+    /**
+     *
+     */
     protected static EntityManagerFactory emf;
+
+    /**
+     *
+     */
     protected EntityManager em;
+
+    /**
+     *
+     */
     protected EntityTransaction tx;
 
+    /**
+     *
+     */
     public SalonCustomersAbstractTest() {
     }
 
+    /**
+     *
+     */
     @BeforeAll
     public static void setUpClass() {
         emf = Persistence.createEntityManagerFactory("itmd4515testPU");
     }
 
+    /**
+     *
+     */
     @AfterAll
     public static void tearDownClass() {
         emf.close();
     }
 
+    /**
+     *
+     */
     @BeforeEach
     public void setUp() {
         em = emf.createEntityManager();
@@ -51,6 +74,9 @@ public abstract class SalonCustomersAbstractTest {
         tx.commit();
     }
 
+    /**
+     *
+     */
     @AfterEach
     public void tearDown() {
         SalonCustomers salon = em.createQuery("select sc from SalonCustomers sc where sc.fullName = :fullName", SalonCustomers.class)

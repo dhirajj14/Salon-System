@@ -16,12 +16,15 @@ import javax.persistence.PreUpdate;
 import javax.persistence.Version;
 
 /**
- *
+ *This is an abstract class to generate id for each entity 
  * @author dhira
  */
 @MappedSuperclass
 public class AbstractIdentifiedEntity {
 
+    /**
+     *T
+     */
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     protected Long id;
@@ -45,11 +48,18 @@ public class AbstractIdentifiedEntity {
         createdDateTime = LocalDateTime.now();
     }
 
+    /**
+     *
+     */
     @PreUpdate
     public void preUpdate() {
         updatedDateTime = LocalDateTime.now();
     }
 
+    /**
+     *
+     * @return
+     */
     public LocalDateTime getUpdatedDateTime() {
         return updatedDateTime;
     }

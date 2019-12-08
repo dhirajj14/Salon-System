@@ -14,7 +14,8 @@ import javax.persistence.OneToOne;
 import javax.validation.constraints.NotNull;
 
 /**
- *
+ *This manager entity will be used to maintain the record of the manager.
+ * This entity will have all the details of the manager*
  * @author dhira
  */
 @NamedQuery(name = "manager.findByName", query = "select m from Manager m where m.user.userName = :user")
@@ -38,15 +39,23 @@ public class Manager extends AbstractNamedEntity implements Serializable {
 
     @NotNull
     private String contact;
-    
+
     @NotNull
     private int salon_flag = 0;
 
-   
-
+    /**
+     *
+     */
     public Manager() {
     }
 
+    /**
+     *
+     * @param fullName
+     * @param address
+     * @param emailId
+     * @param contact
+     */
     public Manager(String fullName, String address, String emailId, String contact) {
         this.fullName = fullName;
         this.address = address;
@@ -54,10 +63,18 @@ public class Manager extends AbstractNamedEntity implements Serializable {
         this.contact = contact;
     }
 
+    /**
+     *
+     * @return
+     */
     public User getUser() {
         return user;
     }
 
+    /**
+     *
+     * @param user
+     */
     public void setUser(User user) {
         this.user = user;
     }
@@ -115,11 +132,19 @@ public class Manager extends AbstractNamedEntity implements Serializable {
     public void setAddress(String address) {
         this.address = address;
     }
-    
-     public int getSalon_flag() {
+
+    /**
+     *
+     * @return
+     */
+    public int getSalon_flag() {
         return salon_flag;
     }
 
+    /**
+     *
+     * @param salon_flag
+     */
     public void setSalon_flag(int salon_flag) {
         this.salon_flag = salon_flag;
     }

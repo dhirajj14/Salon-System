@@ -26,24 +26,45 @@ public class EmployeeService extends AbstractService<Employee> {
     @EJB
     private AppointmentService appointmentSVC;
     
+    /**
+     *
+     */
     public EmployeeService() {
         super(Employee.class);
     }
     
+    /**
+     *
+     * @return
+     */
     @Override
     public List<Employee> findAll() {
         return em.createNamedQuery("employee.findAll", Employee.class).getResultList();
     }
     
+    /**
+     *
+     * @param userName
+     * @return
+     */
     public Employee findByUserName(String userName) {
         return em.createNamedQuery("employee.findByUserName", Employee.class)
                 .setParameter("user", userName).getSingleResult();
     }
     
+    /**
+     *
+     * @param salon
+     * @return
+     */
     public List<Employee> findAllBySalon(Salon salon) {
         return em.createNamedQuery("employee.findAllBySalon", Employee.class).setParameter("salon", salon).getResultList();
     }
     
+    /**
+     *
+     * @param employeeFromUserForm
+     */
     @Override
     public void update(Employee employeeFromUserForm) {
         Employee employeeFromDatabase = em.getReference(entityClass, employeeFromUserForm.getId());
@@ -57,6 +78,10 @@ public class EmployeeService extends AbstractService<Employee> {
         em.merge(employeeFromDatabase);
     }
     
+    /**
+     *
+     * @param employeeFromUserForm
+     */
     @Override
     public void remove(Employee employeeFromUserForm) {
         Employee employeeFromDatabase = em.getReference(entityClass, employeeFromUserForm.getId());

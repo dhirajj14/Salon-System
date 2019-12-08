@@ -5,14 +5,14 @@
                 xmlns:ezcomp="http://xmlns.jcp.org/jsf/composite/ezcomp">
 
     <ui:define name="title">
-       Employee Page
+       Employee Details
     </ui:define>
 
     <ui:define name="content">
-        <ezcomp:employee employee="#{employeeController.employee}"
+        <ezcomp:employee employee="#{adminController.employee}"
                          admin ="#{loginController.admin}"
                          readonly="true" 
-                         action="#{employeeController.doSaveEmployee()}"/>
+                         action="#{adminController.doSaveEmployee()}"/>
     </ui:define>
 
 </ui:composition>

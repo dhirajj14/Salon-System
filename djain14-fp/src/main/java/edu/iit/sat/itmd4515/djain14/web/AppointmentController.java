@@ -31,86 +31,96 @@ import javax.inject.Named;
 @Named
 @RequestScoped
 public class AppointmentController {
-    
 
     @EJB
     private EmployeeService employeeSVC;
-    
+
     @EJB
     private ManagerService managerSVC;
-    
+
     @EJB
     private SalonService salonSVC;
-    
+
     @EJB
     private SalonCustomerService salonCustomerSVC;
-    
 
-     private Employee employee;
-    
+    private Employee employee;
+
     private Salon salon;
-    
+
     private SalonCustomers salonCustomers;
 
     private Manager manager;
-    
+
     private Appointment appointment;
-   
-    
+
     @EJB
     private AppointmentService appointmentSVC;
-    
-    private List <Appointment> aList = new ArrayList<>();
-    
-    
+
+    private List<Appointment> aList = new ArrayList<>();
+
     private static final Logger LOG = Logger.getLogger(AppointmentController.class.getName());
 
-   
-
-   
     private String address;
 
     @Inject
     private LoginController loginController;
-    
+
+    /**
+     *
+     */
     public AppointmentController() {
     }
 
     @PostConstruct
-    private void postConstruct(){  
-           appointment = new Appointment();
-           
-          if (loginController.isAdmin()) {
+    private void postConstruct() {
+        appointment = new Appointment();
+
+        if (loginController.isAdmin()) {
             aList = appointmentSVC.findAll();
             address = "admin";
-        }else if(loginController.isManagerAdmin()){
-             manager = managerSVC.findByName(loginController.getRemoteUser());
-             salon = salonSVC.findByManager(manager);
-             aList = appointmentSVC.findAllBySalon(salon);
-             address = "manager";
-          }else if(loginController.isCustomer()){
-              salonCustomers = salonCustomerSVC.findByName(loginController.getRemoteUser());
-              aList = appointmentSVC.findAllByCustomer(salonCustomers);
-              address = "customer";
-          }else if(loginController.isEmployee()){
-              employee = employeeSVC.findByUserName(loginController.getRemoteUser());
-              aList = appointmentSVC.findAllByEmployee(employee);
-              address = "employee";
-          }
+        } else if (loginController.isManagerAdmin()) {
+            manager = managerSVC.findByName(loginController.getRemoteUser());
+            salon = salonSVC.findByManager(manager);
+            aList = appointmentSVC.findAllBySalon(salon);
+            address = "manager";
+        } else if (loginController.isCustomer()) {
+            salonCustomers = salonCustomerSVC.findByName(loginController.getRemoteUser());
+            aList = appointmentSVC.findAllByCustomer(salonCustomers);
+            address = "customer";
+        } else if (loginController.isEmployee()) {
+            employee = employeeSVC.findByUserName(loginController.getRemoteUser());
+            aList = appointmentSVC.findAllByEmployee(employee);
+            address = "employee";
+        }
     }
 
-   public String prepareViewAppointment(Appointment a) {
+    /**
+     *
+     * @param a
+     * @return
+     */
+    public String prepareViewAppointment(Appointment a) {
         this.appointment = a;
         LOG.info("Inside doViewAppointment with " + this.appointment.toString());
         return "/" + address + "/viewAppointment.xhtml";
     }
 
+    /**
+     *
+     * @param a
+     * @return
+     */
     public String prepareUpdateAppointment(Appointment a) {
         this.appointment = a;
         LOG.info("Inside doUpdateAppointment with " + this.appointment.toString());
-        return "/"+ address +"/editAppointment.xhtml";
+        return "/" + address + "/editAppointment.xhtml";
     }
 
+    /**
+     *
+     * @return
+     */
     public String prepareCreateAppointment() {
 
         this.appointment = new Appointment();
@@ -119,6 +129,11 @@ public class AppointmentController {
 
     }
 
+    /**
+     *
+     * @param a
+     * @return
+     */
     public String prepareDeleteAppointment(Appointment a) {
         this.appointment = a;
         LOG.info("Inside doDeleteAppointment with " + this.appointment.toString());
@@ -126,99 +141,150 @@ public class AppointmentController {
     }
 
     //action Methods
+
+    /**
+     *
+     * @return
+     */
     public String doSaveAppointment() {
         LOG.info("Inside AppointmentController doSaveAppointment with " + this.appointment.toString());
-        
-        
-        if (loginController.isAdmin()) {
-           if (this.appointment.getId() != null) {
-            LOG.info("updating on " + this.appointment.toString());
-               
-            appointmentSVC.update(appointment);
-        } else {
-            LOG.info("Creating " + this.toString());
-            
-            appointmentSVC.Create(appointment);
-        }
-        }
-        
-        if(loginController.isManagerAdmin()){
 
-         if (this.appointment.getId() != null) {
-            LOG.info("updating on " + this.appointment.toString());
-            appointmentSVC.update(appointment);
-        } else {
-            LOG.info("Creating " + this.toString());
-           appointmentSVC.Create(appointment);
-        }
-        }
-        
-        if(loginController.isCustomer()){
+        if (loginController.isAdmin()) {
             if (this.appointment.getId() != null) {
-            LOG.info("updating on " + this.appointment.toString());
-            appointment.setSalonCustomers(salonCustomers);
-            appointmentSVC.update(appointment);
-        } else {
-            LOG.info("Creating " + this.toString());
-            appointment.setSalonCustomers(salonCustomers);
-           appointmentSVC.Create(appointment);
+                LOG.info("updating on " + this.appointment.toString());
+
+                appointmentSVC.update(appointment);
+            } else {
+                LOG.info("Creating " + this.toString());
+
+                appointmentSVC.Create(appointment);
+            }
         }
+
+        if (loginController.isManagerAdmin()) {
+
+            if (this.appointment.getId() != null) {
+                LOG.info("updating on " + this.appointment.toString());
+                appointmentSVC.update(appointment);
+            } else {
+                LOG.info("Creating " + this.toString());
+                appointmentSVC.Create(appointment);
+            }
         }
-        
+
+        if (loginController.isCustomer()) {
+            if (this.appointment.getId() != null) {
+                LOG.info("updating on " + this.appointment.toString());
+                appointment.setSalonCustomers(salonCustomers);
+                appointmentSVC.update(appointment);
+            } else {
+                LOG.info("Creating " + this.toString());
+                appointment.setSalonCustomers(salonCustomers);
+                appointmentSVC.Create(appointment);
+            }
+        }
+
         return "/" + address + "/welcome.xhtml?faces-redirect=true";
     }
 
+    /**
+     *
+     * @return
+     */
     public String doDeleteAppointment() {
-        LOG.info("Inside ManagerController doDeleteAppointmentwith " + this.appointment.toString());
+        LOG.info("Inside doDeleteAppointmentwith " + this.appointment.toString());
 
         appointmentSVC.remove(appointment);
 
-        return "/"+address+"/welcome.xhtml?faces-redirect=true";
+        return "/" + address + "/welcome.xhtml?faces-redirect=true";
     }
 
-     public List<Appointment> getAppointmentList() {
+    /**
+     *
+     * @return
+     */
+    public List<Appointment> getAppointmentList() {
         return aList;
     }
-     
+
+    /**
+     *
+     * @return
+     */
     public Manager getManager() {
         return manager;
     }
 
+    /**
+     *
+     * @param manager
+     */
     public void setManager(Manager manager) {
         this.manager = manager;
     }
 
+    /**
+     *
+     * @return
+     */
     public Salon getSalon() {
         return salon;
     }
 
+    /**
+     *
+     * @param salon
+     */
     public void setSalon(Salon salon) {
         this.salon = salon;
     }
 
+    /**
+     *
+     * @return
+     */
     public Employee getEmployee() {
         return employee;
     }
 
+    /**
+     *
+     * @param employee
+     */
     public void setEmployee(Employee employee) {
         this.employee = employee;
     }
-    
-     public Appointment getAppointment() {
+
+    /**
+     *
+     * @return
+     */
+    public Appointment getAppointment() {
         return appointment;
     }
 
+    /**
+     *
+     * @param appointment
+     */
     public void setAppointment(Appointment appointment) {
         this.appointment = appointment;
     }
-    
-     public SalonCustomers getSalonCustomers() {
+
+    /**
+     *
+     * @return
+     */
+    public SalonCustomers getSalonCustomers() {
         return salonCustomers;
     }
 
+    /**
+     *
+     * @param salonCustomers
+     */
     public void setSalonCustomers(SalonCustomers salonCustomers) {
         this.salonCustomers = salonCustomers;
     }
-    
-    
+
 }

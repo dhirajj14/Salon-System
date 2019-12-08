@@ -13,37 +13,68 @@ import java.util.List;
 import javax.ejb.Stateless;
 
 /**
- *
+ *This class maintains the CRUD operations for the appointments
  * @author dhira
  */
 @Stateless
 public class AppointmentService extends AbstractService<Appointment> {
 
+    /**
+     *
+     */
     public AppointmentService() {
         super(Appointment.class);
     }
 
+    /**
+     *
+     * @return
+     */
     @Override
     public List<Appointment> findAll() {
         return em.createNamedQuery("appointment.findAll", Appointment.class).getResultList();
     }
 
+    /**
+     *
+     * @param e
+     * @return
+     */
     public List<Appointment> findByEmployee(Employee e) {
         return em.createNamedQuery("appointment.findByEmployee", Appointment.class).setParameter("employee", e).getResultList();
     }
     
-     public List<Appointment> findAllByCustomer(SalonCustomers sc) {
+    /**
+     *
+     * @param sc
+     * @return
+     */
+    public List<Appointment> findAllByCustomer(SalonCustomers sc) {
         return em.createNamedQuery("appointment.findAllByCustomer", Appointment.class).setParameter("customer", sc).getResultList();
     }
      
-      public List<Appointment> findAllByEmployee(Employee e) {
+    /**
+     *
+     * @param e
+     * @return
+     */
+    public List<Appointment> findAllByEmployee(Employee e) {
         return em.createNamedQuery("appointment.findAllByEmployee", Appointment.class).setParameter("employee", e).getResultList();
     }
     
-     public List<Appointment> findAllBySalon(Salon s) {
+    /**
+     *
+     * @param s
+     * @return
+     */
+    public List<Appointment> findAllBySalon(Salon s) {
         return em.createNamedQuery("appointment.findAllBySalon", Appointment.class).setParameter("salon", s).getResultList();
     }
      
+    /**
+     *
+     * @param appointmentFromUserForm
+     */
     @Override
     public void update(Appointment appointmentFromUserForm) {
         Appointment appointmentFromDatabase = em.getReference(entityClass, appointmentFromUserForm.getId());

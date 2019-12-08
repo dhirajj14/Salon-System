@@ -23,30 +23,56 @@ public class ManagerService extends AbstractService<Manager> {
     @PersistenceContext(name = "itmd4515PU")
     private EntityManager em;
 
+    /**
+     *
+     */
     public ManagerService() {
         super(Manager.class);
     }
 
+    /**
+     *
+     * @return
+     */
     @Override
     public List<Manager> findAll() {
         return em.createNamedQuery("manager.findAll", Manager.class).getResultList();
     }
 
+    /**
+     *
+     * @param name
+     * @return
+     */
     public Manager findByName(String name) {
         return em.createNamedQuery("manager.findByName", Manager.class).setParameter("user", name).getSingleResult();
     }
-    
-     public Manager findByManagerName(String name) {
+
+    /**
+     *
+     * @param name
+     * @return
+     */
+    public Manager findByManagerName(String name) {
         return em.createNamedQuery("manager.findByManagerName", Manager.class).setParameter("name", name).getSingleResult();
     }
-    
-     public List<Manager> findByFlag(int flag) {
+
+    /**
+     *
+     * @param flag
+     * @return
+     */
+    public List<Manager> findByFlag(int flag) {
         return em.createNamedQuery("manager.findByFlag", Manager.class).setParameter("flag", flag).getResultList();
     }
-    
-     @Override
+
+    /**
+     *
+     * @param managerFromUserForm
+     */
+    @Override
     public void update(Manager managerFromUserForm) {
-        Manager managerFromDatabase  = em.getReference(entityClass, managerFromUserForm.getId());
+        Manager managerFromDatabase = em.getReference(entityClass, managerFromUserForm.getId());
         managerFromDatabase.setFullName(managerFromUserForm.getFullName());
         managerFromDatabase.setAddress(managerFromUserForm.getAddress());
         managerFromDatabase.setContact(managerFromUserForm.getContact());

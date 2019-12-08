@@ -107,12 +107,8 @@
                 <h:message for="salon" errorClass="text-danger"/>
             </h:panelGroup>
             </ui:fragment>
-            
-            
-           
-            
-            
-
+               
+          
             <ui:fragment rendered="#{not cc.attrs.readonly  or cc.attrs.employeeAction == 'delete'}">
                  <h:commandButton class="btn btn-lg btn-primary btn-block" value="#{cc.attrs.buttonValue}" action="#{cc.attrs.action}"/>
              </ui:fragment>

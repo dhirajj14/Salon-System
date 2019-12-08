@@ -77,6 +77,9 @@ public class StartupSeedDatabase {
     @EJB
     GroupService groupSvc;
 
+    /**
+     *
+     */
     public StartupSeedDatabase() {
     }
 
@@ -135,14 +138,14 @@ public class StartupSeedDatabase {
         e2.setUser(employee2);
         e3.setUser(employee3);
         try{
-        image = Files.readAllBytes(Paths.get("G:\\Illinois Institute of Technology\\IIT Work\\ITMD 515_Advanced System Programing\\Week 5\\itmd4515-f19-fp-dhirajj14\\djain14-fp\\src\\main\\webapp\\resources\\images\\1.png"));
+        image = Files.readAllBytes(Paths.get(System.getProperty("user.dir")+"\\src\\main\\webapp\\resources\\images\\1.png"));
         }catch(IOException e){
             System.err.println("file"+e);
         }
         Products ps1 = new Products("Hair Cream", 4, 50, "50gms", image);
         Salon s1 = new Salon("One Cut", "Chicago", "1234567890");
         Salon s2 = new Salon("Two Cut", "Chicago", "1233467890");
-        Salon s3 = new Salon("Three Cut", "Chicago", "134567890");
+        
         Manager m1 = new Manager("Manager 1", "31st Chicago", "manager1@gmail.com", "1234569870");
         Manager m2 = new Manager("Manager 2", "31st Chicago", "manager1@gmail.com", "1234569870");
         Cart c1 = new Cart(0);
@@ -160,7 +163,7 @@ public class StartupSeedDatabase {
         
         c1.setSalonCustomers(sc1);
        
-        ps1.setSalon(s3);
+        ps1.setSalon(s2);
         e1.setSalon(s1);
         e2.setSalon(s1);
         e3.setSalon(s2);
@@ -194,7 +197,7 @@ public class StartupSeedDatabase {
         managerSvc.Create(m2);
         employeeSvc.Create(e3);
         salonSvc.Create(s2);
-        salonSvc.Create(s3);
+       
 
         LOG.info("\nappointments :");
         for (Appointment a : appointmentSvc.findAll()) {

@@ -40,6 +40,9 @@ public class AdminController {
     @EJB
     private SalonService salonSVC;
 
+    /**
+     *
+     */
     public AdminController() {
     }
 
@@ -48,18 +51,32 @@ public class AdminController {
        employee = new Employee();
     }
 
+    /**
+     *
+     * @param e
+     * @return
+     */
     public String prepareViewEmployee(Employee e) {
         this.employee = e;
         LOG.info("Inside doViewEmployee with " + this.employee.toString());
         return "/admin/viewEmployee.xhtml";
     }
     
+    /**
+     *
+     * @param e
+     * @return
+     */
     public String prepareUpdatePet(Employee e) {
         this.employee = e;
         LOG.info("Inside prepareUpdatePet with " + employee.toString());
         return "/admin/editEmployee.xhtml";
     }
 
+    /**
+     *
+     * @return
+     */
     public String prepareCreateEmployee() {
         // need to handle this special case - no param, just a new pet for this owner
         
@@ -68,13 +85,23 @@ public class AdminController {
         return "/admin/editEmployee.xhtml";
     }
     
-     public String prepareDeleteEmployee(Employee e) {
+    /**
+     *
+     * @param e
+     * @return
+     */
+    public String prepareDeleteEmployee(Employee e) {
         this.employee = e;
         LOG.info("Inside doDeleteEmployee with " + this.employee.toString());
         return "/admin/deleteEmployee.xhtml";
     }
 
     //action Methods
+
+    /**
+     *
+     * @return
+     */
     public String doSaveEmployee(){
         LOG.info("Inside AdminController doSaveEmployee with " + this.employee.toString() );
          if (this.employee.getId() != null) {
@@ -88,6 +115,10 @@ public class AdminController {
         return "/admin/manageEmployee.xhtml?faces-redirect=true";
     }
     
+    /**
+     *
+     * @return
+     */
     public String doDeleteEmployee() {
         LOG.info("Inside AdminController doDeleteEmployee with " + this.employee.toString());
 
@@ -96,19 +127,34 @@ public class AdminController {
         return "/admin/manageEmployee.xhtml?faces-redirect=true";
     }
     
-
-     public Salon getSalon() {
+    /**
+     *
+     * @return
+     */
+    public Salon getSalon() {
         return salon;
     }
 
+    /**
+     *
+     * @param salon
+     */
     public void setSalon(Salon salon) {
         this.salon = salon;
     }
     
-     public Employee getEmployee() {
+    /**
+     *
+     * @return
+     */
+    public Employee getEmployee() {
         return employee;
     }
 
+    /**
+     *
+     * @param employee
+     */
     public void setEmployee(Employee employee) {
         this.employee = employee;
     }

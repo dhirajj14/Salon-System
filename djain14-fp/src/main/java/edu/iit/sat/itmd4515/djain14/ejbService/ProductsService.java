@@ -24,6 +24,9 @@ import javax.persistence.PersistenceContext;
 @Named
 public class ProductsService extends AbstractService<Products> {
 
+    /**
+     *
+     */
     public ProductsService() {
         super(Products.class);
     }
@@ -31,24 +34,46 @@ public class ProductsService extends AbstractService<Products> {
     @EJB
     private CartService cartSVC;
 
+    /**
+     *
+     * @return
+     */
     @Override
     public List<Products> findAll() {
         return em.createNamedQuery("products.findAll", Products.class).getResultList();
     }
 
+    /**
+     *
+     * @param fullName
+     * @return
+     */
     public Products findByName(String fullName) {
         return em.createNamedQuery("products.findByName", Products.class).getSingleResult();
     }
     
-     public Products findImageById(Long id) {
+    /**
+     *
+     * @param id
+     * @return
+     */
+    public Products findImageById(Long id) {
         return em.createNamedQuery("products.findImageById", Products.class).setParameter("productId", id).getSingleResult();
     }
     
-     public List<Products> findAllBySalon(Salon salon) {
+    /**
+     *
+     * @param salon
+     * @return
+     */
+    public List<Products> findAllBySalon(Salon salon) {
         return em.createNamedQuery("products.findAllBySalon", Products.class).setParameter("salon", salon).getResultList();
     }
     
-    
+    /**
+     *
+     * @param productsFromUserForm
+     */
     @Override
     public void update(Products productsFromUserForm) {
         Products productsFromDatabase = em.getReference(entityClass, productsFromUserForm.getId());
@@ -60,6 +85,10 @@ public class ProductsService extends AbstractService<Products> {
         em.merge(productsFromDatabase);
     }
     
+    /**
+     *
+     * @param productsFromUserForm
+     */
     @Override
     public void remove(Products productsFromUserForm) {
         Products productsFromDatabase = em.getReference(entityClass, productsFromUserForm.getId());

@@ -13,7 +13,9 @@ import javax.persistence.NamedQuery;
 import javax.persistence.Table;
 
 /**
- *
+ *This group entity is used to decide the type of user 
+ * there are total 4 groups
+ * ADMIN, EMPLOYEE, MANAGER and CUSTOMER
  * @author dhira
  */
 @Entity
@@ -24,18 +26,21 @@ import javax.persistence.Table;
 public class Group {
 
     @Id
-    private String groupName; 
+    private String groupName;
     private String groupDesc;
-    
-        private List<User> users = new ArrayList<>();
 
+    private List<User> users = new ArrayList<>();
+
+    /**
+     *
+     * @param groupName
+     * @param groupDesc
+     */
     public Group(String groupName, String groupDesc) {
         this.groupName = groupName;
         this.groupDesc = groupDesc;
     }
 
-        
-        
     /**
      * Get the value of users
      *
@@ -54,11 +59,11 @@ public class Group {
         this.users = users;
     }
 
-    
+    /**
+     *
+     */
     public Group() {
     }
-    
-
 
     /**
      * Get the value of groupDesc

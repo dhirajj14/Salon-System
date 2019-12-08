@@ -12,10 +12,10 @@
     </ui:define>
     
     <ui:define name="content">
-        <div class="col-md-8">
+        <div class="col-md-12">
             <div class="row">
                 <ui:repeat value="#{productsService.findAll()}" var="product">
-                    <div class="col-md-3" style="margin: 10px">
+                    <div class="col" style="margin: 10px">
                         <h5><h:outputText value="#{product.productName}"/></h5>
                         <p:graphicImage value="#{imageRetrive.image}" alt="#" style="height: 250px; width: 175px;">
                             <f:param name="id" value="#{product.id}"/>

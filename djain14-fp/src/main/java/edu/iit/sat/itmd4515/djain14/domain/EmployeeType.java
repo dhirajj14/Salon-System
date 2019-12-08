@@ -6,12 +6,24 @@
 package edu.iit.sat.itmd4515.djain14.domain;
 
 /**
- *
+ *This is the enum type class which will store the value for the type of employee
  * @author dhira
  */
 public enum EmployeeType {
+
+    /**
+     *employee how does hair cut
+     */
     hairCut("Hair Artist"),
+
+    /**
+     *employee who does coloring of hair
+     */
     hairColor("Color Artist"),
+
+    /**
+     *skin specialist employee
+     */
     skinCare("Skin Artisit");
 
     private String label;

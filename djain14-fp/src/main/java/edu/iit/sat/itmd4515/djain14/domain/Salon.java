@@ -13,9 +13,11 @@ import javax.persistence.Entity;
 import javax.persistence.NamedQuery;
 import javax.persistence.OneToMany;
 import javax.persistence.OneToOne;
+import javax.validation.constraints.NotNull;
 
 /**
- *
+ *This entity will be used to maintain the record of the salon
+ * its name, location and contact
  * @author dhira
  */
 @Entity
@@ -27,10 +29,18 @@ public class Salon extends AbstractNamedEntity implements Serializable {
     @OneToOne
     private Manager manager;
 
+    /**
+     *
+     * @return
+     */
     public Manager getManager() {
         return manager;
     }
 
+    /**
+     *
+     * @param manager
+     */
     public void setManager(Manager manager) {
         this.manager = manager;
     }
@@ -38,34 +48,65 @@ public class Salon extends AbstractNamedEntity implements Serializable {
     @OneToMany(cascade = CascadeType.ALL, mappedBy = "salon", orphanRemoval = true)
     List<Employee> employees = new ArrayList<>();
 
+    @NotNull(message = "Location  must not be blank")
     private String salonLocation;
+    @NotNull(message = "Contact must not be blank")
     private String salonContact;
 
+    /**
+     *
+     */
     public Salon() {
     }
 
+    /**
+     *
+     * @param fullName
+     * @param salonLocation
+     * @param salonContact
+     */
     public Salon(String fullName, String salonLocation, String salonContact) {
         this.fullName = fullName;
         this.salonLocation = salonLocation;
         this.salonContact = salonContact;
     }
 
+    /**
+     *
+     * @return
+     */
     public String getSalonLocation() {
         return salonLocation;
     }
 
+    /**
+     *
+     * @param salonLocation
+     */
     public void setSalonLocation(String salonLocation) {
         this.salonLocation = salonLocation;
     }
 
+    /**
+     *
+     * @return
+     */
     public String getSalonContact() {
         return salonContact;
     }
 
+    /**
+     *
+     * @param salonContact
+     */
     public void setSalonContact(String salonContact) {
         this.salonContact = salonContact;
     }
 
+    /**
+     *
+     * @param e
+     */
     public void addemployee(Employee e) {
         if (!this.employees.contains(e)) {
             this.employees.add(e);
@@ -76,12 +117,20 @@ public class Salon extends AbstractNamedEntity implements Serializable {
 
     }
 
+    /**
+     *
+     * @param e
+     */
     public void removeEmployee(Employee e) {
         if (this.employees.contains(e)) {
             this.employees.remove(e);
         }
     }
 
+    /**
+     *
+     * @return
+     */
     public List<Employee> getEmployees() {
         return employees;
     }

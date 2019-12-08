@@ -56,13 +56,14 @@ public class ProductController {
 
     @Inject
     private LoginController loginController;
-    
-    private UploadedFile file;
 
-   
+    private UploadedFile file;
 
     private List<Products> pList = new ArrayList<>();
 
+    /**
+     *
+     */
     public ProductController() {
     }
 
@@ -82,24 +83,43 @@ public class ProductController {
 
     }
 
+    /**
+     *
+     * @param p
+     * @return
+     */
     public String prepareViewProducts(Products p) {
         this.products = p;
         LOG.info("Inside doViewProducts with " + this.products.toString());
         return "/" + address + "/viewProducts.xhtml";
     }
 
+    /**
+     *
+     * @param p
+     * @return
+     */
     public String prepareUpdateProducts(Products p) {
         this.products = p;
         LOG.info("Inside prepareUpdateProducts with " + products.toString());
         return "/" + address + "/editProducts.xhtml";
     }
 
+    /**
+     *
+     * @return
+     */
     public String prepareCreateProducts() {
         this.products = new Products();
         LOG.info("Inside doCreateAdmin");
         return "/" + address + "/editProducts.xhtml";
     }
 
+    /**
+     *
+     * @param p
+     * @return
+     */
     public String prepareDeleteProducts(Products p) {
         this.products = p;
         LOG.info("Inside doDeleteProducts with " + this.products.toString());
@@ -107,6 +127,11 @@ public class ProductController {
     }
 
     //action Methods
+
+    /**
+     *
+     * @return
+     */
     public String doSaveProducts() {
         LOG.info("Inside AdminController doSaveProducts with " + this.products.toString());
         if (loginController.isAdmin()) {
@@ -136,51 +161,96 @@ public class ProductController {
         return "/" + address + "/manageProducts.xhtml?faces-redirect=true";
     }
 
+    /**
+     *
+     * @return
+     */
     public String doDeleteProducts() {
         LOG.info("Inside AdminController doDeleteProducts with " + this.products.toString());
         productsSVC.remove(products);
         return "/" + address + "/manageProducts.xhtml?faces-redirect=true";
     }
 
+    /**
+     *
+     * @return
+     */
     public List<Products> getProductsList() {
         return pList;
     }
 
+    /**
+     *
+     * @return
+     */
     public Products getProducts() {
         return products;
     }
 
+    /**
+     *
+     * @param products
+     */
     public void setProducts(Products products) {
         this.products = products;
     }
 
+    /**
+     *
+     * @return
+     */
     public Salon getSalon() {
         return salon;
     }
 
+    /**
+     *
+     * @param salon
+     */
     public void setSalon(Salon salon) {
         this.salon = salon;
     }
-    
-     public UploadedFile getFile() {
+
+    /**
+     *
+     * @return
+     */
+    public UploadedFile getFile() {
         return file;
     }
 
+    /**
+     *
+     * @param file
+     */
     public void setFile(UploadedFile file) {
         this.file = file;
     }
-    
-    public void upload() {  
-      byte[] content = file.getContents();
-      System.out.print("Image: "+content);
-      products.setProductImage(content);
+
+    /**
+     *
+     */
+    public void upload() {
+        byte[] content = file.getContents();
+        System.out.print("Image: " + content);
+        products.setProductImage(content);
     }
+
+    /**
+     *
+     * @param event
+     */
     public void handleFileUpload(FileUploadEvent event) {
         FacesMessage msg = new FacesMessage("Successful", event.getFile().getFileName() + " is uploaded.");
         FacesContext.getCurrentInstance().addMessage(null, msg);
     }
-    
+
+    /**
+     *
+     * @param image
+     * @return
+     */
     public StreamedContent getImage(byte[] image) {
-    return new DefaultStreamedContent(new ByteArrayInputStream(image), "image");
-}
+        return new DefaultStreamedContent(new ByteArrayInputStream(image), "image");
+    }
 }

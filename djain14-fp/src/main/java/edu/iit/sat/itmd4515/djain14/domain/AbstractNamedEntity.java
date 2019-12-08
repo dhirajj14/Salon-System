@@ -11,16 +11,22 @@ import javax.persistence.MappedSuperclass;
 import javax.validation.constraints.NotBlank;
 
 /**
- *
+ *This is an abstract class to generate name for each class
  * @author dhira
  */
 @MappedSuperclass
 public class AbstractNamedEntity extends AbstractIdentifiedEntity {
 
+    /**
+     *
+     */
     @NotBlank
     @Column(length = 512, nullable = true, unique = true)
     protected String fullName;
 
+    /**
+     *
+     */
     public AbstractNamedEntity() {
     }
 

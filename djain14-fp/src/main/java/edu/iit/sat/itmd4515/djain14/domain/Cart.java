@@ -14,7 +14,8 @@ import javax.persistence.OneToMany;
 import javax.persistence.OneToOne;
 
 /**
- *
+ *The cart entity will help to maintain the cart for each customer
+ * each customer will have one cart
  * @author dhira
  */
 @NamedQuery(name = "cart.findByProduct", query = "select c from Cart c where c.products = :product")
@@ -25,14 +26,20 @@ public class Cart extends AbstractIdentifiedEntity implements Serializable {
     private List<Products> products = new ArrayList<>();
 
     private double cartBalance;
-    
+
     @OneToOne
     private SalonCustomers salonCustomers;
 
-
+    /**
+     *
+     */
     public Cart() {
     }
-    
+
+    /**
+     *
+     * @param cartBalance
+     */
     public Cart(double cartBalance) {
         this.cartBalance = cartBalance;
     }
@@ -46,6 +53,10 @@ public class Cart extends AbstractIdentifiedEntity implements Serializable {
         return cartBalance;
     }
 
+    /**
+     *
+     * @param p
+     */
     public void addProducts(Products p) {
         if (!this.products.contains(p)) {
             this.products.add(p);
@@ -54,23 +65,40 @@ public class Cart extends AbstractIdentifiedEntity implements Serializable {
         }
     }
 
+    /**
+     *
+     * @return
+     */
     public List<Products> getProducts() {
         return products;
     }
 
+    /**
+     *
+     * @param p
+     */
     public void removeProducts(Products p) {
         if (!this.products.contains(p)) {
             this.products.remove(p);
         }
     }
 
-  public SalonCustomers getSalonCustomers() {
+    /**
+     *
+     * @return
+     */
+    public SalonCustomers getSalonCustomers() {
         return salonCustomers;
     }
 
+    /**
+     *
+     * @param salonCustomers
+     */
     public void setSalonCustomers(SalonCustomers salonCustomers) {
         this.salonCustomers = salonCustomers;
-    }    
+    }
+
     /**
      * Set the value of cartBalance
      *

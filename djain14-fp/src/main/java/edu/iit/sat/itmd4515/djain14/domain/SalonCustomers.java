@@ -21,7 +21,8 @@ import javax.validation.constraints.NotNull;
 import org.eclipse.persistence.jpa.config.Cascade;
 
 /**
- *
+  *This salonCustomer entity will be used to maintain the record of the customers.
+ * This entity will have all the details of the customers
  * @author dhira
  */
 
@@ -42,6 +43,9 @@ public class SalonCustomers extends AbstractNamedEntity implements Serializable 
     //@JoinTable(joinColumns = @JoinColumn(name = "Customer_ID"), inverseJoinColumns = @JoinColumn(name = "Appt_ID"))
     private List<Appointment> appointments = new ArrayList<>();
 
+    /**
+     *
+     */
     public SalonCustomers() {
     }
 
@@ -53,6 +57,13 @@ public class SalonCustomers extends AbstractNamedEntity implements Serializable 
     @NotNull
     private String contact;
 
+    /**
+     *
+     * @param fullName
+     * @param address
+     * @param emailId
+     * @param contact
+     */
     public SalonCustomers(String fullName, String address, String emailId, String contact) {
         this.fullName = fullName;
         this.address = address;
@@ -114,14 +125,26 @@ public class SalonCustomers extends AbstractNamedEntity implements Serializable 
         this.address = address;
     }
 
+    /**
+     *
+     * @return
+     */
     public List<Appointment> getAppointments() {
         return appointments;
     }
 
+    /**
+     *
+     * @param appointments
+     */
     public void setAppointments(List<Appointment> appointments) {
         this.appointments = appointments;
     }
 
+    /**
+     *
+     * @param a
+     */
     public void addAppointment(Appointment a) {
         if (!this.appointments.contains(a)) {
             this.appointments.add(a);
@@ -131,6 +154,10 @@ public class SalonCustomers extends AbstractNamedEntity implements Serializable 
         }
     }
 
+    /**
+     *
+     * @param a
+     */
     public void removeAppointment(Appointment a) {
         if (this.appointments.contains(a)) {
             this.appointments.remove(a);
@@ -140,14 +167,26 @@ public class SalonCustomers extends AbstractNamedEntity implements Serializable 
         }
     }
 
+    /**
+     *
+     * @return
+     */
     public List<OrderHistory> getOrderHistory() {
         return orderHistories;
     }
 
+    /**
+     *
+     * @param orderHistoryies
+     */
     public void setOrderHistory(List<OrderHistory> orderHistoryies) {
         this.orderHistories = orderHistoryies;
     }
 
+    /**
+     *
+     * @param o
+     */
     public void addOrderHistory(OrderHistory o) {
         if (!this.orderHistories.contains(o)) {
             this.orderHistories.add(o);
@@ -155,6 +194,10 @@ public class SalonCustomers extends AbstractNamedEntity implements Serializable 
         }
     }
 
+    /**
+     *
+     * @param o
+     */
     public void removeOrderHistory(OrderHistory o) {
         if (this.orderHistories.contains(o)) {
             this.orderHistories.remove(o);

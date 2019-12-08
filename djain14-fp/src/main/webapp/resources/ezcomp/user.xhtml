@@ -45,19 +45,18 @@
 
             <h:panelGroup layout="block" class="form-group">
                 <h:outputLabel for="groupType" value="Group Type:"/>
-                <h:selectManyListbox
+                <h:selectOneRadio
                     readonly="#{cc.attrs.readonly ? 'true' : 'false'}"
                     disabled="#{cc.attrs.readonly ? 'true' : 'false'}"
-                    converter="groupConverter"
                     class="form-control"
                     id="groupType" 
-                    value="#{cc.attrs.user.groups}">
-                    <f:selectItems value="#{groupService.findAll()}" 
-                                   var="g"
-                                   itemLabel="#{g.groupName}"
-                                   itemValue="#{g}"/>
-                </h:selectManyListbox>
-
+                    value="#{userController.groupName}">
+                    <f:selectItem itemValue="ADMIN_GROUP" itemLabel="Admin" />
+                    <f:selectItem itemValue="EMPLOYEE_GROUP" itemLabel="Employee" />
+                    <f:selectItem itemValue="MANAGER_GROUP" itemLabel="Manager" />
+                    <f:selectItem itemValue="CUSTOMER_GROUP" itemLabel="Customer" />
+                </h:selectOneRadio>
+               
                 <h:message for="groupType" errorClass="text-danger"/>
             </h:panelGroup>
             

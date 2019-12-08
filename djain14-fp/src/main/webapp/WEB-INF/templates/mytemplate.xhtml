@@ -32,7 +32,7 @@
                     </li>
 
                     <ui:fragment rendered="#{loginController.employee}">
-                        <li class="#{fn:startsWith(view.viewId,'/employee')? 'nav-item active': 'nav-item'}">
+                        <li>
                             <h:link class="nav-link" outcome="/employee/welcome.xhtml" value="Employee"/>
                         </li>
                     </ui:fragment>
@@ -55,6 +55,9 @@
                         </li>
                     </ui:fragment>
                     
+                     <li class="nav-item">
+                             <h:outputLink class="nav-link" value="apidocs/index.html">apidocs for FP</h:outputLink>
+                        </li>
                 </ul>
 
                 <ul class="navbar-nav">

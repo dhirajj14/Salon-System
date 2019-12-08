@@ -22,20 +22,37 @@ public class CartService extends AbstractService<Cart> {
     @PersistenceContext(name = "itmd4515PU")
     private EntityManager em;
 
+    /**
+     *
+     */
     public CartService() {
         super(Cart.class);
     }
 
+    /**
+     *
+     * @return
+     */
     @Override
     public List<Cart> findAll() {
         return em.createNamedQuery("orderHistory.findAll", Cart.class).getResultList();
     }
 
+    /**
+     *
+     * @param fullName
+     * @return
+     */
     public Cart findByName(String fullName) {
         return em.createNamedQuery("orderHistory.findByName", Cart.class).getSingleResult();
     }
     
-     public List<Cart> findByProduct(Products product) {
+    /**
+     *
+     * @param product
+     * @return
+     */
+    public List<Cart> findByProduct(Products product) {
         return em.createNamedQuery("cart.findByProduct", Cart.class).setParameter("product", product).getResultList();
     }
 

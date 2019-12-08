@@ -24,26 +24,28 @@ import org.primefaces.model.StreamedContent;
 @RequestScoped
 @Named
 public class ImageRetrive {
-    
+
     private Products product;
-    
+
     @EJB
     private ProductsService productsSVC;
 
+    /**
+     *
+     * @return
+     * @throws IOException
+     */
     public StreamedContent getImage() throws IOException {
         FacesContext context = FacesContext.getCurrentInstance();
 
         if (context.getCurrentPhaseId() == PhaseId.RENDER_RESPONSE) {
-            // So, we're rendering the view. Return a stub StreamedContent so that it will generate right URL.
             return new DefaultStreamedContent();
-        }
-        else {
-            // So, browser is requesting the image. Return a real StreamedContent with the image bytes.
+        } else {
             String id = context.getExternalContext().getRequestParameterMap().get("id");
-            System.out.print("id:"+Long.valueOf(id));
+            System.out.print("id:" + Long.valueOf(id));
             product = productsSVC.findImageById(Long.valueOf(id));
-            System.out.println("Product id"+product);
-            System.out.println("Product id"+product.getProductImage());
+            System.out.println("Product id" + product);
+            System.out.println("Product id" + product.getProductImage());
             byte[] image = product.getProductImage();
             return new DefaultStreamedContent(new ByteArrayInputStream(image));
         }

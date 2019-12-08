@@ -13,7 +13,7 @@ import javax.persistence.ManyToOne;
 import javax.persistence.OneToMany;
 
 /**
- *
+ *This orderHistory entity will be used to maintain the order history of the customers
  * @author dhira
  */
 @Entity
@@ -27,9 +27,19 @@ public class OrderHistory extends AbstractIdentifiedEntity {
     private String paymentType;
     private LocalDate orderDate;
 
+    /**
+     *
+     */
     public OrderHistory() {
     }
 
+    /**
+     *
+     * @param amount
+     * @param shippingAddress
+     * @param paymentType
+     * @param orderDate
+     */
     public OrderHistory(double amount, String shippingAddress, String paymentType, LocalDate orderDate) {
         this.amount = amount;
         this.shippingAddress = shippingAddress;
@@ -37,34 +47,66 @@ public class OrderHistory extends AbstractIdentifiedEntity {
         this.orderDate = orderDate;
     }
 
+    /**
+     *
+     * @return
+     */
     public double getAmount() {
         return amount;
     }
 
+    /**
+     *
+     * @param amount
+     */
     public void setAmount(double amount) {
         this.amount = amount;
     }
 
+    /**
+     *
+     * @return
+     */
     public String getShippingAddress() {
         return shippingAddress;
     }
 
+    /**
+     *
+     * @param shippingAddress
+     */
     public void setShippingAddress(String shippingAddress) {
         this.shippingAddress = shippingAddress;
     }
 
+    /**
+     *
+     * @return
+     */
     public String getPaymentType() {
         return paymentType;
     }
 
+    /**
+     *
+     * @param paymentType
+     */
     public void setPaymentType(String paymentType) {
         this.paymentType = paymentType;
     }
 
+    /**
+     *
+     * @return
+     */
     public LocalDate getOrderDate() {
         return orderDate;
     }
 
+    /**
+     *
+     * @param orderDate
+     */
     public void setOrderDate(LocalDate orderDate) {
         this.orderDate = orderDate;
     }

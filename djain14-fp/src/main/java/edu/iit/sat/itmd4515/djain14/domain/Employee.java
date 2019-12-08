@@ -1,4 +1,4 @@
-    /*
+/*
  * To change this license header, choose License Headers in Project Properties.
  * To change this template file, choose Tools | Templates
  * and open the template in the editor.
@@ -19,7 +19,8 @@ import javax.persistence.OneToOne;
 import javax.validation.constraints.NotNull;
 
 /**
- *
+ *This employee entity will be used to maintain the record of the employee.
+ * This entity will have all the details of the employee
  * @author dhira
  */
 @NamedQuery(name = "employee.findAll", query = "select e from Employee e")
@@ -41,12 +42,13 @@ public class Employee extends AbstractNamedEntity implements Serializable {
 
     private String address;
 
-    @NotNull
+    @NotNull (message = "email must not be blank")
     private String emailId;
 
-    @NotNull
+    @NotNull (message = "COntact must not be blank")
     private String contact;
 
+    
     private EmployeeType employeeType;
 
     /**
@@ -67,17 +69,36 @@ public class Employee extends AbstractNamedEntity implements Serializable {
         this.employeeType = employeeType;
     }
 
+    /**
+     *
+     * @return
+     */
     public Salon getSalon() {
         return salon;
     }
 
+    /**
+     *
+     * @param s
+     */
     public void setSalon(Salon s) {
         this.salon = s;
     }
 
+    /**
+     *
+     */
     public Employee() {
     }
 
+    /**
+     *
+     * @param fullName
+     * @param address
+     * @param emailId
+     * @param contact
+     * @param employeeType
+     */
     public Employee(String fullName, String address, String emailId, String contact, EmployeeType employeeType) {
         this.fullName = fullName;
         this.address = address;
@@ -168,10 +189,18 @@ public class Employee extends AbstractNamedEntity implements Serializable {
         this.appointments = appointments;
     }
 
+    /**
+     *
+     * @return
+     */
     public User getUser() {
         return user;
     }
 
+    /**
+     *
+     * @param user
+     */
     public void setUser(User user) {
         this.user = user;
     }

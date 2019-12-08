@@ -17,7 +17,7 @@ import javax.validation.constraints.FutureOrPresent;
 import javax.validation.constraints.NotNull;
 
 /**
- *
+ *The appointment entity will be used to book, update and delete the appointment
  * @author dhira
  */
 @NamedQuery(name = "appointment.findAll", query = "select a from Appointment a")
@@ -38,45 +38,70 @@ public class Appointment extends AbstractIdentifiedEntity implements Serializabl
     @ManyToOne
     private Employee employee;
 
-    @NotNull
+    @NotNull(message = "date must not be blank")
     @FutureOrPresent
     private LocalDate apptDate;
 
-    @NotNull
+    @NotNull(message = "Service must not be blank")
     @Enumerated(EnumType.STRING)
     private ServiceType serviceType;
 
-    @NotNull
+    @NotNull(message = "Time must not be blank")
     private LocalTime apptTime;
 
+    /**
+     *
+     */
     public Appointment() {
     }
 
+    /**
+     *
+     * @param apptDate
+     * @param serviceType
+     * @param apptTime
+     */
     public Appointment(LocalDate apptDate, ServiceType serviceType, LocalTime apptTime) {
         this.apptDate = apptDate;
         this.serviceType = serviceType;
         this.apptTime = apptTime;
     }
 
+    /**
+     *This will get and set the customers for particular appointment
+     * @return
+     */
     public SalonCustomers getSalonCustomers() {
         return salonCustomers;
     }
 
+    /**
+     *
+     * @param salonCustomers
+     */
     public void setSalonCustomers(SalonCustomers salonCustomers) {
         this.salonCustomers = salonCustomers;
     }
 
+    /**
+     *
+     * @return employee for the appointment
+     */
     public Employee getEmployee() {
         return employee;
     }
 
+    /**
+     *Set employee for the appointment
+     * @param employee
+     */
     public void setEmployee(Employee employee) {
         this.employee = employee;
     }
 
     /**
      * Get the value of time
-     *
+     *this will get the time for the appointment
      * @return the value of time
      */
     public LocalTime getTime() {
@@ -94,7 +119,7 @@ public class Appointment extends AbstractIdentifiedEntity implements Serializabl
 
     /**
      * Get the value of serviceType
-     *
+     *This will get the type of appointment
      * @return the value of serviceType
      */
     public ServiceType getServiceType() {
@@ -128,10 +153,18 @@ public class Appointment extends AbstractIdentifiedEntity implements Serializabl
         this.apptDate = apptDate;
     }
     
-     public Salon getSalon() {
+    /**
+     *
+     * @return
+     */
+    public Salon getSalon() {
         return salon;
     }
 
+    /**
+     *
+     * @param salon
+     */
     public void setSalon(Salon salon) {
         this.salon = salon;
     }

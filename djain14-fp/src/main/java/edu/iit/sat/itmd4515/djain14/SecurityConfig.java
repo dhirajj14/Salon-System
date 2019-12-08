@@ -13,7 +13,7 @@ import javax.security.enterprise.authentication.mechanism.http.LoginToContinue;
 import javax.security.enterprise.identitystore.DatabaseIdentityStoreDefinition;
 
 /**
- *
+ *This class maintains the security of the application
  * @author dhira
  */
 @Named

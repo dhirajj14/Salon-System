@@ -39,41 +39,64 @@ public class LoginController {
     @NotBlank(message = "Please enter your Password")
     private String password;
 
-    @Inject 
+    @Inject
     private SecurityContext securityContext;
-    
-    @Inject 
-    private FacesContext facesContext; 
-    
+
+    @Inject
+    private FacesContext facesContext;
+
     @Inject
     private ExternalContext externalContext;
-   
 
-    private String address="";
-    
+    private String address = "";
+
+    /**
+     *
+     */
     public LoginController() {
     }
-    
-    public String getRemoteUser(){
+
+    /**
+     *
+     * @return
+     */
+    public String getRemoteUser() {
         return externalContext.getRemoteUser();
     }
-    
-    public boolean isAdmin(){
+
+    /**
+     *
+     * @return
+     */
+    public boolean isAdmin() {
         return securityContext.isCallerInRole("ADMIN_ROLE");
-        
+
     }
-    
-    public boolean isEmployee(){
+
+    /**
+     *
+     * @return
+     */
+    public boolean isEmployee() {
         return securityContext.isCallerInRole("EMPLOYEE_ROLE");
     }
-    
-    public boolean isCustomer(){
+
+    /**
+     *
+     * @return
+     */
+    public boolean isCustomer() {
         return securityContext.isCallerInRole("CUSTOMER_ROLE");
     }
-    
-    public boolean isManagerAdmin(){
+
+    /**
+     *
+     * @return
+     */
+    public boolean isManagerAdmin() {
         return securityContext.isCallerInRole("MANAGER_ROLE");
     }
+
     /**
      * Get the value of password
      *
@@ -92,8 +115,6 @@ public class LoginController {
         this.password = password;
     }
 
-        
-        
     /**
      * Get the value of userName
      *
@@ -111,57 +132,67 @@ public class LoginController {
     public void setUserName(String userName) {
         this.userName = userName;
     }
-    
-    public String doLogin(){
-        
+
+    /**
+     *
+     * @return
+     */
+    public String doLogin() {
+
         LOG.info("Inside doLogin");
         Credential credential = new UsernamePasswordCredential(userName, new Password(password));
-        
+
         //LOG.info("Credential is" +credential.toString());
-        
         AuthenticationStatus status = securityContext.authenticate(
-                (HttpServletRequest)externalContext.getRequest(), 
-                (HttpServletResponse)externalContext.getResponse(), 
+                (HttpServletRequest) externalContext.getRequest(),
+                (HttpServletResponse) externalContext.getResponse(),
                 AuthenticationParameters.withParams().credential(credential));
-        
-        LOG.info("AuthenticationStatus is" +status.toString());
-        
-       switch(status){
-           case NOT_DONE:
-               LOG.info("case is NOT_DONE");
-               return "/error.xhtml";
-           case SEND_CONTINUE:
-               LOG.info("case is SEND_CONTINUE");
-               break;
-           case SEND_FAILURE:
-               LOG.info("case is SEND_FAILURE");
-               return "/error.xhtml";
-           case SUCCESS:
-               LOG.info("case is SUCCESS");
-               break;
-       }
-       
-       if(isAdmin()){
-           address = "admin";
-       }if(isCustomer()){
-           address = "customer";
-       }if(isEmployee()){
-           address = "employee";
-       }if(isManagerAdmin()){
-           address = "manager";
-       }
-       return "/"+address+"/welcome.xhtml?faces-redirect=true";
+
+        LOG.info("AuthenticationStatus is" + status.toString());
+
+        switch (status) {
+            case NOT_DONE:
+                LOG.info("case is NOT_DONE");
+                return "/error.xhtml";
+            case SEND_CONTINUE:
+                LOG.info("case is SEND_CONTINUE");
+                break;
+            case SEND_FAILURE:
+                LOG.info("case is SEND_FAILURE");
+                return "/error.xhtml";
+            case SUCCESS:
+                LOG.info("case is SUCCESS");
+                break;
+        }
+
+        if (isAdmin()) {
+            address = "admin";
+        }
+        if (isCustomer()) {
+            address = "customer";
+        }
+        if (isEmployee()) {
+            address = "employee";
+        }
+        if (isManagerAdmin()) {
+            address = "manager";
+        }
+        return "/" + address + "/welcome.xhtml?faces-redirect=true";
     }
-    
-    public String doLogout(){
-        
-        try{
-          ((HttpServletRequest) externalContext.getRequest()).logout();   
-        }catch (ServletException ex){
+
+    /**
+     *
+     * @return
+     */
+    public String doLogout() {
+
+        try {
+            ((HttpServletRequest) externalContext.getRequest()).logout();
+        } catch (ServletException ex) {
             LOG.log(Level.SEVERE, null, ex);
             return "/error.xhtml";
         }
-    
+
         return "/login.xhtml?facees-redirect=true";
     }
 }
